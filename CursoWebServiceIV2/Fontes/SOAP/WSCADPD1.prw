@@ -25,6 +25,7 @@ WSSTRUCT StructProduto
 	WSDATA cRetorno	As String
 	WSDATA cStatus	As String
 	WSDATA cCodigo	As String
+	WSDATA cArmazem	As String
 	WSDATA cDesc	As String Optional
 
 ENDWSSTRUCT
@@ -51,7 +52,7 @@ RpcSetEnv(::StrSendProd:_cEmpresa,::StrSendProd:_cFilial,,,"FAT",)
 //Validar código de produto o mesmo é obrigatório
 cCodProd := ::StrSendProd:cCod
 If Empty(cCodProd) .or. AllTrim(cCodProd) == "?"
-	::StrProduto:cRetorno := "Codigo de Produto não informado obrigatório ! "
+	::StrProduto:cRetorno := "Por favor informar o cógido do produto ! "
 	::StrProduto:cStatus  := "0"
 	::StrProduto:cCodigo  := cCodProd
 Else
@@ -63,6 +64,8 @@ Else
 		::StrProduto:cStatus  := "1"
 		::StrProduto:cCodigo  := SB1->B1_COD
 		::StrProduto:cDesc    := SB1->B1_DESC
+		::StrProduto:cArmazem := SB1->B1_LOCPAD
+
 	Else
 		::StrProduto:cRetorno := "Produto não localizado" 
 		::StrProduto:cStatus  := "0"
