@@ -36,17 +36,17 @@ WSSTRUCT StrSendProduto
 ENDWSSTRUCT
 
 //Definicao do Web Service de Envio de MSG 
-WSSERVICE WSCADPD1 DESCRIPTION "Produtos"
-	WSDATA StrProduto	As StructProduto
+WSSERVICE WSCADPD1 DESCRIPTION "Produtos" //WSCADPD1: NOTE QUE O WEBSERICE RECEBEU O MESMO NOME DO CÓDIGO FONTE
+	WSDATA StrProduto	As StructProduto // ESTRUtuRA DE retornoStructProduto DECLARADA NA LINHA 24, TEM SUA ESTRUTURA JOGADA PARA STRPRODUTO 
 	WSDATA StrSendProd	As StrSendProduto
-	WSMETHOD CAD1_PRODUTO DESCRIPTION "Método de Cadastro e Atualização de Produtos"
+	WSMETHOD CAD1_PRODUTO DESCRIPTION "Método de Cadastro e Atualização de Produtos" //Declaração do método CAD1_PRODUTO e sua descrição
 ENDWSSERVICE
 
 //Metodo
 WSMETHOD CAD1_PRODUTO WSRECEIVE  StrSendProd  WSSEND StrProduto WSSERVICE WSCADPD1
 Local cCodProd
 
-// Prepara ambiente a ser processado
+// RpcSetEnv Prepara ambiente a ser processado
 RpcSetEnv(::StrSendProd:_cEmpresa,::StrSendProd:_cFilial,,,"FAT",)
 //Validar código de produto o mesmo é obrigatório
 cCodProd := ::StrSendProd:cCod
