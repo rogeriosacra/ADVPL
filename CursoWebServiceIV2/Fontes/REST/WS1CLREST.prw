@@ -26,6 +26,7 @@ executar no browse web https://www.receitaws.com.br/v1/cnpj/53113791000122
 
 #include 'totvs.ch'
 #include 'restful.ch'
+
 WSRESTFUL WS1CLREST DESCRIPTION "Pesquisa CNPJ de Clientes" FORMAT APPLICATION_JSON
 	WSMETHOD GET; 
 	DESCRIPTION "Realiza a consulta Cliente";
