@@ -45,7 +45,6 @@ Realiza a inclusão de configuração de folha
 /*/
 WSMETHOD POST WSSERVICE FOR1REST
 Local cErro
-RpcSetEnv( "99","01", "Administrador", " ", "COM", , SA2, , , ,  )
 DbSelectArea("SA2")
 SA2->(DbSetOrder(03))  //A2_FILIAL+A2_CGC                                                                                                                                                                                                                                   
 ::SetContentType('application/json')
@@ -128,7 +127,6 @@ Realiza a consulta de Faturamento de nota
 WSMETHOD GET WSSERVICE FOR1REST
 Local cErro
 
-RpcSetEnv( "99","01", "Administrador", " ", "COM", , SA2, , , ,  )
 //Abre tabela posicionada no indice
 DbSelectArea("SA2")
 SA2->(DbSetOrder(03))  //A2_FILIAL+A2_CGC                                                                                                                                                                                                                                   
