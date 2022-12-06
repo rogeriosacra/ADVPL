@@ -19,7 +19,10 @@
 		},
 		{
 			"label": "SIGAMDI"
+		},
+		{
+			"label": "xxxx"
 		}
 	],
-	"lastProgramExecuted": "SIGAMDI"
+	"lastProgramExecuted": "xxxx"
 }
