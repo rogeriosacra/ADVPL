@@ -22,7 +22,13 @@
 		},
 		{
 			"label": "xxxx"
+		},
+		{
+			"label": "u_DecodEx"
+		},
+		{
+			"label": "u_PadrEx"
 		}
 	],
-	"lastProgramExecuted": "u_banco001"
+	"lastProgramExecuted": "u_PadrEx"
 }
