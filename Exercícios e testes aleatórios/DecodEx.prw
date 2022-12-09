@@ -1,3 +1,6 @@
+#Include 'Protheus.ch'
+#Include 'Totvs.ch'
+
 User Function DecodEx()
  
   Local cTexto := ""
