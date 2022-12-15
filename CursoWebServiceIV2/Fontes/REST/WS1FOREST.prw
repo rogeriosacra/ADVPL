@@ -20,10 +20,10 @@ Serviço de integração  para integração cadastro de fornecedores
 			http://localhost:8081\REST\FOR1REST
 /*/
 
-WSRESTFUL FOR1REST DESCRIPTION "Serviço para integração Fornecedor" FORMAT APPLICATION_JSON
+WSRESTFUL FOR1REST DESCRIPTION "Serviço para integração Fornecedor" FORMAT APPLICATION_JSON // Format: indica formato do arquivo
 	WSMETHOD POST; 
 	DESCRIPTION "Realiza a inclusão Fornecedor";
-	WSSYNTAX "/FOR1REST"
+	WSSYNTAX "/FOR1REST"// NESTA NOTAR QUE O MÉTODO POST  É APONTADO PARA O WSRESTFUL "FOR1REST"
 	WSMETHOD PUT; 
 	DESCRIPTION "Realiza a alteração Fornecedor";
 	WSSYNTAX "/FOR1REST"
@@ -43,14 +43,14 @@ Realiza a inclusão de configuração de folha
 @version undefined
 @type function
 /*/
-WSMETHOD POST WSSERVICE FOR1REST
+WSMETHOD POST WSSERVICE FOR1REST// AQUI O DESENV DO MÉTODO POST
 Local cErro
-DbSelectArea("SA2")
+DbSelectArea("SA2") // SELECIONA A ÁREA DA SA2
 SA2->(DbSetOrder(03))  //A2_FILIAL+A2_CGC                                                                                                                                                                                                                                   
-::SetContentType('application/json')
-oJson := JsonObject():new()
-oJson:fromJson(DecodeUTF8(Self:GetContent(,.T.)))      //Correto
-cJson := Self:GetContent(,.T.)
+::SetContentType('application/json')// SETA O TYPO CONTEÚDO COMO JASON
+oJson := JsonObject():new() // CRIA UM OBJETO
+oJson:fromJson(DecodeUTF8(Self:GetContent(,.T.)))      //Correto: GET CONTEÚDO DO httP, DEPOIS USA DECODIFICAÇÃO utf8
+cJson := Self:GetContent(,.T.) // TANTO FAZ USAR O COMANDO SELF OU :: 
 // Valida os dados do oJson
 cErro := ValoJson(oJson,"I")
 If !Empty(cErro)
@@ -211,20 +211,20 @@ Local _lAchou
 
 Begin Sequence
 	// Verifica se enviou o id Configuração
-	_cCnpjCpf := AllTrim(oJson["principal"]:GetJsonText("_cCnpjCpf"))
+	_cCnpjCpf := AllTrim(oJson["principal"]:GetJsonText("_cCnpjCpf"))// OBTEM DA ESTRUTURA DO JASON (COR LARANJA) O CNPJ
 	If Empty(_cCnpjCpf)
 		_cMsg := "Não informado CNPJ/CPF obrigatório !"
 		Break
 	Endif
 	_cChave := XFilial("SA2")
-	_cChave += Padr(_cCnpjCpf,TamSX3("A2_CGC")[1]	  ," ") 
+	_cChave += Padr(_cCnpjCpf,TamSX3("A2_CGC")[1]	  ," ") // adaptação de tamanho entre o o campo do cCnpj e A2_CGC
 
 	SA2->(DbSetOrder(03))  //A2_FILIAL+A2_CGC 	//para consulta e exclusão não será exigido o ID Contrato
 	_lAchou := SA2->(DbSeek(_cChave))
-	If _lAchou .and. cTipo == "I" 
+	If _lAchou .and. cTipo == "I" // Tipo I = inclusão
 		_cMsg := "Fornecedor com CNPJ/CPF "+_cCnpjCpf+" já cadastrado, não poderá ser incluído !" 
 		Break
-	ElseIf !_lAchou .and. (cTipo == "C" .or. cTipo == "E")
+	ElseIf !_lAchou .and. (cTipo == "C" .or. cTipo == "E")// Consulta ou Exclusão
 		_cMsg := "Fornecedor com CNPJ/CPF "+_cCnpjCpf+" não cadastrado, não poderá ser "+If(cTipo == "C","Consultada !","Excluida !") 
 		Break  //Ja posso sair pois na consulta somente será validado o id da configuração
 	Endif	
