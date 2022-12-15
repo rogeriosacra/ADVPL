@@ -34,12 +34,12 @@ Begin Sequence
     DbSelectArea("SA2")
     SA2->(DbSetOrder(03))  //A2_FILIAL+A2_CGC                                                                                                                                                                                                                                   
     ::SetContentType('application/json')
-    oJson := JsonObject():new()
-    oJson:fromJson(DecodeUTF8(Self:GetContent(,.T.)))  //Correto
-    cJson := Self:GetContent(,.T.)
-    _cCnpjCpf := AllTrim(oJson["principal"]:GetJsonText("_cCnpjCpf"))
-    If !SA2->(DbSeek(XFilial("SA2")+_cCnpjCpf))
-     	  Return SetMsgErro(Self,"Não localizado Fornecedor")
+    oJson := JsonObject():new() //Cria um objeto oJson
+    oJson:fromJson(DecodeUTF8(Self:GetContent(,.T.)))  //Correto. Obtem o conteudo do oJson, decodifica, e atribui as informações do XML para o objeto 
+    cJson := Self:GetContent(,.T.)//
+    _cCnpjCpf := AllTrim(oJson["principal"]:GetJsonText("_cCnpjCpf"))//Obtem do objeto o texto com cnpj da estrutura Principal>>CNPJ
+    If !SA2->(DbSeek(XFilial("SA2")+_cCnpjCpf))// Busca na SA2 pela filial e cnpj, se não localizar
+     	  Return SetMsgErro(Self,"Não localizado Fornecedor")//Retorna mensagem de erro
     Endif
     FreeObj(oJson)
 

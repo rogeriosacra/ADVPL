@@ -129,7 +129,7 @@ Local cErro
 
 //Abre tabela posicionada no indice
 DbSelectArea("SA2")
-SA2->(DbSetOrder(03))  //A2_FILIAL+A2_CGC                                                                                                                                                                                                                                   
+SA2->(DbSetOrder(03))  //A2_FILIAL+A2_CGC                                                                                                                                                                                                                              
 
 ::SetContentType('application/json')
 oJson := JsonObject():new()
