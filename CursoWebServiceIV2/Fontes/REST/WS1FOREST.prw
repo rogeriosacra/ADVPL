@@ -87,7 +87,7 @@ Return SetMsgOk(self,"Atualização realizada com sucesso")
 
 
 /*/{Protheus.doc} DELETE
-Realiza a exclusão de Faturamento de nota
+Realiza a exclusDão de Faturamento de nota
 @author DAC - Denilso
 @since 
 @version undefined
@@ -149,6 +149,7 @@ cJson += '	"principal": {'
 cJson += '					"_cCnpjCpf": "' 				+ EncodeUTF8(AllTrim(SA2->A2_CGC)	 , "cp1252") + '",'
 cJson += '					"dadosfornecedor": {'
 cJson += '										"codigo": "'			+ EncodeUTF8(AllTrim(SA2->A2_COD)	, "cp1252") + '",'
+cJson += '                                      "loja": "'              + EncodeUTF8(AllTrim(SA2->A2_LOJA)	, "cp1252") + '",'
 cJson += '										"nome": "' 				+ EncodeUTF8(AllTrim(SA2->A2_NOME)	, "cp1252") + '",'
 cJson += '										"nome_reduzido": "' 	+ EncodeUTF8(AllTrim(SA2->A2_NREDUZ), "cp1252") + '",'
 cJson += '										"endereco": "' 			+ EncodeUTF8(AllTrim(SA2->A2_END)	, "cp1252") + '",'
@@ -267,9 +268,12 @@ Local _cEstado      := Space(002)
 Local _cCepForn	  	:= Space(008)
 Local _cTipo   		:= Space(001)
 Local _cCodigo		:= Space(006)
+Local _cLoja        := Space(002)
+
 Begin Transaction
 	_cCnpjCpf 		:= AllTrim(oJson["principal"]:GetJsonText("_cCnpjCpf"))
 	_cCodigo	  	:= AllTrim(oJson["principal"]["dadosfornecedor"]:GetJsonText("codigo"))
+	_cLoja   	  	:= AllTrim(oJson["principal"]["dadosfornecedor"]:GetJsonText("loja"))
 	_cRazsoc	  	:= AllTrim(oJson["principal"]["dadosfornecedor"]:GetJsonText("nome"))
 	_cNomeReduz	  	:= AllTrim(oJson["principal"]["dadosfornecedor"]:GetJsonText("nome_reduzido")) 
 	_cEndereco	  	:= AllTrim(oJson["principal"]["dadosfornecedor"]:GetJsonText("endereco"))
@@ -287,7 +291,8 @@ Begin Transaction
 
 	If RecLock("SA2",_lGrava)
 		SA2->A2_FILIAL	:= XFilial("SA2")
-		SA2->A2_COD		:= _cCodigo 		
+		SA2->A2_COD		:= _cCodigo
+		SA2->A2_LOJA	:= _cLoja		
 		SA2->A2_CGC		:= _cCnpjCpf 		
 		SA2->A2_NOME	:= _cRazsoc	  	
 		SA2->A2_NREDUZ	:= _cNomeReduz	  	 
@@ -295,7 +300,7 @@ Begin Transaction
 		SA2->A2_NR_END	:= _cEndNum	    
 		SA2->A2_BAIRRO	:= _cBairro 		
 		SA2->A2_MUN		:= _cMunicipio	  	
-		SA2->A2_EST		:=	_cEstado      	
+		SA2->A2_EST		:= _cEstado      	
 		SA2->A2_CEP		:= _cCepForn	  	
 		SA2->A2_TIPO	:= _cTipo   		
 		SA2->(MsUnlock())
@@ -330,7 +335,7 @@ GET/DELETE
   "principal": {
     "_cCnpjCpf": "61366936000125",
     "dadosfornecedor": {
-      "codigo": "000001",
+      "codigo": "015",
       "nome": "FORNCEDOR PADRÃO NACIONAL 1",
       "nome_reduzido": "PADRÃO 1",
       "endereco": "RUA",
