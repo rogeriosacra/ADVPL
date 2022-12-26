@@ -41,13 +41,15 @@ Begin Sequence
     If !SA2->(DbSeek(XFilial("SA2")+_cCnpjCpf))// Busca na SA2 pela filial e cnpj, se não localizar
      	  Return SetMsgErro(Self,"Não localizado Fornecedor")//Retorna mensagem de erro
     Endif
-    FreeObj(oJson)
-
-    oJson := JsonObject():new()
-    oJson['principal'] := JSonObject():New()
-    oJson['principal']['cCnpjCpf'] := SA2->A2_CGC
-    oJson['principal']['dadosfornecedor'] := JSonObject():New()
-    oJson['principal']['dadosfornecedor']['codigo'] 		    := SA2->A2_COD
+    FreeObj(oJson)//Comando para finlaizar/liberar objeto. Na linha 46 é criado um novo.
+    
+    //Aqui a criação da estrutura será baseada em um novo objeto Json para retorno. Nos exemplos anteriores foi feito de outra maneira.
+    
+    oJson := JsonObject():new()//Cria o objeto oJson
+    oJson['principal'] := JSonObject():New()//No obejto Json, cria-se o novo objeto para a pasta "Principal
+    oJson['principal']['cCnpjCpf'] := SA2->A2_CGC//Indico o campo/dado que comporá a pasta principal e a origem do dado
+    oJson['principal']['dadosfornecedor'] := JSonObject():New()//Cria o objeto para a pasta "dados fornecedor"
+    oJson['principal']['dadosfornecedor']['codigo'] 		    := SA2->A2_COD //Indico o campo/dado que comporá a pasta ""dados fornecedor" e a origem do dado
     oJson['principal']['dadosfornecedor']['loja'] 			    := SA2->A2_LOJA
     oJson['principal']['dadosfornecedor']['nome'] 			    := AllTrim(SA2->A2_NOME)
     oJson['principal']['dadosfornecedor']['nome_reduzido'] 	:= AllTrim(SA2->A2_NREDUZ)
@@ -57,10 +59,11 @@ Begin Sequence
     oJson['principal']['dadosfornecedor']['municipio'] 		  := AllTrim(SA2->A2_MUN)
     oJson['principal']['dadosfornecedor']['estado'] 		    := SA2->A2_EST
     oJson['principal']['dadosfornecedor']['cepfornec'] 		  := SA2->A2_CEP
-    oJson['principal']['dadosfornecedor']['tipo_fornecedor']:= SA2->A2_TIPO
-    
-    cJson := oJson:toJSON()
-    cJson := EncodeUTF8(cJson)
+    oJson['principal']['dadosfornecedor']['tipo_fornecedor']:= SA2->A2_TIPO //Indico o campo/dado que comporá a pasta principal e a origem do dado
+    //oJson['principal']['dadosComprador'] := JSonObject():New() -> exemplo para implementação para outra pasta com dados do comprador
+    //Lembrando da relação entre a estrutura de retornoe de envio, se houver alteração em um, certamente pode haver necessicdade de ajuste om outra
+    cJson := oJson:toJSON()//Converte o objeto para Json e o atribui à variável Json 
+    cJson := EncodeUTF8(cJson)//
     ::SetResponse(cJson)
     conout(cJson)
     FreeObj(oJson)
@@ -94,7 +97,7 @@ Return .F.
 {
   "principal": {
     "cCnpjCpf": "61366936000125",
-    "dadosfornecedor": {
+    "dadosfornecedor":   {
       "codigo": "000001",
       "loja": "01",
       "nome": "FORNCEDOR PADRÃO NACIONAL 1",
@@ -105,11 +108,12 @@ Return .F.
       "municipio": "SAO PAULO",
       "estado": "SP",
       "cepfornec": "01000000",
-      "tipo_fornecedor": "J"
-    }
+      "tipo_fornecedor": "J" }
         "dadoscomprador": {
-    }      
-  }
+          "codigo": "002",
+          "nome": "COMPRADOR PADRÃO"
+                          }      
+                }
 }
 
 
