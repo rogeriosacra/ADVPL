@@ -10,7 +10,15 @@
 			"smartclientBin": "D:/TOTVS12/Protheus/Protheus/bin/smartclient/smartclient.exe",
 			"isMultiSession": true,
 			"enableTableSync": true,
-			"enableMultiThread": true
+			"enableMultiThread": true,
+			"programArguments": [],
+			"enableProfile": false,
+			"isAccessibilityMode": false,
+			"doNotShowSplash": false,
+			"openglMode": false,
+			"dpiMode": false,
+			"language": "",
+			"ignoreFiles": false
 		}
 	],
 	"lastPrograms": [
@@ -39,5 +47,5 @@
 			"label": "sigaadv"
 		}
 	],
-	"lastProgramExecuted": "sigaadv"
+	"lastProgramExecuted": "SIGAMDI"
 }
