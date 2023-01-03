@@ -40,11 +40,11 @@ Static Function RPrint(oReport,cAlias)
 		
 		EndSQL
 		
-		oSecao1:EndQuery()
-		oReport:SetMeter((cAlias)->(RecCount()))
+	oSecao1:EndQuery()
+	oReport:SetMeter((cAlias)->(RecCount()))
 		
-		oSecao1:Print()
-		
+	oSecao1:Print()
+	
 
 Return
 
