@@ -45,7 +45,10 @@
 		},
 		{
 			"label": "sigaadv"
+		},
+		{
+			"label": "U_BANCO002"
 		}
 	],
-	"lastProgramExecuted": "xxxx"
+	"lastProgramExecuted": "U_BANCO002"
 }

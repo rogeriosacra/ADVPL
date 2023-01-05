@@ -24,8 +24,12 @@ user function BANCO002()
 						1,;
 						FWXfilial('SB1')+ cCodpro,;
 						'B1_DESC')
-						
-	Alert("Descrição Produto: " + cCodPro + "->"+cMsg)
+
+	If cMsg <> ''					
+	    MsgInfo("Descrição Produto: " + cCodPro + "->"+cMsg)
+	Else
+	    Alert("Descrição Produto: " + cCodPro + " -> Produto não Localizado")
+	EndIf
 	
 	RestArea(aArea)
 return
