@@ -19,7 +19,6 @@ user function BANCO001()
 	// posiciona o produto de código 000002
 	If SB1->(dbSeek(FWXFilial("SB1")+ "000002"))
 	 Alert(SB1->B1_DESC)
-	
 	EndIf
 	
 	RestArea(aArea)

@@ -13,8 +13,8 @@ SB1->(DbSetOrder(1))
 SB1->(DbGoTop())
 
 If SB1->(DbSeek(FWXFilial("SB1")+ CValToChar(cCodPro)))
-    Alert("Descrição do produto:  " + SB1->B1_DESC)
-else
+    MsgInfo("Descrição do produto:  " + SB1->B1_DESC)
+Else
     Alert("Produto não localizado")
 EndIf    
 
