@@ -12,6 +12,9 @@
 user function BANCO002()
 	Local aArea := SB1->(GetArea())
 	Local cMsg := ''
+	Local cCodpro := ''
+	
+	cCodPro:= FwInputBox("Informe o código do produto para pesquisa: ", "")
 	
 	dbSelectArea("SB1")
 	SB1->(dbSetOrder(1))
@@ -19,10 +22,10 @@ user function BANCO002()
 	
 	cMsg := Posicione(	'SB1',;
 						1,;
-						FWXfilial('SB1')+ '000002',;
+						FWXfilial('SB1')+ cCodpro,;
 						'B1_DESC')
 						
-	Alert("Descrição Produto: " +cMsg, "AVISO")
+	Alert("Descrição Produto: " + cCodPro + "->"+cMsg)
 	
 	RestArea(aArea)
 return
