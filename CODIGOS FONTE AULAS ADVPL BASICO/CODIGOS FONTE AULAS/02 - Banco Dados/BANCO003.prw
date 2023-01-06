@@ -16,7 +16,7 @@ user function BANCO003()
 	Local aArea := SB1->(GetArea())
 	Local cQuery := ""
 	Local aDados := {}
-	
+	Local nCount
 	cQuery := " SELECT "
 	cQuery += " B1_COD AS CODIGO, "
 	cQuery += " B1_DESC AS DESCRICAO "
@@ -37,7 +37,7 @@ user function BANCO003()
 			Alert(Len(aDados))
 	
 			For nCount := 1 To Len(aDados)
-				MsgInfo(aDados[nCount])
+				  MsgInfo(aDados[nCount])
 			Next nCount
 	
 			TMP->(DbCloseArea())
