@@ -76,11 +76,13 @@ Return Nil
 User Function BDeleta(cAlias,nReg,nOpc)
 	Local nOpcao := 0
 	nOpcao := AxDeleta(cAlias,nReg,nOpc)
+	
 	If nOpcao == 1                                 
 		MsgInfo("Exclusão cancelada!")           
 	Else
 		MsgAlert("Exclusão efetuada com sucesso!")
 	Endif
+	
 Return Nil
 /*---------------------------------
 	Função BLegenda - Legenda
