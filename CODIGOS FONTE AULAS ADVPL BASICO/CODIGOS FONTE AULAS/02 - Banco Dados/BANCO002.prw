@@ -13,6 +13,7 @@ user function BANCO002()
 	Local aArea := SB1->(GetArea())
 	Local cMsg := ''
 	Local cCodpro := ''
+	Local lAchou := .F.
 	
 	cCodPro:= FwInputBox("Informe o código do produto para pesquisa: ", "")
 	
@@ -24,8 +25,12 @@ user function BANCO002()
 						1,;
 						FWXfilial('SB1')+ cCodpro,;
 						'B1_DESC')
+	IF cMsg = ''
+	  lAchou := .F.
+	EndIf		
 
-	If cMsg <> ''					
+
+	If lAchou					
 	    MsgInfo("Descrição Produto: " + cCodPro + "->"+cMsg)
 	Else
 	    Alert("Descrição Produto: " + cCodPro + " -> Produto não Localizado")
