@@ -19,6 +19,7 @@ user function AVETOR2()
 		LEN() - Retorna a quantidade de elementos de um Array
 	**/
 Local aVetor := {10,20,30}
+Local nCount
 	// EXEMPLO AADD/LEN
 	AaDd(aVetor, 40)
 	Alert(Len(aVetor))

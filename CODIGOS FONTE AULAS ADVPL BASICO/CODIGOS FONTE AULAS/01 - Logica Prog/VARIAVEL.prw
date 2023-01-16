@@ -23,11 +23,12 @@ BLOCO DE CÓDIGO: {||VALOR := 1,MsgAlert("Valor é igual a "+cValToChar(VALOR))}
 /*/
 user function VARIAVEL()
 	Local nNum := 66
+	local nValor
 	Local lLogic := .T.
 	Local cCarac := "String"
 	Local dData := DATE()
 	Local aArray := {"Joao", "Maria","Jose"}
-	Local bBloco := {|| nValor := 2, MsgAlert("O numero é: "+ cValToChar(nValor))}
+	Local bBloco := {|| nValor := 2, MsgAlert("O numero é: " + cValToChar(nValor))}
 	
 	Alert(nNum)
 	Alert(lLogic)
