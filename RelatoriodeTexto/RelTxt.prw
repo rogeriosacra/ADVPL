@@ -42,7 +42,7 @@ Return Nil
 /** Função que gera o arquivo TXT **/
 Static Function GeraArq()
 
-Local cDir := "C:\TOTVS 12\Microsiga\protheus_data\treport\"
+Local cDir := "C:\TEMP\"
 Local cArq := "arquivo2.txt"
 Local nHandle := FCreate(cDir+cArq)
 
@@ -67,7 +67,7 @@ Local nHandle := FCreate(cDir+cArq)
 	
 	EndIf
 
-	If FILE("C:\TOTVS 12\Microsiga\protheus_data\treport\arquivo2.txt")
+	If FILE("C:\TEMP\arquivo2.txt")
 		MsgInfo("Arquivo criado com sucesso!")
 	Else
 		MsgAlert("Não foi possivel criar o arquivo", "ALERTA")
