@@ -1,0 +1,23 @@
+#include 'parmtype.ch'
+#Include 'TOTVS.CH'
+
+
+//PASSAGEM DE PARÂMETR0S - EXEMPLOS
+
+
+
+User Function Soma(nVal1, nVal2)
+
+Local nVal1:= 0
+Local nVal2 := 0
+
+Return(nVal1+nVal2)
+
+//Possíveis usos:
+
+U_Soma(1,1)
+U_Soma(1,nValor)
+U_Soma(nVal01,U_FuncaoX()) //U_FuncaoX() retorna um número
+
+Return
+
