@@ -46,8 +46,12 @@ While nInformados < 2
          EndDo      
 
          nInformados++     
-         nTotal := Soma(nNUmero1, nNUmero2)
+         nTotal := Soma(nNumero1, nNUmero2)
+
+         MsgInfo("A soma dos valores digitados é = "+CvalToChar(nTotal))
 END DO
+
+Return
 
 //FUNÇÃO PARA SOMAR OS VALORES DIGITADOS 
 
@@ -55,9 +59,9 @@ Static Function Soma(nVal1, nVal2)
 
 Local nVal1 := 0
 Local nVal2 := 0
-Local nTotal := 0
+Local nTotal1 := 0
 
-nTotal := nVal1 + nVal2
+nTotal1 := nVal1 + nVal2
 
 Return(nTotal)
 
