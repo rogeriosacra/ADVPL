@@ -1,23 +1,62 @@
-#include 'parmtype.ch'
-#Include 'TOTVS.CH'
+# include 'parmtype.ch'
+# Include 'TOTVS.CH'
 
 
 //PASSAGEM DE PARÂMETR0S - EXEMPLOS
 
+User Function PasPar1()
+
+Local nNumero1    := 0
+Local nNumero2    := 0
+Local nInformados := 0
+Local nTotal      := 0
+	
 
 
-User Function Soma(nVal1, nVal2)
+MsgInfo("Rotina **Soma doi números** !")
+MsgInfo("Digite dois números para que sejam somados!!!")
 
-Local nVal1:= 0
+
+While nInformados < 2
+   nNumero1:= Val(FwInputBox("Informe o primeiro número a ser somado.Caso queira cancelar, digite a letra 'C'", ""))
+           
+            If nNumero1 == "C"  
+               MSGAlert("Foi digitada a letra"+CvalToChar(nNumero1)+",operação cancelada pelo usuário!")
+               Return         
+            EndIf
+			
+            If ValType(nNumero1) <> "N"
+				MSGAlert("O valor inválido:"+CvalToChar(nNumero1)+", por favor digitar dado numérico! ") 
+                nNumero1 := 0 
+			ELSEIF 
+				nInformados++
+                nNumero2:= Val(FwInputBox("Informe o segundo número a ser somado.Caso queira cancelar, digite a letra 'C'", "")) 
+                  If nNumero2 == "C"  
+                     MSGAlert("Foi digitada a letra"+CvalToChar(nNumero1)+",operação cancelada pelo usuário!")
+                     Return
+                  EndIf         
+                  
+                  If ValType(nNumero2) <> "N"
+				      MSGAlert("O valor inválido:"+CvalToChar(nNumero2)+", por favor digitar dado numérico! ") 
+                      nNumero2 := 0
+                  ElseIf 
+                      nInformados ++ 
+                      nTotal := Soma(nNUmero1, nNUmero2)
+                  EndIf 
+			EndIf 
+            
+Return      
+
+
+
+Static Function Soma(nVal1, nVal2)
+
+Local nVal1 := 0
 Local nVal2 := 0
+Local nTotal := 0
 
-Return(nVal1+nVal2)
+Total := nVal1 + Val2
 
-//Possíveis usos:
+Return(nTotal)
 
-U_Soma(1,1)
-U_Soma(1,nValor)
-U_Soma(nVal01,U_FuncaoX()) //U_FuncaoX() retorna um número
-
-Return
 
