@@ -11,7 +11,17 @@
 			"isMultiSession": true,
 			"enableTableSync": true,
 			"enableMultiThread": true,
-			
+			"programArguments": [
+				""
+			],
+			"enableProfile": false,
+			"isAccessibilityMode": false,
+			"doNotShowSplash": false,
+			"openglMode": false,
+			"dpiMode": false,
+			"language": "",
+			"ignoreFiles": false,
+			"olddpiMode": false
 		}
 	],
 	"lastPrograms": [
@@ -44,10 +54,7 @@
 		},
 		{
 			"label": "XXXXX"
-		},
-		{
-			"label": "zzz"
 		}
 	],
-	"lastProgramExecuted": "zzz"
+	"lastProgramExecuted": "xxxx"
 }
