@@ -11,14 +11,17 @@
 			"isMultiSession": true,
 			"enableTableSync": true,
 			"enableMultiThread": true,
-			"programArguments": [],
+			"programArguments": [
+				""
+			],
 			"enableProfile": false,
 			"isAccessibilityMode": false,
 			"doNotShowSplash": false,
 			"openglMode": false,
 			"dpiMode": false,
 			"language": "",
-			"ignoreFiles": false
+			"ignoreFiles": false,
+			"olddpiMode": false
 		}
 	],
 	"lastPrograms": [
@@ -48,7 +51,10 @@
 		},
 		{
 			"label": "U_BANCO002"
+		},
+		{
+			"label": "XXXXX"
 		}
 	],
-	"lastProgramExecuted": "SIGAMDI"
+	"lastProgramExecuted": "XXXXX"
 }
