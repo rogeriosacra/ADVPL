@@ -19,9 +19,9 @@ MsgInfo("Digite dois números para que sejam somados!!!")
 
 
 While nInformados < 2
-    nNumero1:= Val(FwInputBox("Informe o primeiro número a ser somado.Caso queira cancelar, digite a letra 'C'", ""))
+         nNumero1:= Val(FwInputBox("Informe o primeiro número a ser somado:  "))
            
-         If nNumero1 == "C"  
+         If Vartype(nNumero1) <> "N"
               MSGAlert("Foi digitada a letra"+CvalToChar(nNumero1)+",operação cancelada pelo usuário!")
               Return         
          EndIf
