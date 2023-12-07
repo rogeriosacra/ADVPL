@@ -14,14 +14,14 @@
 			"programArguments": [
 				""
 			],
-			"enableProfile": false,
-			"isAccessibilityMode": false,
-			"doNotShowSplash": false,
-			"openglMode": false,
-			"dpiMode": false,
+			"enableProfile": true,
+			"isAccessibilityMode": true,
+			"doNotShowSplash": true,
+			"openglMode": true,
+			"dpiMode": true,
 			"language": "",
-			"ignoreFiles": false,
-			"olddpiMode": false
+			"ignoreFiles": true,
+			"olddpiMode": true
 		}
 	],
 	"lastPrograms": [
@@ -54,7 +54,10 @@
 		},
 		{
 			"label": "XXXXX"
+		},
+		{
+			"label": "zzz"
 		}
 	],
-	"lastProgramExecuted": "xxxx"
+	"lastProgramExecuted": "zzz"
 }
