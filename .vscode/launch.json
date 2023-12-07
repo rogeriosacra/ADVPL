@@ -4,10 +4,10 @@
 		{
 			"type": "totvs_language_debug",
 			"request": "launch",
-			"name": "Depuração do idioma TOTVS",
+			"name": "TOTVS Language Debug",
 			"program": "${command:AskForProgramName}",
-			"cwb": "${workspaceFolder}",
 			"smartclientBin": "D:/TOTVS12/Protheus/Protheus/bin/smartclient/smartclient.exe",
+			"cwb": "${workspaceFolder}",
 			"isMultiSession": true,
 			"enableTableSync": true,
 			"enableMultiThread": true
@@ -46,6 +46,9 @@
 		},
 		{
 			"label": "zzz"
+		},
+		{
+			"label": "ccc"
 		}
 	],
 	"lastProgramExecuted": "zzz"
