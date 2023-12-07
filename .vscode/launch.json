@@ -10,18 +10,7 @@
 			"smartclientBin": "D:/TOTVS12/Protheus/Protheus/bin/smartclient/smartclient.exe",
 			"isMultiSession": true,
 			"enableTableSync": true,
-			"enableMultiThread": true,
-			"programArguments": [
-				""
-			],
-			"enableProfile": true,
-			"isAccessibilityMode": true,
-			"doNotShowSplash": true,
-			"openglMode": true,
-			"dpiMode": true,
-			"language": "",
-			"ignoreFiles": true,
-			"olddpiMode": true
+			"enableMultiThread": true
 		}
 	],
 	"lastPrograms": [
