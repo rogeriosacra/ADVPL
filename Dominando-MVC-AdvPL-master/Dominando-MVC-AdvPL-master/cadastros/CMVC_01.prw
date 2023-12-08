@@ -49,6 +49,6 @@ Local oStrZB2:= FWFormStruct(2, 'ZB2')
 	oView:AddField('FORM_ALUNO' , oStrZB2,'MASTERZB2' ) 
 	oView:CreateHorizontalBox( 'BOX_FORM_ALUNO', 100)
 	oView:SetOwnerView('FORM_ALUNO','BOX_FORM_ALUNO')
-	oView:SetTimer(10000,{|| Alert("TSTE") })
+	oView:SetTimer(10000,{|| Alert("TESTE") })
 	
 Return oView
