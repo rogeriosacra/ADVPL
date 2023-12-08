@@ -6,8 +6,8 @@
 			"request": "launch",
 			"name": "TOTVS Language Debug",
 			"program": "${command:AskForProgramName}",
-			"smartclientBin": "D:/TOTVS12/Protheus/Protheus/bin/smartclient/smartclient.exe",
 			"cwb": "${workspaceFolder}",
+			"smartclientBin": "D:/TOTVS12/Protheus/Protheus/bin/smartclient/smartclient.exe",
 			"isMultiSession": true,
 			"enableTableSync": true,
 			"enableMultiThread": true
@@ -15,6 +15,7 @@
 	],
 	"lastPrograms": [
 		{
+			"args": [],
 			"label": "u_banco001"
 		},
 		{
@@ -49,7 +50,10 @@
 		},
 		{
 			"label": "ccc"
+		},
+		{
+			"label": "rrrr"
 		}
 	],
-	"lastProgramExecuted": "xxxx"
+	"lastProgramExecuted": "rrrr"
 }
