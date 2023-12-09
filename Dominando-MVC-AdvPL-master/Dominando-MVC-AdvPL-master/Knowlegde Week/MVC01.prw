@@ -57,6 +57,7 @@ Local oStrZB2:= FWFormStruct(2, 'ZB2')
 Return oView
 
 Static Function ViewDef()
+
 Local oModel := ModelDef()
 Local oView
 	
