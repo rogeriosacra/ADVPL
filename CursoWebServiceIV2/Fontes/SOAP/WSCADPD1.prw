@@ -21,7 +21,7 @@ Rdmake 	Web Service SOAP para verificar se produto existe ou não
 @history    ex prod cadastrado TINTA PRETA  
 --------------------------------------------------------------------------------------*/
 //Definicao da estruturas utilizadas
-WSSTRUCT StructProduto
+WSSTRUCT StructProduto // ESTRUTURA DE RETORNO
 	WSDATA cRetorno	As String
 	WSDATA cStatus	As String
 	WSDATA cCodigo	As String
@@ -30,27 +30,27 @@ WSSTRUCT StructProduto
 
 ENDWSSTRUCT
 
-WSSTRUCT StrSendProduto
+WSSTRUCT StrSendProduto //ESTRUTURA DE ENVIO, ENVIADA PELO CLIENTE: EMPRESA, FILIAL E CÓDIGO
 	WSDATA _cEmpresa 	As String
 	WSDATA _cFilial		As String
 	WSDATA cCod 		As String
 ENDWSSTRUCT
 
 //Definicao do Web Service de Envio de MSG 
-WSSERVICE WSCADPD1 DESCRIPTION "Produtos" //WSCADPD1: NOTE QUE O WEBSERICE RECEBEU O MESMO NOME DO CÓDIGO FONTE
-	WSDATA StrProduto	As StructProduto // ESTRUtuRA DE retornoStructProduto DECLARADA NA LINHA 24, TEM SUA ESTRUTURA JOGADA PARA STRPRODUTO 
-	WSDATA StrSendProd	As StrSendProduto
+WSSERVICE WSCADPD1 DESCRIPTION "Produtos" //WSCADPD1: NOTE QUE O WEBSERICE RECEBEU O MESMO NOME DO CÓDIGO FONTE, E FOI DESCRITO COMO "PRODUTOS"
+	WSDATA StrProduto	As StructProduto // ESTRUtuRA DE retorno StructProduto DECLARADA NA LINHA 24, TEM SUA ESTRUTURA JOGADA PARA STRPRODUTO 
+	WSDATA StrSendProd	As StrSendProduto//// ESTRUtuRA DE ENVIO StrSendtProdo DECLARADA NA LINHA 33, TEM SUA ESTRUTURA JOGADA PARA StrSendtProdo
 	WSMETHOD CAD1_PRODUTO DESCRIPTION "Método de Cadastro e Atualização de Produtos" //Declaração do método CAD1_PRODUTO e sua descrição
 ENDWSSERVICE
 
-//Metodo
+//Metodo CAD1_PRODUTO RECEBE SrtSendProd ENVIA/RETORNA StrProduto no web service WSCADPD1
 WSMETHOD CAD1_PRODUTO WSRECEIVE  StrSendProd  WSSEND StrProduto WSSERVICE WSCADPD1
 Local cCodProd
 
 // RpcSetEnv Prepara ambiente a ser processado
 RpcSetEnv(::StrSendProd:_cEmpresa,::StrSendProd:_cFilial,,,"FAT",)
 //Validar código de produto o mesmo é obrigatório
-cCodProd := ::StrSendProd:cCod
+cCodProd := ::StrSendProd:cCod//::StrSendProd:cCod, captura o código do produto do objeto StrSendoProd, poderia ser Self:StrSendProd:_cFilial
 If Empty(cCodProd) .or. AllTrim(cCodProd) == "?"
 	::StrProduto:cRetorno := "Por favor informar o cógido do produto ! "
 	::StrProduto:cStatus  := "0"
