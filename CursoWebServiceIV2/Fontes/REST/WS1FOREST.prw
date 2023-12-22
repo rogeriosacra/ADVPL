@@ -254,7 +254,7 @@ Realiza a gravação na tabela SA2
 @type function
 /*/
 Static Function GravaSA2(oJson,cTipo)
-//Local _lInclui := If(cTipo == "I",.T.,.F.)  //nao faco a vialidação de inclusão e ou exclusão pois é mandado itens e na validação ja trata esta questão
+//Local _lInclui := If(cTipo == "I",.T.,.F.)  //nao faco a validação de inclusão e ou exclusão pois são mandados itens e na validação ja trata esta questão
 Local _lGrava
 
 Local _cCnpjCpf 	:= Space(014)		
