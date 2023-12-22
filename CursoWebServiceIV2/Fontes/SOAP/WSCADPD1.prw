@@ -36,7 +36,8 @@ WSSTRUCT StrSendProduto //ESTRUTURA DE ENVIO, ENVIADA PELO CLIENTE: EMPRESA, FIL
 	WSDATA cCod 		As String
 ENDWSSTRUCT
 
-//Definicao do Web Service de Envio de MSG 
+//Definicao do Web Service de Envio de MSG. StrProduto e StrSendoProd são objetos, isso porque eles foram montados em cima das estrutas>>
+// WSSTRUCT StructProduto e WSSTRUCT StrSendProduto
 WSSERVICE WSCADPD1 DESCRIPTION "Produtos" //WSCADPD1: NOTE QUE O WEBSERICE RECEBEU O MESMO NOME DO CÓDIGO FONTE, E FOI DESCRITO COMO "PRODUTOS"
 	WSDATA StrProduto	As StructProduto // ESTRUtuRA DE retorno StructProduto DECLARADA NA LINHA 24, TEM SUA ESTRUTURA JOGADA PARA STRPRODUTO 
 	WSDATA StrSendProd	As StrSendProduto//// ESTRUtuRA DE ENVIO StrSendtProdo DECLARADA NA LINHA 33, TEM SUA ESTRUTURA JOGADA PARA StrSendtProdo
@@ -52,9 +53,9 @@ RpcSetEnv(::StrSendProd:_cEmpresa,::StrSendProd:_cFilial,,,"FAT",)
 //Validar código de produto o mesmo é obrigatório
 cCodProd := ::StrSendProd:cCod//::StrSendProd:cCod, captura o código do produto do objeto StrSendoProd, poderia ser Self:StrSendProd:_cFilial
 If Empty(cCodProd) .or. AllTrim(cCodProd) == "?"
-	::StrProduto:cRetorno := "Por favor informar o cógido do produto ! "
+	::StrProduto:cRetorno := "Por favor informar o cógido do produto ! "//ATRIBUI STRING AO OBJETO DE RETORNO
 	::StrProduto:cStatus  := "0"
-	::StrProduto:cCodigo  := cCodProd
+	::StrProduto:cCodigo  := cCodProd//ATRIBUI CÓDIGO DO PRODUTO CAPTURADO DO OBJETO StrSendProd (ENVIADO PELO CLIENTE) na linha 54 para cCodigo DO OBJETO DE RETORNO
 Else
 	DbSelectArea("SB1")
 	SB1->(DbSetOrder(1))  //FILIAL + COD
