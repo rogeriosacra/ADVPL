@@ -96,7 +96,7 @@ WSMETHOD GET Main WSRECEIVE Order, Page, PageSize, Fields WSSERVICE NcustomerVen
 		nPageSize := Self:aQueryString[nPosPagesize][2]
 	Else
 		nPageSize := oApiManager:GetApiPgSize()
-	EndIf
+	EndIf'
 
 	If Mod(nPageSize,2) > 0
 		nPageCli := Int(nPageSize/2) + 1
