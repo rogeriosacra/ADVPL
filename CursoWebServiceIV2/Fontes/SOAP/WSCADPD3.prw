@@ -96,7 +96,7 @@ Begin Sequence
 			//posiciona dicionario para localizar o titulo do campo
 			SX3->(DbSetOrder(2))
 			SX3->(DbSeek(aVetor[nPos,1]))
-			::StrProduto:cRetorno := "Dados referente ao campo "+AllTrim(SX3->X3_TITULO)+" não informado obrigatório ! (" + aVetor[nPos,1]+")"
+			::StrProduto:cRetorno := "Dados referente ao campo "+AllTrim(SX3->X3_DESCRIC)+" não informado obrigatório ! (" + aVetor[nPos,1]+")"
 			::StrProduto:cStatus  := "0"
 			::StrProduto:cCodigo  := aVetor[nPos,2]
 			Break
