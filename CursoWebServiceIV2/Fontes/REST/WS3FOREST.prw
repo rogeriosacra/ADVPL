@@ -63,8 +63,8 @@ Begin Sequence
     //oJson['principal']['dadosComprador'] := JSonObject():New() -> exemplo para implementação para outra pasta com dados do comprador
     //Lembrando da relação entre a estrutura de retornoe de envio, se houver alteração em um, certamente pode haver necessicdade de ajuste om outra
     cJson := oJson:toJSON()//Converte o objeto para Json e o atribui à variável Json 
-    cJson := EncodeUTF8(cJson)//
-    ::SetResponse(cJson)
+    cJson := EncodeUTF8(cJson)//CODIFICA PARA UTF
+    ::SetResponse(cJson)//SETA RESPOSTA A PARTIR DO JSON
     conout(cJson)
     FreeObj(oJson)
 End Sequence  
