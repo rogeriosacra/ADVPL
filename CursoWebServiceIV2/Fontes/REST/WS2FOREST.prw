@@ -377,7 +377,7 @@ GET/DELETE
 
 {
   "principal": {
-    "_cCnpjCpf": "61366936000125",
+    "_cCnpjCpf": "05355409980001",
     "dadosfornecedor": {
       "codigo": "000001",
       "nome": "FORNCEDOR PADRÃO NACIONAL 1",
