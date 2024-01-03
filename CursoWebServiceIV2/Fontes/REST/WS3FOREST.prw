@@ -65,7 +65,7 @@ Begin Sequence
     cJson := oJson:toJSON()//Converte o objeto para Json e o atribui à variável Json 
     cJson := EncodeUTF8(cJson)//CODIFICA PARA UTF
     ::SetResponse(cJson)//SETA RESPOSTA A PARTIR DO JSON
-    conout(cJson)
+    conout(cJson)// MENSAGEM CONOUT PARA APPSERVER CONSOLE
     FreeObj(oJson)
 End Sequence  
 RETURN .T.
