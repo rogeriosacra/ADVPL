@@ -1,4 +1,4 @@
-//#include 'parmtype.ch'
+#INCLUDE 'PARMTYPE.CH'
 #INCLUDE "TOTVS.CH"
 #INCLUDE "RESTFUL.CH"
 
