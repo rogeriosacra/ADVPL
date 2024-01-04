@@ -16,18 +16,18 @@ API de integração de Cadastro de Cliente/Fornecedor
 @author		Squad Faturamento/SRM
 @since		02/08/2018
 /*/
-WSRESTFUL NcustomerVendor DESCRIPTION "Cadastro de Cliente/Fornecedor" //"Cadastro de Cliente/Fornecedor"
-	WSDATA Fields			AS STRING	OPTIONAL
+WSRESTFUL NcustomerVendor DESCRIPTION "Cadastro de Cliente/Fornecedor" //"Cadastro de Cliente/Fornecedor" CRIAÇÃO DA CLASSE NCUSTOMERVENDOR
+	WSDATA Fields			AS STRING	OPTIONAL //FIELDS, ORDER, PAGE, PAGESIZE, ETC, SÃO PROPRIEDADES DA CLASSE E SEUS TIPOS
 	WSDATA Order			AS STRING	OPTIONAL
 	WSDATA Page				AS INTEGER	OPTIONAL
 	WSDATA PageSize			AS INTEGER	OPTIONAL
 	WSDATA Type				AS STRING	OPTIONAL
 	WSDATA NcustomerVendorId	AS STRING	OPTIONAL
 	
-    WSMETHOD GET Main ;
-    DESCRIPTION "Retorna todos Clientes/Fornecedores" ;
-    WSSYNTAX "/api/crm/v1/NcustomerVendor/{Order, Page, PageSize, Fields}" ;
-    PATH "/api/crm/v1/NcustomerVendor"	
+    WSMETHOD GET Main ; // CRIAÇÃO DOS MÉTODOS GET, POST, DELETE, PUT. NOTE QUE DEPOIS DO VERBO, HÁ UM NOME, MAIS, TYPE, ETC,QUE SERVE COMO IDENTIFICADOR
+    DESCRIPTION "Retorna todos Clientes/Fornecedores" ;//DESCRIÇÃO QUE SERÁ APRESENTADA NO SERVIDOR REST 
+    WSSYNTAX "/api/crm/v1/NcustomerVendor/{Order, Page, PageSize, Fields}" ;//SINTAX HTTP, E DENTRO DAS CHAVES OS PARÃMETROS DA SYNTAX
+    PATH "/api/crm/v1/NcustomerVendor"	// CAMINHO ONDE O ENDPOINT ACIONA O MÉTODO
 
     WSMETHOD POST Main ;
     DESCRIPTION "Cadastra um Clientes/Fornecedores" ;
@@ -55,7 +55,7 @@ WSRESTFUL NcustomerVendor DESCRIPTION "Cadastro de Cliente/Fornecedor" //"Cadast
     PATH "/api/crm/v1/NcustomerVendor/{Type}/{NcustomerVendorId}"				
 
  
-ENDWSRESTFUL
+ENDWSRESTFUL //FINLIZAÇÃO DA DECLARAÇÃO DA CLASSE
 
 /*/{Protheus.doc} GET / NcustomerVendor/NcustomerVendor
 Retorna todos Clientes/Fornecedores
@@ -72,7 +72,7 @@ Retorna todos Clientes/Fornecedores
 @version	12.1.20
 /*/
 
-WSMETHOD GET Main WSRECEIVE Order, Page, PageSize, Fields WSSERVICE NcustomerVendor
+WSMETHOD GET Main WSRECEIVE Order, Page, PageSize, Fields WSSERVICE NcustomerVendor//METODO GET MAIN (MAIN É ID, IDENTIFICADOR)RECEBE PARAMETROS ORDER, PAGE, E RELACIONA COM CLASSE NCUSTMER VENDOR
 
 	Local lRet				:= .T.
 	Local lRetCli			:= .T.
