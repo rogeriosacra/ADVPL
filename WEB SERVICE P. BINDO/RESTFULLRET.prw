@@ -50,7 +50,7 @@ Static Function RetornoAPI(cTipo)
 
 	//METODO GET
 	If cTipo == "GET"
-		cEndPoint:= "1/00000101"  //TIPO(1-CLIENTE -2-FORNECEDOR)/COD+LOJA
+		cEndPoint:= "1/00000101"  //TIPO(1-CLIENTE -2-FORNECEDOR)/COD+LOJA; PARA VERIFICAR O ENDPOINT, VERIFICAR O WSSINTAX DO METODO
 		//Informa o path aonde será feito a requisição
 		oRest:SetPath(cUrl+cEndPoint)
 
@@ -195,12 +195,12 @@ Static Function PUTGetJson()
 
 	oJson["name"]                               := "TESTE JSON1"
 	oJson["shortName"]                          := "TJSON1"
-	oJson["address"]                            := Eval(bObject)
+	oJson["address"]                            := Eval(bObject)// TODA VEZ QUE MONTAR UM NIVEL NO JSON É NECESSÁRIO EVAL(oobject)
 	oJson["address"]["city"]                    := Eval(bObject)
 	oJson["address"]["city"]["cityDescription"] := "ALTERADO"
 
 
-	cBody   := EncodeUTF8( oJson:ToJson() )
+	cBody   := EncodeUTF8( oJson:ToJson() )//PEGA OBJETO JSON, CONVERTE PARA JSON E CODIFICA PARA PADRÃO UTF8, E ATRIBYUI À CBODY
 
 Return(cBody)
 
