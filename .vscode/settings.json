@@ -2,5 +2,6 @@
     "totvsLanguageServer.welcomePage": false,
     "files.associations": {
         "paspar1": "c"
-    }
+    },
+    "totvsLanguageServer.editor.linter.includes": "D:\\TOTVS12\\Protheus\\Protheus\\include"
 }
