@@ -5,7 +5,7 @@ WSSERVICE APIPRODUTOSOAP; //DECLARAÇÃO DA CLASSE APIPRODUTOSOAP
 DESCRIPTION 'API PARA MANIPULAÇÃO DO CADASTRO DE PRODUTOS';// DESCRIÇÃO APARECERÁ NO CATÁLOGO DE SERVICOS SOAP
 NAMESPACE 'HTTP://APIPRODUTOSOAP.LOCALHOST.COM.BR'// 
 
-WSDATA cCODIGO    AS STRING // estas variáveis representam as propriedades que o XML tem que ter, ou seja, as informações que tem que constar no arquivo
+WSDATA cCODIGO    AS STRING // estas variáveis representam as propriedades que o XML tem que ter, ou seja, as informações que tem que constar na requisição 
 WSDATA cDESCRICAO AS STRING // estas variáveis representam as propriedades que o XML tem que ter
 WSDATA nPESO      AS FLOAT  // estas variáveis representam as propriedades que o XML tem que ter
 WSDATA cRETORNO   AS STRING // estas variáveis representam as propriedades que o XML tem que ter
