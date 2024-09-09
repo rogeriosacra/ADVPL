@@ -1,4 +1,4 @@
-//Chamada de Funcoes no Protheus12 - Pois o Formulas nao funciona no Protheus12
+ //Chamada de Funcoes no Protheus12 - Pois o Formulas nao funciona no Protheus12
 //--- incluir tratamento para verificar se a funcao existe no APO --->Findfunction( < cFuncao > )
 User function IM_XFUNC()
     Local sFunc
