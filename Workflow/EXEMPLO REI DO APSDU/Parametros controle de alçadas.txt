@@ -1,0 +1,21 @@
+
+
+Para utilizar o controle de alçadas o usuário deve:
+1. Configurar alguns parâmetros, no ambiente Configurador:
+MV_RESTSOL – Indica se é utilizado o controle de restrição aos solicitantes de produtos com restrição. Deve ter no campo conteúdo o valor “S-Sim”.
+MV_RESTCOM – Indica se o acesso às solicitações de compras é restrito aos usuários cadastrados no grupo de compras da solicitação. Deve ter no campo conteúdo o valor “S-Sim”.
+MV_RESTINC – Indica se restringe a inclusão de pedido de compras sem solicitação de compras, para usuários não cadastrados como compradores. Deve ter no campo conteúdo o valor “S-Sim”.
+MV_RESTPED – Indica se a manutenção do pedido de compras é restrito ao seu grupo de Compras/Compradores. Deve ter no campo conteúdo o valor “S-Sim”.
+MV_RESTNFE – Indica se restringe o uso de pedidos bloqueados no recebimento de materiais. Deve ter no campo conteúdo o valor “S-Sim”.
+MV_PCAPROV – Indica o grupo de aprovação padrão que será utilizado na aprovação do pedido de compras.
+MV_CPAPROV – Indica o grupo de aprovação padrão que será utilizado na aprovação dos contratos de parceria.
+E para o ambiente Gestão de Contratos, configure, ainda o seguinte parâmetro:
+MV_CNMDALC – informa se o controle de alçada é ativo para as medições de contrato.
+
+2. Configurar as senhas para os Solicitantes e Compradores, organizando-os em grupos de usuários, através do ambiente Configurador. Esta organização facilita a definição dos direitos solicitações/compras.
+3. Preencha o campo “Restrição” no cadastro de Produtos com “Sim”.
+4. Preencha o cadastro de solicitantes.
+5. Preencha o cadastro de compradores.
+6. Preencha o cadastro de grupo de compradores.
+7. Preencha o cadastro de aprovadores.
+8. Preencha o cadastro de grupo de aprovação.

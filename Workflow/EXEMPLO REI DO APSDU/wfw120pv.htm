@@ -1,0 +1,218 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<title>Aprovação de Pedido de Compra</title>
+</head>
+
+<body bgcolor="#FFFFFF" >
+
+
+<script language="JavaScript">
+
+//o split separa a string quando encontra o ?
+//var variaveis=windows.location.search.split("?");
+//var quebra = variaveis[1].split("=");
+
+//aprov = quebra;
+
+function ValidaObs()
+{
+  
+ //aprov = document.form1.LB_APROVADOR.value;
+ alert("Aguarde o envio da mensagem. ");
+}
+
+window.onload = function(){
+var url = window.location;
+var url = url.toString();
+var usr = url.substr(url.indexOf("?"));
+document.getElementById('usr').value = usr;
+}
+
+function AprovLoad()
+{
+
+/*
+        var getVars = LMXHttpGet.getVars(); // Retorna um array com as variáveis
+        var aprov;
+        if (LMXHttpGet.length >=1 ) {
+            // Verifica se as variáveis foram passadas
+            with (document.getElementsByTagName("WFHTTPRET.APL").item(0).style) {
+            // Utilizando o método getVar()
+            aprov = LMXHttpGet.getVar("user");   
+				alert('Teste: '+ aprov);
+            }
+ // mailto:%WFMailTo%
+ 
+    }   
+ //document.form1.LB_APROVADOR.value=aprov;
+*/
+}
+
+</script><noscript>
+
+<pre><font color="#FF0000" size="2" face="Verdana"><b>%WFAvisoJS%</b></font></pre>
+</noscript>
+<form action="WFHTTPRET.APL" method="post" name="form1" onSubmit="ValidaObs()" >
+    <table border="0" width="100%">
+      <tr>
+        <td width="9%"><font color="pink" size="2" face="Verdana"><b><img border="0" src="logo.jpg" width="100" height="80"></b></font></td>
+        <td width="64%">
+          <p align="center"><b><font face="Verdana" size="5">Solicitação de Aprovação de Pedido de Compra</font></b>
+		  <p align="center"><b><font face="Verdana" size="5">%empresa_filial%</font></b>
+        </td>
+        <td width="27%"></td>
+      </tr>
+    </table>
+
+    <p><font color="pink" face="Verdana" size="2"><b>HISTORICO COTAÇÕES %nCotacao%</b></font>
+	<font color="pink" size="2" face="Verdana">
+    <table border="1" width="854"">
+        <tr>
+            <td width="75" bgcolor="pink"><font size="2"
+            face="Verdana" color="White"><b>Item</b></font></td>
+            <td width="232" bgcolor="pink"><font size="2"
+            face="Verdana" color="White"><b>Descrição</b></font></td>
+            <td width="180" bgcolor="pink" align="center"><font size="2"
+            face="Verdana" color="White"><b>Fornecedor</b></font></td>
+            <td width="43" bgcolor="pink" align="left"><font size="2"
+            face="Verdana" color="White"><b>Total</b></font></td>
+            <td width="92" bgcolor="pink"><font size="2"
+            face="Verdana" color="White"><b>Cond.Pagto</b></font></td>
+            <td width="59" bgcolor="pink"><font size="2"
+            face="Verdana" color="White"><b>Entrega</b></font></td>
+        </tr>
+        <tr>
+            <td width="60"><font size="2" face="Arial">%cotacao.item%</font></td>
+            <td width="232"><font size="2" face="Arial">%cotacao.codigo% - %cotacao.descricao%</font></td>
+            <td width="180"><font face="Arial" size="2">%cotacao.fornecedor%</font></td>
+            <td width="43" align="right"><font face="Arial" size="2">%cotacao.total%</font></td>
+            <td width="92"><font face="Arial" size="2">%cotacao.condPag%</font></td>
+            <td width="59"><font face="Arial" size="2">%cotacao.entrega%</font></td>
+        </tr>
+    </table>
+    
+	<p><font color="pink" face="Verdana" size="2"><b>PEDIDO</b></font>
+    <font color="pink" size="2" face="Verdana">
+    <table border="1" width="845">
+        <tr>
+            <td width="95" bgcolor="pink"><font size="2"
+            face="Verdana" color="White"><b>Emissão</b></font></td>
+            <td width="153" bgcolor="pink"><font size="2"
+            face="Verdana" color="White"><b>Fornecedor</b></font></td>
+            <td width="565" bgcolor="pink"><font size="2" face="Verdana" color="White"><b>Razão Social</b></font></td>
+            <td width="110" bgcolor="pink"><font size="2"
+            face="Verdana" color="White"><b>Cond.Pagto</b></font></td>
+            <td width="110" bgcolor="pink"><font size="2"
+            face="Verdana" color="White"><b>Número</b></font></td>
+        </tr>
+        <tr>
+            <td width="95"><font size="2" face="Arial">%emissao%</font></td>
+            <td width="153"><font size="2" face="Arial">%fornecedor%</font></td>
+            <td width="565"><font size="2" face="Arial">%lb_nome%</font></td>
+            <td width="110"><font size="2" face="Arial">%lb_cond%</font></td>
+            <td width="110">
+              <p align="center"><b><font face="Arial" color="#FF0000" size="3">%pedido% %filial%</font></b></p>
+            </td>
+        </tr>
+    </table>
+    
+	<p></font><font color="pink" size="2" face="Verdana"><b>ITENS COMPRADOS</b></font>
+    <font color="pink" size="2" face="Verdana">
+    <table border="1" width="1200">
+        <tr>
+            <td width="40" bgcolor="pink"><font size="2" face="Verdana" color="White"><b>Item</b></font></td>
+            <td width="350" bgcolor="pink"><font size="2" face="Verdana" color="White"><b>Descrição</b></font></td>
+            <td width="90" bgcolor="pink" align="center"><font size="2" face="Verdana" color="White"><b>Quantidade</b></font></td>
+            <td width="30" bgcolor="pink"><font size="2" face="Verdana" color="White"><b>Unid</b></font></td>
+            <td width="60" bgcolor="pink" align="left"><font size="2" face="Verdana" color="White"><b>Preço</b></font></td>
+            <td width="100" bgcolor="pink" align="left"><font size="2" face="Verdana" color="White"><b>Total</b></font></td>
+            <td width="95" bgcolor="pink"><font size="2" face="Verdana" color="White"><b>Cond.Pagto</b></font></td>
+            <td width="60" bgcolor="pink"><font size="2" face="Verdana" color="White"><b>Entrega</b></font></td>
+            <td colspan=3 width="420" bgcolor="pink">
+				<table>
+					<tr>
+						<td colspan=3>
+							<font size="2" color="White" face="Verdana"><b>Ultimos Preços (Vlr Total - Qtde)</b></font>	
+						</td>
+					</tr>
+					<tr>
+						<td width="140">
+							<font size="2" color="White" face="Verdana"><b>Último</b></font>	
+						</td>
+						<td width="140">
+							<font size="2" color="White" face="Verdana"><b>Penúltimo</b></font>	
+						</td>
+						<td width="140">
+							<font size="2" color="White" face="Verdana"><b>Antipenúltimo</b></font>	
+						</td>
+					</tr>
+					
+				</table>
+			</td>
+        </tr>
+
+        <tr>
+            <td width="40"><font size="2" face="Arial">%produto.item%</font></td>
+            <td width="350"><font size="2" face="Arial">%produto.codigo%- %produto.descricao%</font></td>
+            <td width="90" align="center"><font face="Arial" size="2">%produto.quant%</font></td>
+            <td width="30"><font size="2" face="Arial">%produto.unid%</font></td>
+            <td width="60" align="right"><font face="Arial" size="2">%produto.preco%</font></td>
+            <td width="100" align="right"><font face="Arial" size="2">%produto.total%</font></td>
+            <td width="95" align="right"><font face="Arial" size="2">%produto.condPag%</font></td>
+            <td width="60"><font face="Arial" size="2">%produto.entrega%</font></td>
+			<td width="140"><font face="Arial" size="2">%produto.ultimo%</font></td>
+			<td width="140"><font face="Arial" size="2">%produto.penult%</font></td>
+			<td width="140"><font face="Arial" size="2">%produto.antepe%</font></td>
+        </tr>
+    </table>
+    <table border="1" width="275">
+        <tr>
+            <td width="155" bgcolor="pink"><font size="2"
+            face="Verdana" color="White"><b>Valor Total</b></font></td>
+            <td width="121" align="right"><b><font face="Arial" size="3">%lbvalor%</font></b></td>
+        </tr>
+        <tr>
+            <td width="155" bgcolor="pink"><font size="2"
+            face="Verdana" color="White"><b>Valor Frete</b></font></td>
+            <td width="121" align="right"><font face="Arial" size="2">%lbfrete%</font></td>
+        </tr>
+        <tr>
+            <td width="155" bgcolor="pink"><font size="2"
+            face="Verdana" color="White"><b>Total + IPI</b></font></td>
+            <td width="121" align="right"><font face="Arial" size="2">%lbtotal%</font></td>
+        </tr>
+    </table>
+    <table border="0" width="10" height="1" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="100%"></td>
+      </tr>
+    </table>
+    <table border="1" width="275">
+        <tr>
+            <td width="155" bgcolor="pink"><font size="2" face="Verdana" color="White"><b>Comprador</b></font></td>
+            <td width="121"><font face="Arial" size="2">%lb_comprador%</font></td>
+        </tr>
+    </table>
+	<table border="1" width="275">
+        <tr>
+            <td width="155" bgcolor="pink"><font size="2" face="Verdana" color="White"><b>Aprovador</b></font></td>
+            <td width="121"><font face="Arial" size="2">%lb_aprovador%</font></td>
+        </tr>
+    </table>
+    <h4><font color="pink" face="Verdana"><strong>APROVAÇÃO:<br>
+    </strong></font></font><font color="#008000" size="2" face="Verdana">
+	<input type="radio" checked name="%RBAPROVA%" value="1">Sim.</font><font color="pink" size="2" face="Verdana">
+    <input type="radio" name="%RBAPROVA%" value="2">Não. (Favor especificar motivo)<br>
+    <font size="2" face="Arial" color="pink">MOTIVO: <textarea name="S1"
+    rows="4" cols="74">%lbmotivo%</textarea></font><br>
+    <input type=hidden id='usr' name="%lb_aprovador%" value="">
+	<input type=hidden name="%wf2p11%" value="">
+    <input type="submit" name="B1" value="Enviar">
+    <input type="reset" name="B2" value="Limpar"> </h4>
+</form>
+</body>
+</html>
