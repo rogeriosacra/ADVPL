@@ -55,5 +55,6 @@
 			"label": "rrrr"
 		}
 	],
-	"lastProgramExecuted": "ccc"
+	"lastProgramExecuted": "<cancel>",
+	"lastProgramArguments": []
 }
