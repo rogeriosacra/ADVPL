@@ -1,0 +1,12 @@
+#Include 'totvs.ch'
+#Include 'tlpp-core.th'
+
+NAMESPACE introducao.tlpp //NAMESPACE é uma função que quando utilizada antes da declararação a funcão principal (neste caso 'FUNCTION U_AULA_02') fara com que os caracteres 
+//Imediatamente após a função (neste caso introducao.tlpp) seja concatenado ao nome da função principal, de modo que para que este uma chamada a esta função principal deverá ser feita 
+// fetia da seguinte maneira: tlpp.call('U_INTRUDUCAO.TLPP.U_AULA_02')
+
+Function U_AULA_02
+
+U_AULA_02()
+
+Return FwAlertInfo('AULA_02')

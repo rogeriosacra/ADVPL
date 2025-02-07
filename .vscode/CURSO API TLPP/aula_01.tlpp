@@ -8,6 +8,31 @@
     @since 30/01/2025
     @version version 
     /*/
-Function U_AULA_01
+Function U_INTRODUCAO_AULA_01
+
+Local cValorAtualizacao := '01'
+Local cValorAtualizacao_seq := '01_SEQ'
+
+FwAlertInfo(cValorAtualizacao)
+FwAlertInfo(cValorAtualizacao_seq)
+
     
+Return FwAlertInfo('U_INTRODUCAO_AULA_01')
+
+Function U_INTRODUCAO_AULA_01_SEQ_01
+
+FwAlertInfo('U_INTRODUCAO_AULA_01_SEQ_01')
+
+Return FwAlertInfo('U_INTRODUCAO_AULA_01_SEQ_01')
+
+
+Function U_INTRODUCAO_AULA_01_SEQ_02
+
+U_INTRODUCAO_AULA_01()
+U_INTRODUCAO_AULA_01_SEQ_01()
+
 Return 
+
+
+
+

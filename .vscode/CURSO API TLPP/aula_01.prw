@@ -8,6 +8,9 @@
     @since 30/01/2025
     @version version 
     /*/
-Function u_aula_01
+Function U_AULA_01
+
+tlpp.ccall('U_INTRODUCAO_AULA_01')
+tlpp.ccall('U_INTRODUCAO_AULA_01_SEQ_01')
     
 Return 
