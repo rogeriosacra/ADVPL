@@ -18,7 +18,7 @@ O PADRÃO DA ARQUITETURA REST UTILIZANDO OS VERBOS GET, POST, DELET, PUT*/
 //Array contendo os parâmetros enviados no formato path params na URL da rota 
 ::getcontent()
 //Método interno da classe para recuperar o body para as requisições post e put
-::setcontenttype('application/json
+::setcontenttype('application/json)
 //Método Interno da classe para indicar no header da requisição o tipo de dado a ser retornado)
 ::setresponse(cJson)
 //Método interno à classe para indicar o corpo do retorno da requisição.
