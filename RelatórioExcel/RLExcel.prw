@@ -1,4 +1,5 @@
 #Include 'Protheus.ch'
+#Include "FWMVCDef.ch"
 
 
 /*/{Protheus.doc} rlexcel
@@ -30,24 +31,21 @@ Static Function MntQry()
 	//pegar os dados da base de dados
 	
 	cQuery := " SELECT "													
-	cQuery += " 	SB1.B1_COD AS CODIGO, "											
-	cQuery += " 	SB1.B1_DESC AS DESCRICAO, "										
-	cQuery += " 	SB1.B1_TIPO AS TIPO, "										
-	cQuery += " 	SBM.BM_GRUPO GRUPO, "										
-	cQuery += " 	SBM.BM_DESC BM_DESCRICAO, "										
-	cQuery += " 	SBM.BM_PROORI BM_ORIGEM"										
+	cQuery += " SB1.B1_COD AS CODIGO, "											
+	cQuery += " SB1.B1_DESC AS DESCRICAO, "										
+	cQuery += " SB1.B1_TIPO AS TIPO, "										
+	cQuery += " SBM.BM_GRUPO GRUPO, "										
+	cQuery += " SBM.BM_DESC BM_DESCRICAO, "										
+	cQuery += " SBM.BM_PROORI BM_ORIGEM "										
 	cQuery += " FROM "													
-	cQuery += " 	"+RetSQLName('SB1')+" SB1 "							
-	cQuery += " 	INNER JOIN "+RetSQLName('SBM')+" SBM ON ( "		
-	cQuery += " 		SBM.BM_FILIAL = '"+FWxFilial('SBM')+"' "		
-	cQuery += " 		AND SBM.BM_GRUPO = B1_GRUPO "					
-	cQuery += " 		AND SBM.D_E_L_E_T_='' "							
-	cQuery += " 	) "														
-	cQuery += " WHERE "													
-	cQuery += " 	SB1.B1_FILIAL = '"+FWxFilial('SBM')+"' "			
-	cQuery += " 	AND SB1.D_E_L_E_T_ = '' "							
+	cQuery += " "+RetSQLName('SB1')+" SB1 "							
+	cQuery += " INNER JOIN "+RetSQLName('SBM')+" SBM ON  "		
+	cQuery += " SBM.BM_FILIAL = '"+FWxFilial('SBM')+"' "		
+	cQuery += " AND SBM.BM_GRUPO = B1_GRUPO "					
+	cQuery += " AND SBM.D_E_L_E_T_='' "							
+	cQuery += " AND SB1.D_E_L_E_T_ = '' "							
 	cQuery += " ORDER BY "												
-	cQuery += " 	SB1.B1_COD "
+	cQuery += " SB1.B1_COD "
 	
 		If Select("TR1") <> 0
 			DbSelectArea("TR1")
@@ -66,7 +64,7 @@ Static Function GeraExcel()
 	Local oExcel := FWMSEXCEL():New()
 	Local lOK := .F.
 	Local cArq := ""
-	Local cDirTmp := "C:\SPOOL\"
+	Local cDirTmp := "C:\SPOOL"
 	
 	dbSelectArea("TR1")
 	TR1->(dbGoTop())

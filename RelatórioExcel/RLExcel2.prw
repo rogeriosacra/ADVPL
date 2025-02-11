@@ -1,4 +1,5 @@
 #Include 'Protheus.ch'
+#Include "FWMVCDef.ch"
 
 /*/{Protheus.doc} rlexcel2
 Exemplo gerar arquivo Excel em duas abas com advpl
@@ -99,7 +100,7 @@ Static Function GeraExcel()
 													  
 		 oExcel:AddRow("ABA 2","PEDIDOS",{ TR1->(PEDIDO),;
 													  TR1->(sToD(EMISSAO)),;
-													  TR1->(QTDVEN),;
+					Ç]~ÇÇ								  TR1->(QTDVEN),;
 													  TR1->(VALOR),;
 													  TR1->(DESCRICAO)})
 													     
@@ -115,7 +116,7 @@ Static Function GeraExcel()
 		
 			If __CopyFile(cArq,cDirTmp + cArq)
 				If lOK
-					oExcelApp := MSExcel():New()
+					oExcelApp := FWMSEXCEL():New()
 					oExcelApp:WorkBooks:Open(cDirTmp + cArq)
 					oExcelApp:SetVisible(.T.)
 					oExcelApp:Destroy()
