@@ -60,6 +60,9 @@
 		},
 		{
 			"label": "SIGAATF"
+		},
+		{
+			"label": "u_ESTRUTUR"
 		}
 	],
 	"lastProgramExecuted": "SIGAATF",
