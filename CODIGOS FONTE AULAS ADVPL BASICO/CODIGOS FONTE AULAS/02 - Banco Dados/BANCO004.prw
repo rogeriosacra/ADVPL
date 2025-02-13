@@ -1,7 +1,5 @@
-#include 'protheus.ch'
 #include 'parmtype.ch'
-
-
+#include 'TopConn.ch'
 /*/{Protheus.doc} BANCO004
 //TODO Descrição auto-gerada.
 

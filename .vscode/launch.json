@@ -63,6 +63,9 @@
 		},
 		{
 			"label": "u_ESTRUTUR"
+		},
+		{
+			"label": "u_Enchoice"
 		}
 	],
 	"lastProgramExecuted": "SIGAATF",
