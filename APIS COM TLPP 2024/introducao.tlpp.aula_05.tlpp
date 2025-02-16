@@ -2,7 +2,7 @@
 #include 'tlpp-core.th'
 #include 'curso-api.th'
 
-NAMESPACE introducao.tlpp
+NAMESPACE introducao.tlpp//função namespace serve para ajudar a gerenciar nomes de função em um projeto. efeito pratico: função u_aula_05 sera chamada por introducao.tlpp.u_aula_05
 
 /*/
 Public
@@ -35,10 +35,10 @@ Function U_AULA_05
 
 return
 
-class pessoa implements interface_pessoa
+class pessoa implements interface_pessoa //desenvolvendo instancia da classe pessoa 
 
-    private data codigo as character
-    private data loja as character
+    private data codigo as character //definição de propriedades da classe e definição de seu tipo, nesta linha, tipo character
+    private data loja as character //para aribuir valor a uma propriedade pelo console de depuração, a sintaxe é: oPessoa:cnoj :"0000000000000"
     private data cnpj as character
     private data nome as character
     private data nome_reduz as character
@@ -55,20 +55,41 @@ class pessoa implements interface_pessoa
     private data txt_log as character
     private data jsonPessoa as json
 
-    public method new() constructor
-    public method setCGC() as logical
+    public method new() constructor //definição dos métodos (métodos são como comportamento da classe), escopo, nome e seu tipo (tipagem)
+    public method setCGC() as logical// APÓS A DEFINIÇÃO DO MÉTHODO, ELE DEVEM SER DESENVOLVIDOS 
     private method getDadosReceitaWS() as logical
     public method gravaCliente() as logical
     public method gravaFornecedor() as logical
     static method getJsonReceitaWS() as character
 
-endclass
+endclass //indica o fim da definição da classe
 
-method new() class pessoa
+method new() class pessoa//DESENVOLVIMENTO DO METHODO CONSTRUTOR "NEW", MENCIONADO NA LINHA 58, SUA FINALIDADE É CRIAR O OBJETO E COM SUAS PROPRIEDADES
 
-return self
+    self:codigo     := ''     //definição de propriedades da classe e definição de seu tipo, nesta linha, tipo character
+    self:loja       := ''     //Self se refere a ela mesma, ou seja a classe, e pode ser representada por :: no lugar da palavra self, tem o mesmo efetito.
+    self:cnpj       := ''
+    self:nome       := ''
+    self:nome_reduz := ''
+    self:pessoa     := ''
+    self:endereco   := ''
+    self:cep        := ''
+    self:bairro     := ''
+    self:cidade     := ''
+    self:cod_ibge   := ''
+    self:estado     := ''
+    self:email      := ''
+    self:ddd        := ''
+    self:telefone   := ''
+    self:txt_log    := ''
+    self:jsonPessoa := ''
 
-method getJsonReceitaWS(cgc) class pessoa as character
+
+return self // no return não se pode usar ::, tem que ser a palavra
+
+method getJsonReceitaWS(cgc) class pessoa as character//Este metodo faz consulta get na api da receita usanda URl + CNPJ, e o resultado é retornado pela variável cJson ->
+//que em seguida é decodificado para Utf e em seguida ter os acentos removidos na linha 99, e por fim retorna a variável cJson, de onde sairão os dados para gravação na SA1.
+ 
 
     Local cCNPJ         := strtran(strtran(strtran(cgc,".",""),"-",""),"/","") as character
     Local cURL          := 'https://www.receitaws.com.br/v1/cnpj/' + cCNPJ as character
@@ -81,27 +102,31 @@ return cJson
 
 method setCGC(cgc) class pessoa as logical
 
+    //Local lAchou := .F.
+
     self:cnpj           := cgc
-    self:cnpj           := strtran(strtran(strtran(self:cnpj,".",""),"-",""),"/","")
+    self:cnpj           := strtran(strtran(strtran(self:cnpj,".",""),"-",""),"/","") //função que faz tratamento do cnpj extraindo caracteres especiais e substitui por branco
     
-    SA1->(dbSetOrder(3),dbSeek(xFilial(alias())+self:cnpj))   
+    lAchou              := SA1->(dbSetOrder(3),dbSeek(xFilial(alias())+self:cnpj)) //faz busca na sa1 com índice 3 e cnpj capturado da variável cCNPJ. Função SA1->(Found()) no console debug
+    //serve para testar se a busca foi bem sucedida, ela devolve .T. ou .F. 
+    //IF  lAchou  //caso localize, retira os dados da SA1 e grava nas propriedades do objeto.
+        self:codigo         := SA1->A1_COD
+        self:loja           := SA1->A1_LOJA
+        self:nome           := SA1->A1_NOME
+        self:nome_reduz     := SA1->A1_NREDUZ
+        self:endereco       := SA1->A1_END
+        self:cep            := SA1->A1_CEP
+        self:bairro         := SA1->A1_BAIRRO
+        self:cidade         := SA1->A1_MUN
+        self:cod_ibge       := SA1->A1_COD_MUN
+        self:estado         := SA1->A1_EST
+        self:email          := SA1->A1_EMAIL
+        self:ddd            := SA1->A1_DDD
+        self:telefone       := SA1->A1_TEL
+        self:pessoa         := SA1->A1_PESSOA
+    //EndIf
 
-    self:codigo         := SA1->A1_COD
-    self:loja           := SA1->A1_LOJA
-    self:nome           := SA1->A1_NOME
-    self:nome_reduz     := SA1->A1_NREDUZ
-    self:endereco       := SA1->A1_END
-    self:cep            := SA1->A1_CEP
-    self:bairro         := SA1->A1_BAIRRO
-    self:cidade         := SA1->A1_MUN
-    self:cod_ibge       := SA1->A1_COD_MUN
-    self:estado         := SA1->A1_EST
-    self:email          := SA1->A1_EMAIL
-    self:ddd            := SA1->A1_DDD
-    self:telefone       := SA1->A1_TEL
-    self:pessoa         := SA1->A1_PESSOA
-
-    IF empty(self:pessoa)
+    IF Empty(self:pessoa) 
         self:pessoa := 'J'
     EndIF   
 
@@ -113,20 +138,20 @@ method getDadosReceitaWS() class pessoa as logical
 
     Local cCNPJ         := strtran(strtran(strtran(self:cnpj,".",""),"-",""),"/","")
     Local cURL          := 'https://www.receitaws.com.br/v1/cnpj/' + cCNPJ
-    Local cRetorno      := httpget(cURL)
-    Local jRetorno      := jsonObject():new()
+    Local cRetorno      := httpget(cURL)//retorna texto no padrão UTF8, que distorce os caracteres em ADVPL, o tratamento de decodificação fica na linha 144
+    Local jRetorno      := jsonObject():new()//Cria objeto Json
 
-    cRetorno            := decodeUTF8(cRetorno,'cp1252')
-    cRetorno            := fwNoAccent(cRetorno)
+    cRetorno            := decodeUTF8(cRetorno,'cp1252')//decodifica de utf8 para o padrão wincp1252.
+    cRetorno            := fwNoAccent(cRetorno)//retira acentos para completar a adequação do texto.
 
-    jRetorno:fromJson(cRetorno)
+    jRetorno:fromJson(cRetorno)//Metodo from Json(), Coleta dados da variável cRetorno e trasfere para objeto jRetorno
 
-    IF valtype(jRetorno['nome']) == 'U'
+    IF valtype(jRetorno['nome']) == 'U' // Se o retorno do campo nome no retorno do Json for nulo, sai da execução 
         return .F.
     EndIF
 
-    self:nome           := jRetorno['nome'      ]
-    self:nome_reduz     := jRetorno['fantasia'  ]
+    self:nome           := jRetorno['nome'      ] //jRetorno['nome'      ]: sintax para consultar um propriedade de um objeto json/ 
+    self:nome_reduz     := jRetorno['fantasia'  ] //self:nome: intax para consultar um propriedade de um objeto
     self:endereco       := jRetorno['logradouro']
     self:cep            := jRetorno['cep'       ]
     self:bairro         := jRetorno['bairro'    ]
@@ -135,19 +160,19 @@ method getDadosReceitaWS() class pessoa as logical
     self:telefone       := jRetorno['telefone'  ]
     self:email          := jRetorno['email'     ]
 
-    self:cep            := strtran(strtran(self:cep,".",""),"-","")
+    self:cep            := strtran(strtran(self:cep,".",""),"-","")// exemplo de uso strtran() tratando caracter especial 
 
-    IF empty(self:nome_reduz)
+    IF empty(self:nome_reduz) // caso nome reduzido esteja vazio, preencho com o dado do campo nome
         self:nome_reduz := self:nome
     EndIF    
 
-    CC2->(dbSetOrder(4),dbSeek(xFilial(alias())+self:estado+self:cidade))
+    CC2->(dbSetOrder(4),dbSeek(xFilial(alias())+self:estado+self:cidade))//buca na cc2 código do municipio com base no estado e cidade contido no objeto
 
-    IF CC2->(found())
+    IF CC2->(found()) //Caso busca seja bem sucedidada, preenche a propriedade cod_ibge com dado da CC2
         self:cod_ibge   := CC2->CC2_CODMUN
     EndIF
 
-    self:jsonPessoa     := jRetorno
+    self:jsonPessoa     := jRetorno//artribui conteúdo do objeto jRetorno para objeto jsonPessoa 
 
 return .T.
 
@@ -162,8 +187,8 @@ method gravaCliente() class pessoa as logical
     Local aCamposSA1    := array(0)
     Local x
 
-    aCamposSA1          := fwSx3Util():getAllFields('SA1',.F.)
-
+    aCamposSA1          := fwSx3Util():getAllFields('SA1',.F.)//classe fwSx3Util():getAllFields, no tlpp não pé necessário usar o método construtor para esta classe
+    //Parametro .F. se refere a não obter os campos virtuais da tabela SA1
     Private lMsErroAuto := .F.
 
     aadd(aDados,{"A1_NOME"   ,self:nome         ,Nil})
@@ -182,12 +207,12 @@ method gravaCliente() class pessoa as logical
     IF nOpc == 4
         For x := 1 To Len(aCamposSA1)
             IF ascan(aDados,{|campo| campo[1] == aCamposSA1[x]}) == 0
-                aadd(aDados,{aCamposSA1[x],SA1->&(aCamposSA1[x]),Nil})
+                aadd(aDados,{aCamposSA1[x],SA1->&(aCamposSA1[x]),Nil})//Macro substituição
             EndIF
         Next
     EndIF
 
-    msExecAuto({|x,y| mata030(x,y)},aDados,nOpc)
+    msExecAuto({|x,y| mata030(x,y)},aDados,nOpc)    
 
     IF lMsErroAuto
         mostraerro('\system\','erro_mata030.txt')
