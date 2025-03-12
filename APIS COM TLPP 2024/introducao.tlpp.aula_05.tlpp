@@ -10,9 +10,9 @@ private
 protected
 /*/
 
-Function U_AULA_05
+Function U_AULA_05 // NAMESPACE introducao.tlpp, faz parte do nome da função
 
-    Local oPessoa := introducao.tlpp.pessoa():new()
+    Local oPessoa := introducao.tlpp.pessoa():new()//foi adicinado para fazer referência ao NAMESPACE,não era necessário, mas foi feito por boa pratica
     Local cCNPJ   := ''
     Local lRPC    := .F.
 
@@ -37,10 +37,10 @@ return
 
 class pessoa implements interface_pessoa //desenvolvendo instancia da classe pessoa 
 
-    private data codigo as character //definição de propriedades da classe e definição de seu tipo, nesta linha, tipo character
+    private data codigo as character //definição de propriedades da classe e definição do tipo de dado, nesta linha, tipo character
     private data loja as character //para aribuir valor a uma propriedade pelo console de depuração, a sintaxe é: oPessoa:cnoj :"0000000000000"
-    private data cnpj as character
-    private data nome as character
+    private data cnpj as character//Esta definição fará com que as variáveis sejam inicializadas com respectivos tipos
+    private data nome as character//permitindo que seja excluído o trecho responsável por inicializá-la no méthodo new
     private data nome_reduz as character
     private data pessoa as character
     private data endereco as character
@@ -57,18 +57,18 @@ class pessoa implements interface_pessoa //desenvolvendo instancia da classe pes
 
     public method new() constructor //definição dos métodos (métodos são como comportamento da classe), escopo, nome e seu tipo (tipagem)
     public method setCGC() as logical// APÓS A DEFINIÇÃO DO MÉTHODO, ELE DEVEM SER DESENVOLVIDOS 
-    private method getDadosReceitaWS() as logical
+    private method getDadosReceitaWS() as logical // Private, public, private são modificadores de acesso/escopo
     public method gravaCliente() as logical
     public method gravaFornecedor() as logical
-    static method getJsonReceitaWS() as character
+    static method getJsonReceitaWS() as character //Metódo static são executados sem a necessidade de instanciar uma nova classe, ou seja, sem executar o méyodo new
 
 endclass //indica o fim da definição da classe
 
 method new() class pessoa//DESENVOLVIMENTO DO METHODO CONSTRUTOR "NEW", MENCIONADO NA LINHA 58, SUA FINALIDADE É CRIAR O OBJETO E COM SUAS PROPRIEDADES
-
-    self:codigo     := ''     //definição de propriedades da classe e definição de seu tipo, nesta linha, tipo character
+//O trecho a partir da linha 69 será comentado por não ser mais necessário, uma vez que na definição das propriedades da classe pessoa, tem a tipagem de dado definida
+/*    self:codigo     := ''     //definição de propriedades da classe e definição de seu tipo, nesta linha, tipo character
     self:loja       := ''     //Self se refere a ela mesma, ou seja a classe, e pode ser representada por :: no lugar da palavra self, tem o mesmo efetito.
-    self:cnpj       := ''
+    self:cnpj       := '' 
     self:nome       := ''
     self:nome_reduz := ''
     self:pessoa     := ''
@@ -82,10 +82,10 @@ method new() class pessoa//DESENVOLVIMENTO DO METHODO CONSTRUTOR "NEW", MENCIONA
     self:ddd        := ''
     self:telefone   := ''
     self:txt_log    := ''
-    self:jsonPessoa := ''
+    self:jsonPessoa := '' */
 
 
-return self // no return não se pode usar ::, tem que ser a palavra
+return self // no return não se pode usar ::, tem que ser a palavra self
 
 method getJsonReceitaWS(cgc) class pessoa as character//Este metodo faz consulta get na api da receita usanda URl + CNPJ, e o resultado é retornado pela variável cJson ->
 //que em seguida é decodificado para Utf e em seguida ter os acentos removidos na linha 99, e por fim retorna a variável cJson, de onde sairão os dados para gravação na SA1.
@@ -130,8 +130,8 @@ method setCGC(cgc) class pessoa as logical
         self:pessoa := 'J'
     EndIF   
 
-    ::getDadosReceitaWS() 
-
+    ::getDadosReceitaWS() //chamada deste metódo anteriormente estava na função U_aula05, porém houve erro na chamdada devido   
+//o seu escopo ser private, então sua chamada para ser valida foi inserida dentro deste metodo setcgc, que faz parte da mesma classe
 return .T.
 
 method getDadosReceitaWS() class pessoa as logical
@@ -151,7 +151,7 @@ method getDadosReceitaWS() class pessoa as logical
     EndIF
 
     self:nome           := jRetorno['nome'      ] //jRetorno['nome'      ]: sintax para consultar um propriedade de um objeto json/ 
-    self:nome_reduz     := jRetorno['fantasia'  ] //self:nome: intax para consultar um propriedade de um objeto
+    self:nome_reduz     := jRetorno['fantasia'  ] //self:nome: sintax para consultar um propriedade de um objeto
     self:endereco       := jRetorno['logradouro']
     self:cep            := jRetorno['cep'       ]
     self:bairro         := jRetorno['bairro'    ]

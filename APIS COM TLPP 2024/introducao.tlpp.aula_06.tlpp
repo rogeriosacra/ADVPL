@@ -20,10 +20,15 @@ Function U_AULA_06 as logical
         lRPC := .T.
     EndIF
 
+    //chamada do método static GETJSONRECEITAWS()
     cJsonReceitaWS := introducao.tlpp.pessoa():getJsonReceitaWS('33.649.575/0001-99')
+
 
     IF lRPC
         rpcClearEnv()
     EndIF
 
 return lRET    
+
+/*Nota: Metodos estaticos são executadoss sem a 
+necessidade de criar uma nova instancia da classe a qual pertecem.*/
