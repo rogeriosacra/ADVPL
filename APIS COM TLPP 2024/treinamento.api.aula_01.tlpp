@@ -3,7 +3,7 @@
 
 NAMESPACE treinamento.api
 
-//-- http://localhost:8081/rest
+//-- http://localhost:8081/rest/teste
 @get(endpoint='/teste', description='Servico rest de testes - metodo get')//Annotation indicando ao framework o endpoint da função resposável pelo get e sua descrição  
 //Em funções, o annotation é definida fora da função, em classes, o annotation fica logo acima do método que vai responder como API rest
 Function U_AULA_01 as logical
