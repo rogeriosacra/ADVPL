@@ -1,0 +1,130 @@
+#line 1 "c:/totvs1212410/protheus/protheus/include\totvs.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\dialog.ch"
+#line 29 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\font.ch"
+#line 30 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\ptmenu.ch"
+#line 32 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\print.ch"
+#line 34 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\colors.ch"
+#line 36 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\folder.ch"
+#line 38 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\msobject.ch"
+#line 39 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\vkey.ch"
+#line 43 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\winapi.ch"
+#line 45 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcommand.ch"
+#line 48 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcss.ch"
+#line 51 "protheus.ch"
+#line 2 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.htgisausde\c:/users/rogério/documents/meusprojetosgithub/advpl/apis com tlpp 2024/treinamento.api.aula_01.tlpp"
+#line 1 "c:/totvs1212410/protheus/protheus/include\tlpp-core.th"
+#line 1 "c:/totvs1212410/protheus/protheus/include\tlpp-object.th"
+#line 11 "tlpp-core.th"
+#line 1 "c:/totvs1212410/protheus/protheus/include\tlpp-rest.th"
+
+
+
+
+
+
+
+
+
+@annotation Get
+  endpoint as  char
+  description as  char default ""
+@end
+@annotation Put
+  endpoint as  char
+  description as  char default ""
+@end
+@annotation Patch
+  endpoint as  char
+  description as  char default ""
+@end
+@annotation Post
+  endpoint as  char
+  description as  char default ""
+@end
+@annotation Delete
+  endpoint as  char
+  description as  char default ""
+@end
+@annotation AuthGuard
+@end
+
+@annotation Options
+  endpoint as  char
+  description as  char default ""
+@end
+#line 13 "tlpp-core.th"
+#line 4 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.htgisausde\c:/users/rogério/documents/meusprojetosgithub/advpl/apis com tlpp 2024/treinamento.api.aula_01.tlpp"
+NAMESPACE treinamento.api
+
+
+@get(endpoint="/teste", description="Servico rest de testes - metodo get")
+
+Function U_AULA_01 as  logical
+
+    Local lRPC as  logical
+    Local lRET as  logical
+
+    IF type("cEmpAnt") <> "C"
+        rpcSetEnv("99","01")
+        lRPC := .T. 
+    EndIF
+
+    oRest:setResponse('{"Hello":"Olá Primeiro teste!!"}')
+
+    lRET     := .T. 
+
+    IF lRPC
+        rpcClearEnv()
+    EndIF
+
+return lRET
+
+_ObjNewClass( AULA_01 ,)
+
+    _ObjClassMethod(new,, "PUBLIC")
+
+
+
+    @get(endpoint="/teste2", description="Exemplo teste de uma metodo de uma classe para uma api rest")
+    public method teste() as  logical
+
+_ObjEndClass( )
+
+Function ___AULA_01____new( )
+
+return self
+
+Function ___AULA_01____teste( )
+
+    Local lRPC as  logical
+    Local lRET as  logical
+    Local jResp as  json
+
+    IF type("cEmpAnt") <> "C"
+        rpcSetEnv("99","01")
+        lRPC        := .T. 
+    EndIF
+
+    jResp           := jsonObject():new()
+    jResp["hello"]  := "Olá, esse é o meu primeiro teste com classe!!"
+
+    oRest:setResponse(jResp:toJson())
+
+    lRET            := .T. 
+
+    IF lRPC
+        rpcClearEnv()
+    EndIF
+
+return lRET
