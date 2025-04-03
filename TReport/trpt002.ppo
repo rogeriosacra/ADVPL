@@ -21,9 +21,9 @@
 #line 48 "Protheus.ch"
 #line 1 "c:/totvs1212410/protheus/protheus/include\fwcss.ch"
 #line 51 "Protheus.ch"
-#line 2 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.culgdsvmfn\c:/users/rogério/documents/meusprojetosgithub/advpl/treport/trpt002.prw"
+#line 2 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.wdjonfkqsc\c:/users/rogério/documents/meusprojetosgithub/advpl/treport/trpt002.prw"
 #line 1 "c:/totvs1212410/protheus/protheus/include\TopConn.CH"
-#line 16 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.culgdsvmfn\c:/users/rogério/documents/meusprojetosgithub/advpl/treport/trpt002.prw"
+#line 16 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.wdjonfkqsc\c:/users/rogério/documents/meusprojetosgithub/advpl/treport/trpt002.prw"
 Function U_Trpt002()
 
 	Local oReport := Nil
@@ -41,37 +41,37 @@ Static Function RPTPrint(oReport)
 	Local cQuery := ""
 	Local cNumCod := ""
 
-cQuery := " SELECT A1_COD,A1_NOME,C5_NUM,C6_QTDVEN,C6_PRCVEN,B1_DESC "
-   		cQuery += " FROM SA1990 SA1, SC5990 SC5, SC6990 SC6, SB1990 SB1 "
-   			cQuery += " WHERE SA1.D_E_L_E_T_ = '' AND "
-   				cQuery += " C5_FILIAL = '"+MV_PAR01+"' AND SC5.D_E_L_E_T_ = '' AND C5_CLIENTE = A1_COD AND "
-   			cQuery += " C6_FILIAL = '"+MV_PAR01+"' AND SC6.D_E_L_E_T_ = '' AND C6_NUM = C5_NUM AND "
-   		cQuery += " B1_FILIAL = '"+MV_PAR01+"' AND SB1.D_E_L_E_T_ = '' AND B1_COD = C6_PRODUTO "
-   cQuery += " ORDER BY A1_FILIAL,A1_COD,C5_FILIAL,C5_NUM,C6_FILIAL,C6_ITEM "
+	cQuery := " SELECT A1_COD,A1_NOME,C5_NUM,C6_QTDVEN,C6_PRCVEN,B1_DESC "
+	cQuery += " FROM SA1990 SA1, SC5990 SC5, SC6990 SC6, SB1990 SB1 "
+	cQuery += " WHERE SA1.D_E_L_E_T_ = '' AND "
+	cQuery += " C5_FILIAL = '"+MV_PAR01+"' AND SC5.D_E_L_E_T_ = '' AND C5_CLIENTE = A1_COD AND "
+	cQuery += " C6_FILIAL = '"+MV_PAR01+"' AND SC6.D_E_L_E_T_ = '' AND C6_NUM = C5_NUM AND "
+	cQuery += " B1_FILIAL = '' AND SB1.D_E_L_E_T_ = '' AND B1_COD = C6_PRODUTO "
+	cQuery += " ORDER BY A1_FILIAL,A1_COD,C5_FILIAL,C5_NUM,C6_FILIAL,C6_ITEM "
 
 
-			If Select("TEMP") <> 0
-				DbSelectArea("TEMP")
-				DbCloseArea()
-			EndIf
+	If Select("TEMP") <> 0
+		DbSelectArea("TEMP")
+		DbCloseArea()
+	EndIf
 
-		dbUseArea(.T., "TOPCONN", TCGENQRY(,,cQuery), "TEMP" , .F. , .T. )
+	dbUseArea(.T., "TOPCONN", TCGENQRY(,,cQuery), "TEMP" , .F. , .T. )
 
-			DbSelectArea("TEMP")
-			TEMP->(dbGoTop())
+	DbSelectArea("TEMP")
+	TEMP->(dbGoTop())
 
-			oReport:SetMeter(TEMP->(LastRec()))
+	oReport:SetMeter(TEMP->(LastRec()))
 
-		While !EOF()
-			If oReport:Cancel()
-				Exit
-			EndIf
+	While !EOF()
+		If oReport:Cancel()
+			Exit
+		EndIf
 
-			oSection1:Init()
-			oReport:IncMeter()
+		oSection1:Init()
+		oReport:IncMeter()
 
-			cNumCod := TEMP->A1_COD
-			IncProc("Imprimindo Cliente "+ Alltrim(TEMP->A1_COD))
+		cNumCod := TEMP->A1_COD
+		IncProc("Imprimindo Cliente "+ Alltrim(TEMP->A1_COD))
 
 
 		oSection1:Cell("A1_COD"):SetValue(TEMP->A1_COD)
@@ -86,7 +86,7 @@ cQuery := " SELECT A1_COD,A1_NOME,C5_NUM,C6_QTDVEN,C6_PRCVEN,B1_DESC "
 		While TEMP->A1_COD == cNumCod
 			oReport:IncMeter()
 
-		IncProc("Imprimindo pedidos..."+ Alltrim(TEMP->C5_NUM))
+			IncProc("Imprimindo pedidos..."+ Alltrim(TEMP->C5_NUM))
 			oSection2:Cell("C5_NUM"):SetValue(TEMP->C5_NUM)
 			oSection2:Cell("B1_DESC"):SetValue(TEMP->B1_DESC)
 			oSection2:Cell("C6_PRCVEN"):SetValue(TEMP->C6_PRCVEN)
@@ -96,12 +96,12 @@ cQuery := " SELECT A1_COD,A1_NOME,C5_NUM,C6_QTDVEN,C6_PRCVEN,B1_DESC "
 			TEMP->(dbSkip())
 
 		EndDo
-			oSection2:Finish()
-			oReport:ThinLine()
+		oSection2:Finish()
+		oReport:ThinLine()
 
-			oSection1:Finish()
+		oSection1:Finish()
 
-		EndDo
+	EndDo
 
 Return
 
