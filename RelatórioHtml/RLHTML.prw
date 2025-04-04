@@ -105,13 +105,13 @@ Static Function GeraHTML()
    	
    	EndDO
    	
-   		FClose(nH)
+   		 FClose(nH)
    		
    	MsgInfo("Arquivo gerado com sucesso!!")
    	
    	//Abrindo o arquivo 
    	
-   	nRet := ShellExecute("open",cFile,"","C:\teste_html\Index.htm",1)
+   	nRet := ShellExecute("open",cFile,"","C:\teste_html\",1)
    
 Return nRet
 
