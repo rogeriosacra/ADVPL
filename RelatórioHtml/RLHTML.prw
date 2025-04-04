@@ -81,7 +81,7 @@ Static Function GeraHTML()
    cHtml += "<tr align='center'>" 
    cHtml += "<th width='72' scope='row'>Filial</th>" 
    cHtml += "<th width='100' scope='row'>Codigo</th>" 
-   cHtml += "<th width='200'>Descrição</th>" 
+   cHtml += "<th width='200'>Descricao</th>" 
    cHtml += "<th width='72'>Tipo</th>" 
    cHtml += "<th width='72'>Grupo</th>" 
    cHtml += "<th width='100'>Ipi</th>" 

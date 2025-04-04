@@ -97,8 +97,8 @@ Static Function GeraExcel()
 		
 			If __CopyFile(cArq,cDirTmp + cArq)
 				If lOK
-					oExcelApp := MSExcel():New()
-					oExcelApp:WorkBooks:Open(cDirTmp + cArq)
+					oExcelApp := FWMSExcel():New()
+					oExcelApp:WorkBooks:Open(cDirTmp + cArq) //erro neste metodo
 					oExcelApp:SetVisible(.T.)
 					oExcelApp:Destroy()
 					

@@ -1,0 +1,129 @@
+#line 1 "c:/totvs1212410/protheus/protheus/include\Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\dialog.ch"
+#line 29 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\font.ch"
+#line 30 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\ptmenu.ch"
+#line 32 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\print.ch"
+#line 34 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\colors.ch"
+#line 36 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\folder.ch"
+#line 38 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\msobject.ch"
+#line 39 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\vkey.ch"
+#line 43 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\winapi.ch"
+#line 45 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcommand.ch"
+#line 48 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcss.ch"
+#line 51 "Protheus.ch"
+#line 2 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.rorthhlodn\c:/users/rogério/documents/meusprojetosgithub/advpl/relatóriohtml/rlhtml.prw"
+#line 1 "c:/totvs1212410/protheus/protheus/include\Parmtype.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\parmtypech.ch"
+#line 3 "Parmtype.ch"
+#line 16 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.rorthhlodn\c:/users/rogério/documents/meusprojetosgithub/advpl/relatóriohtml/rlhtml.prw"
+Function U_RLHTML()
+
+	If Iif(FindFunction("APMsgYesNo"), APMsgYesNo("Deseja imprimir o relatório HTML?",), (cMsgYesNo:="MsgYesNo", &cMsgYesNo.("Deseja imprimir o relatório HTML?",)))
+
+	Processa({||MntQry() 	},,"Processando...")
+	MsAguarde( { || GeraHTML() },,"O arquivo HTML está sendo Gerado... ")
+
+	Else
+		Alert("<b>Cancelado pero usuário.</b>")
+		Return Nil
+	EndIf
+
+Return
+
+
+Static Function MntQry()
+
+  Local cQuery := " "
+
+ cQuery +=  " SELECT B1_FILIAL AS FILIAL, B1_COD AS CODIGO, "
+ 	cQuery += " B1_DESC AS DESCRICAO, B1_TIPO AS TIPO, "
+ cQuery += " B1_GRUPO AS GRUPO, B1_POSIPI AS IPI FROM SB1990 WHERE D_E_L_E_T_ = '' "
+
+	cQuery := ChangeQuery(cQuery)
+		DbUseArea( .T. , "TOPCONN", TCGENQRY(,,cQuery), "HT1", .F. , .T. )
+
+Return Nil
+
+
+
+Static Function GeraHTML()
+
+	Local cHtml := ""
+	Local cFile := "C:\teste_html\Index.htm"
+	Local dData := Date()
+
+	nH := fCreate(cFile)
+		If nH == -1
+			Iif(FindFunction("APMsgStop"), APMsgStop("Falha ao criar o arquivo HTML "+Str(Ferror()),), MsgStop("Falha ao criar o arquivo HTML "+Str(Ferror()),))
+				Return
+		EndIf
+
+
+	cHtml += '<html xmlns="http://www.w3.org/1999/xhtml">'
+   cHtml += "<head>"
+   cHtml += '<meta charset="iso-8859-1">'
+   cHtml += "<title>Relatório de produtos</title>"
+   cHtml += "<link rel='stylesheet' href='estilo-darck.css' />"
+   cHtml += "</head>"
+
+   cHtml += "<body>"
+   cHtml += "<div id='cabec'>"
+   cHtml += "   <center>"
+   cHtml += "<table width='331' id='table-b' summary='Produtos'>"
+
+   cHtml += "<tr>"
+   cHtml += " <td width='252' scope='row'><font face='arial'><b>Parametros:</b></font><br />"
+   cHtml += " <font face='arial'>Data de atualização: "+ DToC(dData) +" </font><br /> <font face='arial'></font></td>"
+
+   cHtml += " </tr>"
+   cHtml += "</table></center>"
+
+   cHtml += "<p align=center><font face='Lucida Sans Unicode' size='6'><u>Relatório exemplo</u></font></p>"
+	cHtml += "  <center>"
+   cHtml += "<table width='1000' id='table-b' summary='Produtos'>"
+   cHtml += "<tr align='center'>"
+   cHtml += "<th width='72' scope='row'>Filial</th>"
+   cHtml += "<th width='100' scope='row'>Codigo</th>"
+   cHtml += "<th width='200'>Descricao</th>"
+   cHtml += "<th width='72'>Tipo</th>"
+   cHtml += "<th width='72'>Grupo</th>"
+   cHtml += "<th width='100'>Ipi</th>"
+   cHtml += "</tr>"
+
+   	FWrite(nH,cHtml)
+   		cHtml := ""
+
+   	While HT1->(!EOF())
+
+   		cHtml += "<tr><td>"+ HT1->(FILIAL) + "</td>"
+   		cHtml += "<td>"+HT1->(CODIGO)+"</td>"
+   		cHtml += "<td>"+HT1->(DESCRICAO)+"</td>"
+   		cHtml += "<td>"+HT1->(TIPO)+"</td>"
+   		cHtml += "<td>"+HT1->(GRUPO)+"</td>"
+   		cHtml += "<td>"+HT1->(IPI)+"</td></tr>"
+
+   			FWrite(nH,cHtml)
+   				cHtml := ""
+   				HT1->(dbSkip())
+
+   	EndDO
+
+   		FClose(nH)
+
+   	Iif(FindFunction("APMsgInfo"), APMsgInfo("Arquivo gerado com sucesso!!",), MsgInfo("Arquivo gerado com sucesso!!",))
+
+
+
+   	nRet := ShellExecute("open",cFile,"","C:\teste_html\Index.htm",1)
+
+Return nRet

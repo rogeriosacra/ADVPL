@@ -38,8 +38,8 @@ cQuery := " SELECT A1_COD AS COD_CLI,A1_NOME AS NOME,C5_NUM AS PEDIDO,C5_EMISSAO
    	cQuery += " FROM SA1990 SA1, SC5990 SC5, SC6990 SC6, SB1990 SB1 "
    		cQuery += " WHERE SA1.D_E_L_E_T_ = '' AND "
    			cQuery += " C5_FILIAL = '01' AND SC5.D_E_L_E_T_ = '' AND C5_CLIENTE = A1_COD AND "
-   		cQuery += " C6_FILIAL = '01' AND SC6.D_E_L_E_T_ = '' AND C6_NUM = C5_NUM AND "
-   	cQuery += " B1_FILIAL = '01' AND SB1.D_E_L_E_T_ = '' AND B1_COD = C6_PRODUTO "  
+   		cQuery += " C6_FILIAL = '01' AND SC6.D_E_L_E_T_ = '' AND C6_NUM = C5_NUM "
+   	cQuery += " AND SB1.D_E_L_E_T_ = '' AND B1_COD = C6_PRODUTO "  
  cQuery += " ORDER BY A1_FILIAL,A1_COD,C5_FILIAL,C5_NUM,C6_FILIAL,C6_ITEM "
 	
 		If Select("TR1") <> 0
@@ -100,7 +100,7 @@ Static Function GeraExcel()
 													  
 		 oExcel:AddRow("ABA 2","PEDIDOS",{ TR1->(PEDIDO),;
 													  TR1->(sToD(EMISSAO)),;
-					Ç]~ÇÇ								  TR1->(QTDVEN),;
+													  TR1->(QTDVEN),;
 													  TR1->(VALOR),;
 													  TR1->(DESCRICAO)})
 													     
@@ -117,7 +117,7 @@ Static Function GeraExcel()
 			If __CopyFile(cArq,cDirTmp + cArq)
 				If lOK
 					oExcelApp := FWMSEXCEL():New()
-					oExcelApp:WorkBooks:Open(cDirTmp + cArq)
+					oExcelApp:WorkBooks:Open(cDirTmp + cArq)//erro neste metodo
 					oExcelApp:SetVisible(.T.)
 					oExcelApp:Destroy()
 					
