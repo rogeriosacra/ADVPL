@@ -21,11 +21,11 @@
 #line 48 "Protheus.ch"
 #line 1 "c:/totvs1212410/protheus/protheus/include\fwcss.ch"
 #line 51 "Protheus.ch"
-#line 2 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.rorthhlodn\c:/users/rogério/documents/meusprojetosgithub/advpl/relatóriohtml/rlhtml.prw"
+#line 2 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.ohtxshqcpe\c:/users/rogério/documents/meusprojetosgithub/advpl/relatóriohtml/rlhtml.prw"
 #line 1 "c:/totvs1212410/protheus/protheus/include\Parmtype.ch"
 #line 1 "c:/totvs1212410/protheus/protheus/include\parmtypech.ch"
 #line 3 "Parmtype.ch"
-#line 16 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.rorthhlodn\c:/users/rogério/documents/meusprojetosgithub/advpl/relatóriohtml/rlhtml.prw"
+#line 16 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.ohtxshqcpe\c:/users/rogério/documents/meusprojetosgithub/advpl/relatóriohtml/rlhtml.prw"
 Function U_RLHTML()
 
 	If Iif(FindFunction("APMsgYesNo"), APMsgYesNo("Deseja imprimir o relatório HTML?",), (cMsgYesNo:="MsgYesNo", &cMsgYesNo.("Deseja imprimir o relatório HTML?",)))
@@ -118,12 +118,12 @@ Static Function GeraHTML()
 
    	EndDO
 
-   		FClose(nH)
+   		 FClose(nH)
 
    	Iif(FindFunction("APMsgInfo"), APMsgInfo("Arquivo gerado com sucesso!!",), MsgInfo("Arquivo gerado com sucesso!!",))
 
 
 
-   	nRet := ShellExecute("open",cFile,"","C:\teste_html\Index.htm",1)
+   	nRet := ShellExecute("open",cFile,"","C:\teste_html\",1)
 
 Return nRet
