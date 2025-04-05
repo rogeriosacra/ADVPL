@@ -70,6 +70,7 @@ Static Function fReportDef()
 	
 	//Colunas do relatório
 	TRCell():New(oSectDad, "A1_COD", "QRY_AUX", "Codigo", /*Picture*/, 6, /*lPixel*/,/*{|| code-block de impressao }*/,/*cAlign*/,/*lLineBreak*/,/*cHeaderAlign */,/*lCellBreak*/,/*nColSpace*/,/*lAutoSize*/,/*nClrBack*/,/*nClrFore*/,/*lBold*/)
+	TRCell():New(oSectDad, "A1_LOJA", "QRY_AUX", "Loja", /*Picture*/, 2, /*lPixel*/,/*{|| code-block de impressao }*/,/*cAlign*/,/*lLineBreak*/,/*cHeaderAlign */,/*lCellBreak*/,/*nColSpace*/,/*lAutoSize*/,/*nClrBack*/,/*nClrFore*/,/*lBold*/)
 	TRCell():New(oSectDad, "A1_NOME", "QRY_AUX", "Nome", /*Picture*/, 40, /*lPixel*/,/*{|| code-block de impressao }*/,/*cAlign*/,/*lLineBreak*/,/*cHeaderAlign */,/*lCellBreak*/,/*nColSpace*/,/*lAutoSize*/,/*nClrBack*/,/*nClrFore*/,/*lBold*/)
 	TRCell():New(oSectDad, "A1_PESSOA", "QRY_AUX", "Fisica/Jurid", /*Picture*/, 1, /*lPixel*/,/*{|| code-block de impressao }*/,/*cAlign*/,/*lLineBreak*/,/*cHeaderAlign */,/*lCellBreak*/,/*nColSpace*/,/*lAutoSize*/,/*nClrBack*/,/*nClrFore*/,/*lBold*/)
 	TRCell():New(oSectDad, "C5_NUM", "QRY_AUX", "Numero", /*Picture*/, 6, /*lPixel*/,/*{|| code-block de impressao }*/,/*cAlign*/,/*lLineBreak*/,/*cHeaderAlign */,/*lCellBreak*/,/*nColSpace*/,/*lAutoSize*/,/*nClrBack*/,/*nClrFore*/,/*lBold*/)
@@ -101,9 +102,10 @@ Static Function fRepPrint(oReport)
 	
 	//Montando consulta de dados
 	cQryAux := ""
-	cQryAux += "SELECT  A1_COD, A1_NOME,A1_PESSOA, C5_NUM, C5_EMISSAO FROM SA1990 A1"		+ STR_PULA
+	cQryAux += "SELECT  A1_COD, A1_LOJA,A1_NOME,A1_PESSOA, C5_NUM, C5_EMISSAO FROM SA1990 A1"		+ STR_PULA
 	cQryAux += "INNER JOIN SC5990 C5"		+ STR_PULA
 	cQryAux += "ON A1_COD = C5_CLIENTE"		+ STR_PULA
+	cQryAux += "WHERE A1.D_E_L_E_T_ ='' AND C5.D_E_L_E_T_ = '' " + STR_PULA
 	cQryAux += "ORDER BY  C5.R_E_C_N_O_ DESC"		+ STR_PULA
 	cQryAux := ChangeQuery(cQryAux)
 	
