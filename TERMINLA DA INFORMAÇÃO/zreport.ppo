@@ -1,0 +1,908 @@
+#line 1 "c:/totvs1212410/protheus/protheus/include\Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\dialog.ch"
+#line 29 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\font.ch"
+#line 30 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\ptmenu.ch"
+#line 32 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\print.ch"
+#line 34 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\colors.ch"
+#line 36 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\folder.ch"
+#line 38 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\msobject.ch"
+#line 39 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\vkey.ch"
+#line 43 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\winapi.ch"
+#line 45 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcommand.ch"
+#line 48 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcss.ch"
+#line 51 "Protheus.ch"
+#line 3 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.dbhvjhhfyr\c:/users/rogério/documents/meusprojetosgithub/advpl/terminla da informaÇÃo/zreport.prw"
+#line 1 "c:/totvs1212410/protheus/protheus/include\TopConn.ch"
+#line 5 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.dbhvjhhfyr\c:/users/rogério/documents/meusprojetosgithub/advpl/terminla da informaÇÃo/zreport.prw"
+
+
+
+
+
+
+
+
+
+
+
+
+
+Function U_zReport()
+	Local aArea := GetArea()
+
+	Local oGrpGer
+	Local oGrpDef
+	Local oGrpPar
+	Local oGrpEma
+	Private cAutor := "zReport"
+	Private cData  := dToC(Date())
+
+	Private nJanLarg := 800
+	Private nJanAltu := 500
+
+	Private oDlgPvt
+	Private oBtnFec
+	Private oBtnGer
+	Private aTpPad := {"S=Sim", "N=Nao"}
+
+	Private oSayUserF, oGetUserF, cGetUserF := "xRelat" + Space(2)
+	Private oSayDirec, oGetDirec, cGetDirec := GetTempPath()
+	Private oSayTitul, oGetTitul, cGetTitul := "Relatorio" + Space(21)
+	Private nLenDirec := 120
+
+	Private aTpOri := {"R=Retrato", "P=Paisagem"}
+	Private aTpFon := {"P=Padrao",  "1=Padrao. Tamanho 8", "2=Padrao. Tamanho 12"}
+	Private oSayOrien, oCmbOrien, cCmbOrien := "R"
+	Private oSayFonte, oCmbFonte, cCmbFonte := "P"
+
+	Private oSayUtili, oCmbUtili, cCmbUtili := "N"
+	Private oSayPergu, oGetPergu, cGetPergu := Space(10)
+	Private oSayMostr, oCmbMostr, cCmbMostr := "N"
+
+	Private oSayEnvia, oCmbEnvia, cCmbEnvia := "N"
+	Private oSayEmail, oGetEmail, cGetEmail := Space(100)
+
+	Private oSaySQL, oPanelSQL, oEditSQL, cEditSQL := ""
+	Private oSayQuebr, oGetQuebr, cGetQuebr := Space(30)
+	Private oChkEdit, lChkEdit := .F. 
+	Private oMsGetCam
+	Private aHeaderCam := {}
+	Private aColsCam   := {}
+	Private oChkTot, lChkTot := .F. 
+	Private oMsGetTot
+	Private aHeaderTot := {}
+	Private aColsTot   := {}
+
+	Private oFolderPvt
+	Private oScrollRel
+	Private oScrollSQL
+
+
+
+	aAdd(aHeaderCam,{ "Campo",           "XX_CAMPO", "",       010,      0,  ".T.",        ".T.", "C", "", "",      "",                                                       ""} )
+	aAdd(aHeaderCam,{ "Titulo",          "XX_TITUL", "",       020,      0,  ".T.",        ".T.", "C", "", "",      "",                                                       ""} )
+	aAdd(aHeaderCam,{ "Mascara",         "XX_MASCA", "",       020,      0,  ".T.",        ".T.", "C", "", "",      "",                                                       ""} )
+	aAdd(aHeaderCam,{ "Tamanho",         "XX_TAMCP", "@E 999", 003,      0,  "Positivo()", ".T.", "N", "", "",      "",                                                       ""} )
+	aAdd(aHeaderCam,{ "Alinhamento",     "XX_ALINH", "",       001,      0,  ".T.",        ".T.", "C", "", "",      "0=Padrao;1=Esquerda;2=Direita;3=Centralizado",           "'0'"} )
+	aAdd(aHeaderCam,{ "Quebra a Linha?", "XX_QUEBR", "",       001,      0,  ".T.",        ".T.", "C", "", "",      "S=Sim;N=Nao",                                            "'N'"} )
+	aAdd(aHeaderCam,{ "Cor de Fundo",    "XX_FUNDO", "",       001,      0,  ".T.",        ".T.", "C", "", "",      "0=Padrao;1=Preto;2=Branco;3=Vermelho;4=Verde;5=Azul",    "'0'"} )
+	aAdd(aHeaderCam,{ "Cor da Fonte",    "XX_FONTE", "",       001,      0,  ".T.",        ".T.", "C", "", "",      "0=Padrao;1=Preto;2=Branco;3=Vermelho;4=Verde;5=Azul",    "'0'"} )
+	aAdd(aHeaderCam,{ "Negrito?",        "XX_NEGRI", "",       001,      0,  ".T.",        ".T.", "C", "", "",      "S=Sim;N=Nao",                                            "'N'"} )
+
+
+
+	aAdd(aHeaderTot,{ "Campo",           "XX_CAMPO", "",     010,      0,  ".T.",        ".T.", "C", "", "",      "",                                                                                 ""} )
+	aAdd(aHeaderTot,{ "Mascara",         "XX_MASCA", "",     020,      0,  ".T.",        ".T.", "C", "", "",      "",                                                                                 ""} )
+	aAdd(aHeaderTot,{ "Totalizar",       "XX_TOTAL", "",     001,      0,  ".T.",        ".T.", "C", "", "",      "0=Soma (SUM);1=Contar (COUNT);2=Maximo (MAX);3=Minimo (MIN);4=Media (AVERAGE)",    "'0'"} )
+
+
+	cGetDirec := PadR(cGetDirec, nLenDirec)
+
+
+	oDlgPvt = MsDialog():New( 000, 000, nJanAltu, nJanLarg, "zReport - Gerador de TOTVS Report",,,.F.,, 0, 16777215,,,.T.,, ,.F. )
+
+
+		oFolderPvt := TFolder():New( 001, 003,{	"Relatório", "Dados - SQL"}, {}, oDlgPvt,, 0, 14215660,.T.,.F., (nJanLarg/2)-4, (nJanAltu/2)-30, )
+
+
+		 oScrollRel := TScrollBox():New(oFolderPvt:aDialogs[1], 001, 003, (nJanAltu/2)-45, (nJanLarg/2)-13,.T.,.T.,.F. )
+		 oScrollSQL := TScrollBox():New(oFolderPvt:aDialogs[2], 001, 003, (nJanAltu/2)-45, (nJanLarg/2)-13,.T.,.T.,.F. )
+
+
+		 oGrpGer := TGroup():New( 001, 001, 055, (nJanLarg/2)-24, "Geral: ", oScrollRel, (255+(0*256)+(0*65536)), 16777215,.T., )
+			 oSayUserF := TSay():New( 013, 006,{||  "User Function:"},oScrollRel,,,.F.,.F.,.F.,.T.,,, 040, 007,.F.,.F.,.F.,.F.,.F.,.F. )
+			oGetUserF := TGet():New( 011, 045, { | u | If( PCount() == 0, cGetUserF, cGetUserF := u ) },oScrollRel, 040, 007,,, 0, 16777215,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F. ,,"cGetUserF",,,, )
+			 oSayDirec := TSay():New( 028, 006,{||  "Diretório:"},oScrollRel,,,.F.,.F.,.F.,.T.,,, 030, 007,.F.,.F.,.F.,.F.,.F.,.F. )
+			oGetDirec := TGet():New( 026, 045, { | u | If( PCount() == 0, cGetDirec, cGetDirec := u ) },oScrollRel, 250, 007,,{||  (fVldDir())}, 0, 16777215,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F. ,,"cGetDirec",,,, )
+			 oSayTitul := TSay():New( 043, 006,{||  "Título:"},oScrollRel,,,.F.,.F.,.F.,.T.,,, 030, 007,.F.,.F.,.F.,.F.,.F.,.F. )
+			oGetTitul := TGet():New( 041, 045, { | u | If( PCount() == 0, cGetTitul, cGetTitul := u ) },oScrollRel, 130, 007,,, 0, 16777215,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F. ,,"cGetTitul",,,, )
+
+
+		 oGrpDef := TGroup():New( 058, 001, 097, (nJanLarg/2)-24, "Definições: ", oScrollRel, (255+(0*256)+(0*65536)), 16777215,.T., )
+			 oSayOrien := TSay():New( 070, 006,{||  "Orientação Padrão:"},oScrollRel,,,.F.,.F.,.F.,.T.,,, 060, 007,.F.,.F.,.F.,.F.,.F.,.F. )
+			 oCmbOrien := TComboBox():New( 068, 055, { | u | If( PCount() == 0, cCmbOrien, cCmbOrien := u ) }, aTpOri, 040, 007, oScrollRel,,,, 0, 16777215,.T.,,,.F.,,.F.,,, ,"cCmbOrien" )
+			 oSayFonte := TSay():New( 085, 006,{||  "Fonte Utilizada:"},oScrollRel,,,.F.,.F.,.F.,.T.,,, 060, 007,.F.,.F.,.F.,.F.,.F.,.F. )
+			 oCmbFonte := TComboBox():New( 083, 055, { | u | If( PCount() == 0, cCmbFonte, cCmbFonte := u ) }, aTpFon, 060, 007, oScrollRel,,,, 0, 16777215,.T.,,,.F.,,.F.,,, ,"cCmbFonte" )
+
+
+		 oGrpPar := TGroup():New( 100, 001, 154, (nJanLarg/2)-24, "Parâmetros: ", oScrollRel, (255+(0*256)+(0*65536)), 16777215,.T., )
+			 oSayUtili := TSay():New( 112, 006,{||  "Utiliza Grupo de Perguntas?"},oScrollRel,,,.F.,.F.,.F.,.T.,,, 080, 007,.F.,.F.,.F.,.F.,.F.,.F. )
+			 oCmbUtili := TComboBox():New( 110, 085, { | u | If( PCount() == 0, cCmbUtili, cCmbUtili := u ) }, aTpPad, 030, 007, oScrollRel,,,{||  (fVldPer())}, 0, 16777215,.T.,,,.F.,,.F.,,, ,"cCmbUtili" )
+			 oSayPergu := TSay():New( 127, 006,{||  "Código Grupo de Perguntas:"},oScrollRel,,,.F.,.F.,.F.,.T.,,, 040, 007,.F.,.F.,.F.,.F.,.F.,.F. )
+			oGetPergu := TGet():New( 125, 085, { | u | If( PCount() == 0, cGetPergu, cGetPergu := u ) },oScrollRel, 060, 007,,, 0, 16777215,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F. ,,"cGetPergu",,,, )
+			 oSayMostr := TSay():New( 142, 006,{||  "Mostra página de Parâmetros?"},oScrollRel,,,.F.,.F.,.F.,.T.,,, 080, 007,.F.,.F.,.F.,.F.,.F.,.F. )
+			 oCmbMostr := TComboBox():New( 140, 085, { | u | If( PCount() == 0, cCmbMostr, cCmbMostr := u ) }, aTpPad, 030, 007, oScrollRel,,,, 0, 16777215,.T.,,,.F.,,.F.,,, ,"cCmbMostr" )
+			oGetPergu:lActive := .F. 
+			oCmbMostr:lActive := .F. 
+
+
+		 oGrpEma := TGroup():New( 157, 001, 196, (nJanLarg/2)-24, "e-Mail: ", oScrollRel, (255+(0*256)+(0*65536)), 16777215,.T., )
+			 oSayEnvia := TSay():New( 169, 006,{||  "Envia por e-Mail?"},oScrollRel,,,.F.,.F.,.F.,.T.,,, 080, 007,.F.,.F.,.F.,.F.,.F.,.F. )
+			 oCmbEnvia := TComboBox():New( 167, 075, { | u | If( PCount() == 0, cCmbEnvia, cCmbEnvia := u ) }, aTpPad, 030, 007, oScrollRel,,,{||  (fVldEma())}, 0, 16777215,.T.,,,.F.,,.F.,,, ,"cCmbEnvia" )
+			 oSayEmail := TSay():New( 184, 006,{||  "e-Mails (separados por ';'):"},oScrollRel,,,.F.,.F.,.F.,.T.,,, 080, 007,.F.,.F.,.F.,.F.,.F.,.F. )
+			oGetEmail := TGet():New( 182, 075, { | u | If( PCount() == 0, cGetEmail, cGetEmail := u ) },oScrollRel, 140, 007,,, 0, 16777215,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F. ,,"cGetEmail",,,, )
+			oGetEmail:lActive := .F. 
+
+
+		 oSaySQL := TSay():New( 006, 003,{||  "Consulta SQL:"},oScrollSQL,,,.F.,.F.,.F.,.T.,,, 040, 007,.F.,.F.,.F.,.F.,.F.,.F. )
+		oPanelSQL := tPanel():New(001, 045, "", oScrollSQL, , , , ( 000 + ( 000 * 256 ) + ( 000 * 65536 ) ), ( 254 + ( 254 * 256 ) + ( 254 * 65536 ) ), 330, 	060)
+
+
+
+
+
+
+		oEditSQL  := tSimpleEditor():New(	000,												000,												oPanelSQL,												330,												060,												cEditSQL, .F.  )
+		oEditSQL:bValid := {|| fVldSQL()}
+		oEditSQL:TextFormat(2)
+		 oSayQuebr := TSay():New( 065, 001,{||  "Quebrar relatório por:"},oScrollSQL,,,.F.,.F.,.F.,.T.,,, 060, 007,.F.,.F.,.F.,.F.,.F.,.F. )
+		oGetQuebr := TGet():New( 063, 072, { | u | If( PCount() == 0, cGetQuebr, cGetQuebr := u ) },oScrollSQL, 100, 007,,, 0, 16777215,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F. ,,"cGetQuebr",,,, )
+
+
+		 oChkEdit := TCheckBox():New( 075, 001, "Deseja informar as colunas manualmente?",{ | u | If( PCount() == 0, lChkEdit, lChkEdit := u ) }, oScrollSQL, 115, 007,,,,, 0, 16777215,.F.,.T.,,.F., )
+		oChkEdit:bChange := {|| fVldChkEdt()}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		oMsGetCam := MsNewGetDados():New(	085,    											003,    											145,    											373,    											1+4+2,    											"AllwaysTrue()",    											,    											"",    											,    											,    											99,    											,    											,    											,    											oScrollSQL,    											aHeaderCam,    											aColsCam)
+		oMsGetCam:lActive := .F. 
+
+
+		 oChkTot := TCheckBox():New( 150, 001, "Deseja totalizar colunas?",{ | u | If( PCount() == 0, lChkTot, lChkTot := u ) }, oScrollSQL, 115, 007,,,,, 0, 16777215,.F.,.T.,,.F., )
+		oChkTot:bChange := {|| fVldChkTot()}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		oMsGetTot := MsNewGetDados():New(	160,    											003,    											200,    											373,    											1+4+2,    											"AllwaysTrue()",    											,    											"",    											,    											,    											99,    											,    											,    											,    											oScrollSQL,    											aHeaderTot,    											aColsTot)
+		oMsGetTot:lActive := .F. 
+
+
+		 oGrpAco := TGroup():New( (nJanAltu/2)-27, 003, (nJanAltu/2)-1, (nJanLarg/2)-1, "Ações: ", oDlgPvt, 0, 16777215,.T., )
+
+
+			 oBtnFec := TButton():New( (nJanAltu/2)-21, (nJanLarg/2)-(61*1), "Fechar", oDlgPvt,{||  (oDlgPvt:End())}, 058, 017,,,.F.,.T.,.F.,,.F.,,,.F. )
+			 oBtnFec := TButton():New( (nJanAltu/2)-21, (nJanLarg/2)-(61*2), "Gerar", oDlgPvt,{||  (fGerar())}, 058, 017,,,.F.,.T.,.F.,,.F.,,,.F. )
+
+
+		oGetUserF:SetFocus()
+	oDlgPvt:Activate( oDlgPvt:bLClicked, oDlgPvt:bMoved, oDlgPvt:bPainted,.T.,,,, oDlgPvt:bRClicked, )
+
+	RestArea(aArea)
+Return
+
+
+
+
+
+
+
+
+Static Function fVldDir()
+	Local lRet := .T. 
+
+
+	If Empty(cGetDirec)
+		Iif(FindFunction("APMsgAlert"), APMsgAlert("Preencha um diretório",), MsgAlert("Preencha um diretório",))
+		lRet := .F. 
+
+	Else
+
+		If ! ExistDir(cGetDirec)
+
+			If Iif(FindFunction("APMsgYesNo"), APMsgYesNo("O diretório informado não existe, deseja criar?", "Atenção"), (cMsgYesNo:="MsgYesNo", &cMsgYesNo.("O diretório informado não existe, deseja criar?", "Atenção")))
+				MakeDir(cGetDirec)
+
+
+				If ! ExistDir(cGetDirec)
+					Iif(FindFunction("APMsgAlert"), APMsgAlert("Não foi possível criar o diretório.", "Atenção"), MsgAlert("Não foi possível criar o diretório.", "Atenção"))
+					lRet := .F. 
+				EndIf
+
+			Else
+				lRet := .F. 
+			EndIf
+		EndIf
+	EndIf
+
+
+	If lRet
+		cGetDirec := Alltrim(cGetDirec)
+
+
+		If SubStr(cGetDirec, Len(cGetDirec), 1) <> "\"
+			cGetDirec += "\"
+		EndIf
+
+
+		cGetDirec := PadR(cGetDirec, nLenDirec)
+		oGetDirec:Refresh()
+	EndIf
+Return lRet
+
+
+
+
+
+
+
+
+Static Function fVldPer()
+	Local lRet := .T. 
+
+
+	If cCmbUtili == "S"
+		oGetPergu:lActive := .T. 
+		oCmbMostr:lActive := .T. 
+
+
+	Else
+		oGetPergu:lActive := .F. 
+		oCmbMostr:lActive := .F. 
+	EndIf
+
+
+	oGetPergu:Refresh()
+	oCmbMostr:Refresh()
+	oGetPergu:SetFocus()
+Return lRet
+
+
+
+
+
+
+
+
+Static Function fVldEma()
+	Local lRet := .T. 
+
+
+	If cCmbEnvia == "S"
+		oGetEmail:lActive := .T. 
+
+
+	Else
+		oGetEmail:lActive := .F. 
+	EndIf
+
+
+	oGetEmail:Refresh()
+	oGetEmail:SetFocus()
+Return lRet
+
+
+
+
+
+
+
+
+Static Function fVldSQL()
+	Local lRet := .T. 
+
+
+	cEditSQL := Upper(oEditSQL:RetText())
+	oEditSQL:Load(cEditSQL)
+	oEditSQL:Refresh()
+Return lRet
+
+
+
+
+
+
+
+
+Static Function fVldChkEdt()
+	Local lRet := .T. 
+
+
+	If lChkEdit
+		oMsGetCam:lActive := .T. 
+
+
+	Else
+		oMsGetCam:lActive := .F. 
+	EndIf
+
+	oMsGetCam:Refresh()
+Return lRet
+
+
+
+
+
+
+
+
+Static Function fVldChkTot()
+	Local lRet := .T. 
+
+
+	If lChkTot
+		oMsGetTot:lActive := .T. 
+
+
+	Else
+		oMsGetTot:lActive := .F. 
+	EndIf
+
+	oMsGetTot:Refresh()
+Return lRet
+
+
+
+
+
+
+
+
+Static Function fGerar()
+	Local nOK := 0
+	Local nAtual := 0
+	Local aDadCel := oMsGetCam:aCols
+	Local nPosCam := aScan(aHeaderCam, {|x| AllTrim(Upper(x[2])) == "XX_CAMPO"})
+	Local nPosTam := aScan(aHeaderCam, {|x| Alltrim(Upper(x[2])) == "XX_TAMCP"})
+	cEditSQL := Alltrim(Upper(oEditSQL:RetText()))
+
+
+	If cCmbUtili == "S" .And.  Empty(cGetPergu)
+		Iif(FindFunction("APMsgAlert"), APMsgAlert("Preencha o código do grupo de perguntas!", "Atenção"), MsgAlert("Preencha o código do grupo de perguntas!", "Atenção"))
+		Return
+	EndIf
+
+
+	If cCmbEnvia == "S" .And.  Empty(cGetEmail)
+		Iif(FindFunction("APMsgAlert"), APMsgAlert("Preencha o(s) e-Mail(s) que receberão o relatório!", "Atenção"), MsgAlert("Preencha o(s) e-Mail(s) que receberão o relatório!", "Atenção"))
+		Return
+	EndIf
+
+
+	If Empty(cEditSQL)
+		Iif(FindFunction("APMsgAlert"), APMsgAlert("Insira uma consulta SQL!", "Atenção"), MsgAlert("Insira uma consulta SQL!", "Atenção"))
+		Return
+	EndIf
+
+
+	If lChkEdit .And.  Len(aDadCel) > 0
+
+		For nAtual := 1 To Len(aDadCel)
+
+			If ! aDadCel[nAtual][Len(aHeaderCam) + 1]
+
+				If ! Empty(aDadCel[nAtual][nPosCam]) .And.  aDadCel[nAtual][nPosTam] <> 0
+					nOk++
+				EndIf
+			EndIf
+		Next
+
+		If nOk == 0
+			Iif(FindFunction("APMsgAlert"), APMsgAlert("Não existem campos válidos para impressão (verifique campo e/ou tamanho)!", "Atenção"), MsgAlert("Não existem campos válidos para impressão (verifique campo e/ou tamanho)!", "Atenção"))
+			Return
+		EndIf
+	EndIf
+
+
+	MsAguarde({|| fCriaPrw()}, "Aguarde...", "Criando o .prw", .T. )
+Return
+
+
+
+
+
+
+
+
+Static Function fCriaPrw()
+	Local cArquivo  := Alltrim(cGetUserF)+".prw"
+	Local nHdl      := 0
+	Local aStrutAux := {}
+	Local aDadCel   := oMsGetCam:aCols
+	Local aDadTot   := oMsGetTot:aCols
+	Local nAtual    := 0
+	Local aAreaX3   := SX3->(GetArea())
+	Local cTitulo   := ""
+	Local cPicture  := ""
+	Local cTamanho  := ""
+	Local cAlinham  := ""
+	Local cQuebr    := ""
+	Local cFundo    := ""
+	Local cFonte    := ""
+	Local cNegrito  := ""
+	Local cTotal    := ""
+	Local cQuebra   := ""
+	Local nPos1Cam  := aScan(aHeaderCam, {|x| AllTrim(Upper(x[2])) == "XX_CAMPO"})
+	Local nPos1Tit  := aScan(aHeaderCam, {|x| Alltrim(Upper(x[2])) == "XX_TITUL"})
+	Local nPos1Pic  := aScan(aHeaderCam, {|x| Alltrim(Upper(x[2])) == "XX_MASCA"})
+	Local nPos1Tam  := aScan(aHeaderCam, {|x| Alltrim(Upper(x[2])) == "XX_TAMCP"})
+	Local nPos1Ali  := aScan(aHeaderCam, {|x| Alltrim(Upper(x[2])) == "XX_ALINH"})
+	Local nPos1Que  := aScan(aHeaderCam, {|x| Alltrim(Upper(x[2])) == "XX_QUEBR"})
+	Local nPos1Fun  := aScan(aHeaderCam, {|x| Alltrim(Upper(x[2])) == "XX_FUNDO"})
+	Local nPos1Fon  := aScan(aHeaderCam, {|x| Alltrim(Upper(x[2])) == "XX_FONTE"})
+	Local nPos1Neg  := aScan(aHeaderCam, {|x| Alltrim(Upper(x[2])) == "XX_NEGRI"})
+	Local nPos2Cam  := aScan(aHeaderTot, {|x| Alltrim(Upper(x[2])) == "XX_CAMPO"})
+	Local nPos2Pic  := aScan(aHeaderTot, {|x| Alltrim(Upper(x[2])) == "XX_MASCA"})
+	Local nPos2Tot  := aScan(aHeaderTot, {|x| Alltrim(Upper(x[2])) == "XX_TOTAL"})
+	Local lFirst    := .T. 
+	Local aSQL      := StrTokArr(cEditSQL, Chr(13)+Chr(10))
+
+
+	dbUseArea(.T., "TOPCONN", TCGENQRY(,,cEditSQL), "QRY_AUX" , .F. , .T. )
+	aStrutAux := QRY_AUX->(DbStruct())
+	QRY_AUX->(DbCloseArea())
+
+
+	If File(Alltrim(cGetDirec)+cArquivo)
+
+		If Iif(FindFunction("APMsgYesNo"), APMsgYesNo("Arquivo já existe, deseja sobrepor?", "Atenção"), (cMsgYesNo:="MsgYesNo", &cMsgYesNo.("Arquivo já existe, deseja sobrepor?", "Atenção")))
+			fErase(Alltrim(cGetDirec)+cArquivo)
+		Else
+			Return
+		EndIf
+	EndIf
+
+
+	nHdl := fCreate(Alltrim(cGetDirec)+cArquivo)
+
+
+	If nHdl < 0
+		Iif(FindFunction("APMsgAlert"), APMsgAlert("Erro ao criar o arquivo: "+cValToChar(fError()),), MsgAlert("Erro ao criar o arquivo: "+cValToChar(fError()),))
+
+
+	Else
+
+		fWrite(nHdl, "//Bibliotecas" + Chr(13)+Chr(10))
+		fWrite(nHdl, '#Include "Protheus.ch"' + Chr(13)+Chr(10))
+		fWrite(nHdl, '#Include "TopConn.ch"' + Chr(13)+Chr(10))
+		fWrite(nHdl, "	" + Chr(13)+Chr(10))
+		fWrite(nHdl, "//Constantes" + Chr(13)+Chr(10))
+		fWrite(nHdl, "#Define STR_PULA		Chr(13)+Chr(10)" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	" + Chr(13)+Chr(10))
+		fWrite(nHdl, "/*/{Protheus.doc} " + Alltrim(cGetUserF) + Chr(13)+Chr(10))
+		fWrite(nHdl, "Relatório - " + cGetTitul + Chr(13)+Chr(10))
+		fWrite(nHdl, "@author " + cAutor + Chr(13)+Chr(10))
+		fWrite(nHdl, "@since " + cData + Chr(13)+Chr(10))
+		fWrite(nHdl, "@version 1.0" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	@example" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	u_"+Alltrim(cGetUserF)+"()" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	@obs Função gerada pelo zReport()" + Chr(13)+Chr(10))
+		fWrite(nHdl, "/*/" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	" + Chr(13)+Chr(10))
+
+
+		fWrite(nHdl, "User Function "+Alltrim(cGetUserF)+"()" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	Local aArea   := GetArea()" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	Local oReport" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	Local lEmail  := .F." + Chr(13)+Chr(10))
+		fWrite(nHdl, '	Local cPara   := "'+Alltrim(cGetEmail)+'"' + Chr(13)+Chr(10))
+		fWrite(nHdl, '	Private cPerg := ""' + Chr(13)+Chr(10))
+
+
+		If cCmbUtili == "S"
+			fWrite(nHdl, "	" + Chr(13)+Chr(10))
+			fWrite(nHdl, "	//Definições da pergunta" + Chr(13)+Chr(10))
+			fWrite(nHdl, '	cPerg := "'+cGetPergu+'"' + Chr(13)+Chr(10))
+			fWrite(nHdl, "	" + Chr(13)+Chr(10))
+			fWrite(nHdl, "	//Se a pergunta não existir, zera a variável" + Chr(13)+Chr(10))
+			fWrite(nHdl, '	DbSelectArea("SX1")' + Chr(13)+Chr(10))
+			fWrite(nHdl, "	SX1->(DbSetOrder(1)) //X1_GRUPO + X1_ORDEM" + Chr(13)+Chr(10))
+			fWrite(nHdl, "	If ! SX1->(DbSeek(cPerg))" + Chr(13)+Chr(10))
+			fWrite(nHdl, "		cPerg := Nil" + Chr(13)+Chr(10))
+			fWrite(nHdl, "	EndIf" + Chr(13)+Chr(10))
+		EndIf
+
+
+		If cCmbEnvia == "S"
+			fWrite(nHdl, "	" + Chr(13)+Chr(10))
+			fWrite(nHdl, "	//Será enviado por e-Mail" + Chr(13)+Chr(10))
+			fWrite(nHdl, "	lEmail := .T." + Chr(13)+Chr(10))
+		EndIf
+
+		fWrite(nHdl, "	" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	//Cria as definições do relatório" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	oReport := fReportDef()" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	//Será enviado por e-Mail?" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	If lEmail" + Chr(13)+Chr(10))
+		fWrite(nHdl, "		oReport:nRemoteType := NO_REMOTE" + Chr(13)+Chr(10))
+		fWrite(nHdl, "		oReport:cEmail := cPara" + Chr(13)+Chr(10))
+		fWrite(nHdl, "		oReport:nDevice := 3 //1-Arquivo,2-Impressora,3-email,4-Planilha e 5-Html" + Chr(13)+Chr(10))
+		fWrite(nHdl, "		oReport:SetPreview(.F.)" + Chr(13)+Chr(10))
+		fWrite(nHdl, '		oReport:Print(.F., "", .T.)' + Chr(13)+Chr(10))
+		fWrite(nHdl, "	//Senão, mostra a tela" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	Else" + Chr(13)+Chr(10))
+		fWrite(nHdl, "		oReport:PrintDialog()" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	EndIf" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	RestArea(aArea)" + Chr(13)+Chr(10))
+		fWrite(nHdl, "Return" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	" + Chr(13)+Chr(10))
+
+
+		fWrite(nHdl, "/*-------------------------------------------------------------------------------*" + Chr(13)+Chr(10))
+		fWrite(nHdl, " | Func:  fReportDef                                                             |" + Chr(13)+Chr(10))
+		fWrite(nHdl, " | Desc:  Função que monta a definição do relatório                              |" + Chr(13)+Chr(10))
+		fWrite(nHdl, " *-------------------------------------------------------------------------------*/" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	" + Chr(13)+Chr(10))
+		fWrite(nHdl, "Static Function fReportDef()" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	Local oReport" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	Local oSectDad := Nil" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	Local oBreak := Nil" + Chr(13)+Chr(10))
+
+
+		If lChkTot .And.  Len(aDadTot) > 0
+			For nAtual := 1 To Len(aDadTot)
+
+				If !Empty(aDadTot[nAtual][nPos2Cam])
+					fWrite(nHdl, "	Local oFunTot"+cValToChar(nAtual)+" := Nil" + Chr(13)+Chr(10))
+				EndIf
+			Next
+		EndIf
+
+		fWrite(nHdl, "	" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	//Criação do componente de impressão" + Chr(13)+Chr(10))
+		fWrite(nHdl, '	oReport := TReport():New(	"'+Alltrim(cGetUserF)+'",;		//Nome do Relatório' + Chr(13)+Chr(10))
+		fWrite(nHdl, '								"'+Alltrim(cGetTitul)+'",;		//Título' + Chr(13)+Chr(10))
+		fWrite(nHdl, "								cPerg,;		//Pergunte ... Se eu defino a pergunta aqui, será impresso uma página com os parâmetros, conforme privilégio 101" + Chr(13)+Chr(10))
+		fWrite(nHdl, "								{|oReport| fRepPrint(oReport)},;		//Bloco de código que será executado na confirmação da impressão" + Chr(13)+Chr(10))
+		fWrite(nHdl, "								)		//Descrição" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	oReport:SetTotalInLine(.F.)" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	oReport:lParamPage := .F." + Chr(13)+Chr(10))
+		fWrite(nHdl, "	oReport:oPage:SetPaperSize(9) //Folha A4" + Chr(13)+Chr(10))
+
+
+		If cCmbOrien == "R"
+			fWrite(nHdl, "	oReport:SetPortrait()" + Chr(13)+Chr(10))
+
+
+		ElseIf cCmbOrien == "P"
+			fWrite(nHdl, "	oReport:SetLandscape()" + Chr(13)+Chr(10))
+		EndIf
+
+
+		If cCmbFonte == "1"
+			fWrite(nHdl, "	oReport:SetLineHeight(50)" + Chr(13)+Chr(10))
+			fWrite(nHdl, "	oReport:nFontBody := 08" + Chr(13)+Chr(10))
+
+
+		ElseIf cCmbFonte == "2"
+			fWrite(nHdl, "	oReport:SetLineHeight(60)" + Chr(13)+Chr(10))
+			fWrite(nHdl, "	oReport:nFontBody := 12" + Chr(13)+Chr(10))
+		EndIf
+		fWrite(nHdl, "	" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	//Criando a seção de dados" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	oSectDad := TRSection():New(	oReport,;		//Objeto TReport que a seção pertence" + Chr(13)+Chr(10))
+		fWrite(nHdl, '									"Dados",;		//Descrição da seção' + Chr(13)+Chr(10))
+		fWrite(nHdl, '									{"QRY_AUX"})		//Tabelas utilizadas, a primeira será considerada como principal da seção' + Chr(13)+Chr(10))
+		fWrite(nHdl, "	oSectDad:SetTotalInLine(.F.)  //Define se os totalizadores serão impressos em linha ou coluna. .F.=Coluna; .T.=Linha" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	//Colunas do relatório" + Chr(13)+Chr(10))
+
+
+		If lChkEdit .And.  Len(aDadCel) > 0
+
+			For nAtual := 1 To Len(aDadCel)
+
+				If ! aDadCel[nAtual][Len(aHeaderCam) + 1]
+
+					If ! Empty(aDadCel[nAtual][nPos1Cam])
+
+
+						If !Empty(aDadCel[nAtual][nPos1Tit])
+							cTitulo   := Alltrim(aDadCel[nAtual][nPos1Tit])
+						Else
+							cTitulo   := Capital(Alltrim(aDadCel[nAtual][nPos1Cam]))
+						EndIf
+
+
+						If !Empty(aDadCel[nAtual][nPos1Pic])
+							cPicture  := '"'+Alltrim(aDadCel[nAtual][nPos1Pic])+'"'
+						Else
+							cPicture  := "/*cPicture*/"
+						EndIf
+
+
+						cTamanho := cValToChar(aDadCel[nAtual][nPos1Tam])
+
+
+						If aDadCel[nAtual][nPos1Ali] <> "0"
+							If aDadCel[nAtual][nPos1Ali] == "1"
+								cAlinham := '"LEFT"'
+							ElseIf aDadCel[nAtual][nPos1Ali] == "2"
+								cAlinham := '"RIGHT"'
+							Else
+								cAlinham := '"CENTER"'
+							EndIf
+						Else
+							cAlinham := "/*cAlign*/"
+						EndIf
+
+
+						If aDadCel[nAtual][nPos1Ali] == "S"
+							cQuebr := ".T."
+						Else
+							cQuebr := "/*lLineBreak*/"
+						EndIf
+
+
+						If aDadCel[nAtual][nPos1Fun] <> "0"
+							If aDadCel[nAtual][nPos1Fun] == "1"
+								cFundo := "RGB(000,000,000)"
+							ElseIf aDadCel[nAtual][nPos1Fun] == "2"
+								cFundo := "RGB(254,254,254)"
+							ElseIf aDadCel[nAtual][nPos1Fun] == "3"
+								cFundo := "RGB(255,000,000)"
+							ElseIf aDadCel[nAtual][nPos1Fun] == "4"
+								cFundo := "RGB(000,255,000)"
+							Else
+								cFundo := "RGB(000,000,255)"
+							EndIf
+						Else
+							cFundo := "/*nClrBack*/"
+						EndIf
+
+
+						If aDadCel[nAtual][nPos1Fon] <> "0"
+							If aDadCel[nAtual][nPos1Fon] == "1"
+								cFonte := "RGB(000,000,000)"
+							ElseIf aDadCel[nAtual][nPos1Fon] == "2"
+								cFonte := "RGB(254,254,254)"
+							ElseIf aDadCel[nAtual][nPos1Fon] == "3"
+								cFonte := "RGB(255,000,000)"
+							ElseIf aDadCel[nAtual][nPos1Fon] == "4"
+								cFonte := "RGB(000,255,000)"
+							Else
+								cFonte := "RGB(000,000,255)"
+							EndIf
+						Else
+							cFonte := "/*nClrFore*/"
+						EndIf
+
+
+						If aDadCel[nAtual][nPos1Neg] == "S"
+							cNegrito := ".T."
+						Else
+							cNegrito := "/*lBold*/"
+						EndIf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						fWrite(nHdl, "	TRCell():New(oSectDad, "+ '"'+Alltrim(aDadCel[nAtual][nPos1Cam])+'", '+ '"QRY_AUX", '+ '"'+cTitulo+'", '+ cPicture+", "+ cTamanho+", "+ "/*lPixel*/,"+ "/*{|| code-block de impressao }*/,"+ cAlinham+","+ cQuebr+","+ "/*cHeaderAlign */,"+ "/*lCellBreak*/,"+ "/*nColSpace*/,"+ "/*lAutoSize*/,"+ cFundo+","+ cFonte+","+ cNegrito+")" + Chr(13)+Chr(10))
+					EndIf
+				EndIf
+			Next
+
+
+		Else
+			DbSelectArea("SX3")
+			SX3->(DbSetOrder(2))
+
+
+			For nAtual := 1 To Len(aStrutAux)
+
+				If SX3->(DbSeek(aStrutAux[nAtual][1]))
+					cTitulo := Alltrim(SX3->X3_TITULO)
+				Else
+					cTitulo := Capital(Alltrim(aStrutAux[nAtual][1]))
+				EndIf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				fWrite(nHdl, "	TRCell():New(oSectDad, "+ '"'+Alltrim(aStrutAux[nAtual][1])+'", '+ '"QRY_AUX", '+ '"'+cTitulo+'", '+ "/*Picture*/, "+ cValToChar(aStrutAux[nAtual][3])+", "+ "/*lPixel*/,"+ "/*{|| code-block de impressao }*/,"+ "/*cAlign*/,"+ "/*lLineBreak*/,"+ "/*cHeaderAlign */,"+ "/*lCellBreak*/,"+ "/*nColSpace*/,"+ "/*lAutoSize*/,"+ "/*nClrBack*/,"+ "/*nClrFore*/,"+ "/*lBold*/)" + Chr(13)+Chr(10))
+			Next
+		EndIf
+
+
+		If !Empty(cGetQuebr)
+			fWrite(nHdl, "	" + Chr(13)+Chr(10))
+			fWrite(nHdl, "	//Definindo a quebra" + Chr(13)+Chr(10))
+			fWrite(nHdl, "	oBreak := TRBreak():New(oSectDad,{|| QRY_AUX->("+Alltrim(cGetQuebr)+') },{|| "SEPARACAO DO RELATORIO" })' + Chr(13)+Chr(10))
+			fWrite(nHdl, "	oSectDad:SetHeaderBreak(.T.)" + Chr(13)+Chr(10))
+			cQuebra := "oBreak"
+		Else
+			cQuebra := ""
+		EndIf
+
+
+		If lChkTot .And.  Len(aDadTot) > 0
+			fWrite(nHdl, "	" + Chr(13)+Chr(10))
+			For nAtual := 1 To Len(aDadTot)
+
+				If !Empty(aDadTot[nAtual][nPos2Cam])
+					If lFirst
+						fWrite(nHdl, "	//Totalizadores" + Chr(13)+Chr(10))
+						lFirst := .F. 
+					EndIf
+
+
+					If !Empty(aDadTot[nAtual][nPos2Pic])
+						cPicture  := '"'+Alltrim(aDadTot[nAtual][nPos2Pic])+'"'
+					Else
+						cPicture  := "/*cPicture*/"
+					EndIf
+
+
+					If aDadTot[nAtual][nPos2Tot] == "0"
+						cTotal := '"SUM"'
+					ElseIf aDadTot[nAtual][nPos2Tot] == "1"
+						cTotal := '"COUNT"'
+					ElseIf aDadTot[nAtual][nPos2Tot] == "2"
+						cTotal := '"MAX"'
+					ElseIf aDadTot[nAtual][nPos2Tot] == "3"
+						cTotal := '"MIN"'
+					Else
+						cTotal := '"AVERAGE"'
+					EndIf
+
+
+					fWrite(nHdl, "	oFunTot"+cValToChar(nAtual)+' := TRFunction():New(oSectDad:Cell("'+Alltrim(aDadTot[nAtual][nPos2Cam])+'"),,'+cTotal+","+cQuebra+",,"+cPicture+")" + Chr(13)+Chr(10))
+					fWrite(nHdl, "	oFunTot"+cValToChar(nAtual)+":SetEndReport(.F.)" + Chr(13)+Chr(10))
+				EndIf
+			Next
+		EndIf
+
+		fWrite(nHdl, "Return oReport" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	" + Chr(13)+Chr(10))
+
+
+		fWrite(nHdl, "/*-------------------------------------------------------------------------------*" + Chr(13)+Chr(10))
+		fWrite(nHdl, " | Func:  fRepPrint                                                              |" + Chr(13)+Chr(10))
+		fWrite(nHdl, " | Desc:  Função que imprime o relatório                                         |" + Chr(13)+Chr(10))
+		fWrite(nHdl, " *-------------------------------------------------------------------------------*/" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	" + Chr(13)+Chr(10))
+		fWrite(nHdl, "Static Function fRepPrint(oReport)" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	Local aArea    := GetArea()" + Chr(13)+Chr(10))
+		fWrite(nHdl, '	Local cQryAux  := ""' + Chr(13)+Chr(10))
+		fWrite(nHdl, "	Local oSectDad := Nil" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	Local nAtual   := 0" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	Local nTotal   := 0" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	//Pegando as seções do relatório" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	oSectDad := oReport:Section(1)" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	//Montando consulta de dados" + Chr(13)+Chr(10))
+
+
+		fWrite(nHdl, '	cQryAux := ""' + Chr(13)+Chr(10))
+		For nAtual := 1 To Len(aSQL)
+			fWrite(nHdl, '	cQryAux += "'+(aSQL[nAtual])+'"		+ STR_PULA' + Chr(13)+Chr(10))
+		Next
+		fWrite(nHdl, "	cQryAux := ChangeQuery(cQryAux)" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	" + Chr(13)+Chr(10))
+
+		fWrite(nHdl, "	//Executando consulta e setando o total da régua" + Chr(13)+Chr(10))
+		fWrite(nHdl, '	TCQuery cQryAux New Alias "QRY_AUX"' + Chr(13)+Chr(10))
+		fWrite(nHdl, "	Count to nTotal" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	oReport:SetMeter(nTotal)" + Chr(13)+Chr(10))
+
+		DbSelectArea("SX3")
+		SX3->(DbSetOrder(2))
+		SX3->(DbGoTop())
+
+
+		For nAtual := 1 To Len(aStrutAux)
+
+			If SX3->(DbSeek(aStrutAux[nAtual][1]))
+
+				If SX3->X3_TIPO == "D"
+					fWrite(nHdl, '	TCSetField("QRY_AUX", "'+Alltrim(aStrutAux[nAtual][1])+'", "D")' + Chr(13)+Chr(10))
+				EndIf
+			EndIf
+		Next
+		fWrite(nHdl, "	" + Chr(13)+Chr(10))
+
+		fWrite(nHdl, "	//Enquanto houver dados" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	oSectDad:Init()" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	QRY_AUX->(DbGoTop())" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	While ! QRY_AUX->(Eof())" + Chr(13)+Chr(10))
+		fWrite(nHdl, "		//Incrementando a régua" + Chr(13)+Chr(10))
+		fWrite(nHdl, "		nAtual++" + Chr(13)+Chr(10))
+		fWrite(nHdl, '		oReport:SetMsgPrint("Imprimindo registro "+cValToChar(nAtual)+" de "+cValToChar(nTotal)+"...")' + Chr(13)+Chr(10))
+		fWrite(nHdl, "		oReport:IncMeter()" + Chr(13)+Chr(10))
+		fWrite(nHdl, "		" + Chr(13)+Chr(10))
+		fWrite(nHdl, "		//Imprimindo a linha atual" + Chr(13)+Chr(10))
+		fWrite(nHdl, "		oSectDad:PrintLine()" + Chr(13)+Chr(10))
+		fWrite(nHdl, "		" + Chr(13)+Chr(10))
+		fWrite(nHdl, "		QRY_AUX->(DbSkip())" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	EndDo" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	oSectDad:Finish()" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	QRY_AUX->(DbCloseArea())" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	" + Chr(13)+Chr(10))
+		fWrite(nHdl, "	RestArea(aArea)" + Chr(13)+Chr(10))
+		fWrite(nHdl, "Return" + Chr(13)+Chr(10))
+		fClose(nHdl)
+
+
+		If File(Alltrim(cGetDirec)+cArquivo)
+			If Iif(FindFunction("APMsgYesNo"), APMsgYesNo("Arquivo gerado, deseja visualizar?", "Atenção"), (cMsgYesNo:="MsgYesNo", &cMsgYesNo.("Arquivo gerado, deseja visualizar?", "Atenção")))
+				ShellExecute("open", cArquivo, "", Alltrim(cGetDirec), 1)
+			EndIf
+		EndIf
+	EndIf
+
+	RestArea(aAreaX3)
+Return

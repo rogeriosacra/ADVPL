@@ -1,0 +1,132 @@
+#line 1 "c:/totvs1212410/protheus/protheus/include\Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\dialog.ch"
+#line 29 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\font.ch"
+#line 30 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\ptmenu.ch"
+#line 32 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\print.ch"
+#line 34 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\colors.ch"
+#line 36 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\folder.ch"
+#line 38 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\msobject.ch"
+#line 39 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\vkey.ch"
+#line 43 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\winapi.ch"
+#line 45 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcommand.ch"
+#line 48 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcss.ch"
+#line 51 "Protheus.ch"
+#line 2 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.yqbnaunhth\c:/users/rogério/documents/meusprojetosgithub/advpl/relatórioexcel/rlexcel.prw"
+#line 1 "c:/totvs1212410/protheus/protheus/include\FWMVCDef.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\parmtype.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\parmtypech.ch"
+#line 3 "parmtype.ch"
+#line 2 "FWMVCDef.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwmbrowse.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwbrowse.ch"
+#line 3 "fwmbrowse.ch"
+#line 4 "FWMVCDef.ch"
+#line 16 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.yqbnaunhth\c:/users/rogério/documents/meusprojetosgithub/advpl/relatórioexcel/rlexcel.prw"
+Function U_RLExcel()
+
+	Processa({||MntQry() },,"Processando...")
+	MsAguarde({|| GeraExcel()},,"O arquivo Excel está sendo gerado...")
+
+	dbSelectArea("TR1")
+	dbCloseArea()
+
+Return Nil
+
+
+Static Function MntQry()
+
+	Local cQuery := ""
+
+
+
+	cQuery := " SELECT "
+	cQuery += " SB1.B1_COD AS CODIGO, "
+	cQuery += " SB1.B1_DESC AS DESCRICAO, "
+	cQuery += " SB1.B1_TIPO AS TIPO, "
+	cQuery += " SBM.BM_GRUPO GRUPO, "
+	cQuery += " SBM.BM_DESC BM_DESCRICAO, "
+	cQuery += " SBM.BM_PROORI BM_ORIGEM "
+	cQuery += " FROM "
+	cQuery += " "+RetSQLName("SB1")+" SB1 "
+	cQuery += " INNER JOIN "+RetSQLName("SBM")+" SBM ON  "
+	cQuery += " SBM.BM_FILIAL = '"+FWxFilial("SBM")+"' "
+	cQuery += " AND SBM.BM_GRUPO = B1_GRUPO "
+	cQuery += " AND SBM.D_E_L_E_T_='' "
+	cQuery += " AND SB1.D_E_L_E_T_ = '' "
+	cQuery += " ORDER BY "
+	cQuery += " SB1.B1_COD "
+
+		If Select("TR1") <> 0
+			DbSelectArea("TR1")
+			DbCloseArea()
+		EndIf
+
+		cQuery := ChangeQuery(cQuery)
+		DbUseArea( .T. ,"TOPCONN",TCGENQRY(,,cQuery),"TR1", .F. , .T. )
+
+Return Nil
+
+
+
+Static Function GeraExcel()
+
+	Local oExcel := FWMSEXCEL():New()
+	Local lOK := .F. 
+	Local cArq := ""
+	Local cDirTmp := "C:\SPOOL"
+
+	dbSelectArea("TR1")
+	TR1->(dbGoTop())
+
+	oExcel:AddWorkSheet("PRODUTOS")
+	oExcel:AddTable("PRODUTOS","TESTE")
+	oExcel:AddColumn("PRODUTOS","TESTE","CODIGO",1,1)
+	oExcel:AddColumn("PRODUTOS","TESTE","DESCRICAO",1,1)
+	oExcel:AddColumn("PRODUTOS","TESTE","TIPO",1,1)
+	oExcel:AddColumn("PRODUTOS","TESTE","GRUPO",1,1)
+	oExcel:AddColumn("PRODUTOS","TESTE","BM_DESCRICAO",1,1)
+	oExcel:AddColumn("PRODUTOS","TESTE","BM_ORIGEM",1,1)
+
+		While TR1->(!EOF())
+
+
+
+
+
+
+			oExcel:AddRow("PRODUTOS","TESTE",{TR1->(CODIGO), TR1->(DESCRICAO), TR1->(TIPO), TR1->(GRUPO), TR1->(BM_DESCRICAO), TR1->(BM_ORIGEM)})
+			lOK := .T. 
+			TR1->(dbSkip())
+
+		EndDo
+	oExcel:Activate()
+
+		cArq := CriaTrab(NIL, .F. ) + ".xml"
+		oExcel:GetXMLFile(cArq)
+
+			If __CopyFile(cArq,cDirTmp + cArq)
+				If lOK
+					oExcelApp := FWMSExcel():New()
+					oExcelApp:WorkBooks:Open(cDirTmp + cArq)
+					oExcelApp:SetVisible( .T. )
+					oExcelApp:Destroy()
+
+				Iif(FindFunction("APMsgInfo"), APMsgInfo("O arquivo Excel foi gerado no dirtério: "+cDirTmp+cArq+". ",), MsgInfo("O arquivo Excel foi gerado no dirtério: "+cDirTmp+cArq+". ",))
+
+				EndIf
+				Else
+						Iif(FindFunction("APMsgAlert"), APMsgAlert("Erro ao cpiar o arquivo Excel!!",), MsgAlert("Erro ao cpiar o arquivo Excel!!",))
+				EndIf
+
+
+Return Nil

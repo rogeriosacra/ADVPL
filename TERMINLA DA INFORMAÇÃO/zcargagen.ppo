@@ -1,0 +1,874 @@
+#line 1 "c:/totvs1212410/protheus/protheus/include\Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\dialog.ch"
+#line 29 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\font.ch"
+#line 30 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\ptmenu.ch"
+#line 32 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\print.ch"
+#line 34 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\colors.ch"
+#line 36 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\folder.ch"
+#line 38 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\msobject.ch"
+#line 39 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\vkey.ch"
+#line 43 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\winapi.ch"
+#line 45 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcommand.ch"
+#line 48 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcss.ch"
+#line 51 "Protheus.ch"
+#line 4 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.guglfpkpqr\c:/users/rogério/documents/meusprojetosgithub/advpl/terminla da informaÇÃo/zcargagen.prw"
+
+
+
+
+Static cDirTmp := GetTempPath()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Function U_zCargaGen()
+	Local aArea := GetArea()
+
+	Local nJanAltu := 180
+	Local nJanLarg := 650
+
+	Local oGrpPar
+	Local oGrpAco
+	Local oBtnSair
+	Local oBtnImp
+	Local oBtnObri
+	Local oBtnArq
+	Local cAviso := ""
+	Private aIteTip := {}
+	Private oSayArq, oGetArq, cGetArq := Space(99)
+	Private oSayTip, oCmbTip, cCmbTip := ""
+	Private oSayCar, oGetCar, cGetCar := ";"
+	Private oDlgPvt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	aIteTip := { "01=Bancos", "02=Clientes", "03=Condição de Pagamento", "04=Contas a Receber", "05=Contas a Pagar", "06=Fornecedores", "07=Naturezas", "08=Produtos", "09=Saldo Inicial", "10=TES (Tipo de Entrada e Saída)", "11=TM (Tipo de Movimentação)", "12=Transportadoras", "13=Veículos", "14=Vendedores" }
+	cCmbTip := aIteTip[1]
+
+
+	cAviso := "zCargaGen: Carga Dados - Genérico v1.0"+Chr(13)+Chr(10)
+	cAviso += "--"+Chr(13)+Chr(10)
+	cAviso += "Para campos Numéricos com separação de decimal, utilize o caracter '.'. Por exemplo: 5.20;"+Chr(13)+Chr(10)
+	cAviso += "Para campos do tipo Data, utilize ou o padrão YYYYMMDD ou o DD/MM/YYYY. Por exemplo: 20151025 ou 25/10/2015;"+Chr(13)+Chr(10)
+	cAviso += "--"+Chr(13)+Chr(10)
+	cAviso += "A rotina está preparada para importar os seguintes cadastros:"+Chr(13)+Chr(10)
+	cAviso += " Seq- Rotina  - Tab - Descrição"+Chr(13)+Chr(10)
+	cAviso += " 01 - MATA070 - SA6 - Bancos"+Chr(13)+Chr(10)
+	cAviso += " 02 - MATA030 - SA1 - Clientes"+Chr(13)+Chr(10)
+	cAviso += " 03 - MATA360 - SE4 - Condição de Pagamento"+Chr(13)+Chr(10)
+	cAviso += " 04 - FINA040 - SE1 - Contas a Receber"+Chr(13)+Chr(10)
+	cAviso += " 05 - FINA050 - SE2 - Contas a Pagar"+Chr(13)+Chr(10)
+	cAviso += " 06 - MATA020 - SA2 - Fornecedores"+Chr(13)+Chr(10)
+	cAviso += " 07 - FINA010 - SED - Naturezas"+Chr(13)+Chr(10)
+	cAviso += " 08 - MATA010 - SB1 - Produtos"+Chr(13)+Chr(10)
+	cAviso += " 09 - MATA220 - SB9 - Saldo Inicial"+Chr(13)+Chr(10)
+	cAviso += " 10 - MATA080 - SF4 - TES (Tipo de Entrada e Saída)"+Chr(13)+Chr(10)
+	cAviso += " 11 - MATA230 - SF5 - Tipo Movimentação"+Chr(13)+Chr(10)
+	cAviso += " 12 - MATA050 - SA4 - Transportadoras"+Chr(13)+Chr(10)
+	cAviso += " 13 - OMSA060 - DA3 - Veículos"+Chr(13)+Chr(10)
+	cAviso += " 14 - MATA040 - SA3 - Vendedores"+Chr(13)+Chr(10)
+	cAviso += "--"+Chr(13)+Chr(10)
+	cAviso += " O caracter ';' (ponto e vírgula), nunca pode estar no fim da linha!"+Chr(13)+Chr(10)
+	Aviso("Atenção", cAviso, {"Ok"}, 03)
+
+
+	oDlgPvt = MsDialog():New( 000, 000, nJanAltu, nJanLarg, "Carga Dados - Genérico",,,.F.,, 0, 16777215,,,.T.,, ,.F. )
+
+		 oGrpPar := TGroup():New( 003, 003, 060, (nJanLarg/2), "Parâmetros: ", oDlgPvt, 0, 16777215,.T., )
+
+			 oSayArq := TSay():New( 013, 006,{||  "Arquivo:"},oDlgPvt,,,.F.,.F.,.F.,.T.,,, 060, 007,.F.,.F.,.F.,.F.,.F.,.F. )
+			oGetArq := TGet():New( 010, 070, { | u | If( PCount() == 0, cGetArq, cGetArq := u ) },oDlgPvt, 240, 010,,,,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F. ,,"cGetArq",,,, )
+
+
+			oGetArq:bHelp := {||	ShowHelpCpo(	"cGetArq", {"Arquivo CSV ou TXT que será importado."+Chr(13)+Chr(10)+"Exemplo: C:\teste.CSV"},2, {},2)}
+			 oBtnArq := TButton():New( 010, 311, "...", oDlgPvt,{||  (fPegaArq())}, 008, 011,,,.F.,.T.,.F.,,.F.,,,.F. )
+
+
+			 oSayTip := TSay():New( 028, 006,{||  "Tipo Importação:"},oDlgPvt,,,.F.,.F.,.F.,.T.,,, 060, 007,.F.,.F.,.F.,.F.,.F.,.F. )
+			 oCmbTip := TComboBox():New( 025, 070, { | u | If( PCount() == 0, cCmbTip, cCmbTip := u ) }, aIteTip, 100, 010, oDlgPvt,,,,,,.T.,,,.F.,,.F.,,, ,"cCmbTip" )
+
+
+			oCmbTip:bHelp := {||	ShowHelpCpo(	"cCmpTip", {"Tipo de Importação que será processada."+Chr(13)+Chr(10)+"Exemplo: 1 = Bancos"},2, {},2)}
+
+
+			 oSayCar := TSay():New( 043, 006,{||  "Carac.Sep.:"},oDlgPvt,,,.F.,.F.,.F.,.T.,,, 060, 007,.F.,.F.,.F.,.F.,.F.,.F. )
+			oGetCar := TGet():New( 040, 070, { | u | If( PCount() == 0, cGetCar, cGetCar := u ) },oDlgPvt, 030, 010,,{||  fVldCarac()},,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F. ,,"cGetCar",,,, )
+
+
+			oGetArq:bHelp := {||	ShowHelpCpo(	"cGetCar", {"Caracter de separação no arquivo."+Chr(13)+Chr(10)+"Exemplo: ';'"},2, {},2)}
+
+
+		 oGrpAco := TGroup():New( 063, 003, (nJanAltu/2)-3, (nJanLarg/2), "Ações: ", oDlgPvt, 0, 16777215,.T., )
+
+
+			 oBtnSair := TButton():New( 070, (nJanLarg/2)-(63*1), "Sair", oDlgPvt,{||  (oDlgPvt:End())}, 60, 014,,,.F.,.T.,.F.,,.F.,,,.F. )
+			 oBtnImp := TButton():New( 070, (nJanLarg/2)-(63*2), "Importar", oDlgPvt,{||  (Processa({||fConfirm(1)},"Aguarde..."))}, 60, 014,,,.F.,.T.,.F.,,.F.,,,.F. )
+			 oBtnObri := TButton():New( 070, (nJanLarg/2)-(63*3), "Camp.Obrig.", oDlgPvt,{||  (Processa({||fConfirm(2)},"Aguarde..."))}, 60, 014,,,.F.,.T.,.F.,,.F.,,,.F. )
+	oDlgPvt:Activate( oDlgPvt:bLClicked, oDlgPvt:bMoved, oDlgPvt:bPainted,.T.,,,, oDlgPvt:bRClicked, )
+
+	RestArea(aArea)
+Return
+
+
+
+
+
+
+Static Function fVldCarac()
+	Local lRet := .T. 
+	Local cInvalid := "'./\"+'"'
+
+
+	If cGetCar $ cInvalid
+		lRet := .F. 
+		Iif(FindFunction("APMsgAlert"), APMsgAlert("Caracter inválido, ele não estar contido em <b>"+cInvalid+"</b>!", "Atenção"), MsgAlert("Caracter inválido, ele não estar contido em <b>"+cInvalid+"</b>!", "Atenção"))
+	EndIf
+Return lRet
+
+
+
+
+
+
+Static Function fPegaArq()
+	Local cArqAux := ""
+
+
+
+
+
+
+	cArqAux := cGetFile( "Arquivo Texto | *.*",							"Arquivo...",							,							, .F. ,							48, .F. )
+
+
+	If Empty(cArqAux) .Or.  !File(cArqAux) .Or.  (SubStr(cArqAux, RAt(".", cArqAux)+1, 3) <> "txt" .And.  SubStr(cArqAux, RAt(".", cArqAux)+1, 3) <> "csv")
+		Iif(FindFunction("APMsgStop"), APMsgStop("Arquivo <b>inválido</b>!", "Atenção"), MsgStop("Arquivo <b>inválido</b>!", "Atenção"))
+
+
+	Else
+		cGetArq := PadR(cArqAux, 99)
+		oGetArq:Refresh()
+	EndIf
+Return
+
+
+
+
+
+
+Static Function fConfirm(nTipo)
+	Local nModBkp			:= nModulo
+	Local aAux				:= {}
+	Local nAux				:= 0
+	Local cAux				:= ""
+	Local cFunBkp			:= FunName()
+	nTipo := If( ValType(nTipo) == "U", 2, nTipo ) ;
+	Private cRotina		:= ""
+	Private cTabela		:= ""
+	Private cCampoChv		:= ""
+	Private cFilialTab	:= ""
+	Private nTotalReg		:= 0
+	Private cAliasTmp		:= "TMP_"+RetCodUsr()
+	Private oBrowChk
+	Private cFiles
+	Private cMark			:= "OK"
+	Private aCampos		:= {}
+	Private aStruTmp		:= {}
+	Private aHeadImp		:= {}
+	Private cCampTipo		:= ""
+	Private lChvProt		:= .F. 
+	Private lFilProt		:= .F. 
+	Private cLinhaCab		:= ""
+
+
+	If cCmbTip == "01"
+		cRotina	:= "MSExecAuto({|x, y| MATA070(x, y)}, aDados, 3) "
+		cTabela	:= "SA6"
+		cCampoChv	:= ""
+		cFilialTab	:= FWxFilial(cTabela)
+		nModulo	:= 6
+		SetFunName("MATA070")
+
+
+	ElseIf cCmbTip == "02"
+		cRotina	:= "MSExecAuto({|x, y| MATA030(x, y)}, aDados, 3) "
+		cTabela	:= "SA1"
+		cCampoChv	:= "A1_COD"
+		cFilialTab	:= FWxFilial(cTabela)
+		nModulo	:= 5
+		SetFunName("MATA030")
+
+
+	ElseIf cCmbTip == "03"
+		cRotina	:= "MSExecAuto({|x, y, z| MATA360(x, y, z)}, aDados, , 3) "
+		cTabela	:= "SE4"
+		cCampoChv	:= "E4_CODIGO"
+		cFilialTab	:= FWxFilial(cTabela)
+		nModulo	:= 5
+		SetFunName("MATA360")
+
+
+	ElseIf cCmbTip == "04"
+		cRotina	:= "MSExecAuto({|x, y| FINA040(x, y)}, aDados, 3) "
+		cTabela	:= "SE1"
+		cCampoChv	:= ""
+		cFilialTab	:= FWxFilial(cTabela)
+		nModulo	:= 6
+		SetFunName("MATA040")
+
+
+	ElseIf cCmbTip == "05"
+		cRotina	:= "MSExecAuto({|x, y, z| FINA050(x, y, z)}, aDados, , 3) "
+		cTabela	:= "SE2"
+		cCampoChv	:= ""
+		cFilialTab	:= FWxFilial(cTabela)
+		nModulo	:= 6
+		SetFunName("FINA050")
+
+
+	ElseIf cCmbTip == "06"
+		cRotina	:= "MSExecAuto({|x, y| MATA020(x, y)}, aDados, 3) "
+		cTabela	:= "SA2"
+		cCampoChv	:= "A2_COD"
+		cFilialTab	:= FWxFilial(cTabela)
+		nModulo	:= 2
+		SetFunName("MATA020")
+
+
+	ElseIf cCmbTip == "07"
+		cRotina	:= "MSExecAuto({|x, y| FINA010A(x, y)}, aDados, 3) "
+		cTabela	:= "SED"
+		cCampoChv	:= "ED_CODIGO"
+		cFilialTab	:= FWxFilial(cTabela)
+		nModulo	:= 6
+		SetFunName("FINA010")
+
+
+	ElseIf cCmbTip == "08"
+		cRotina	:= "MSExecAuto({|x, y| MATA010(x, y)}, aDados, 3) "
+		cTabela	:= "SB1"
+		cCampoChv	:= "B1_COD"
+		cFilialTab	:= FWxFilial(cTabela)
+		nModulo	:= 4
+		SetFunName("MATA010")
+
+
+	ElseIf cCmbTip == "09"
+		cRotina	:= "MSExecAuto({|x, y| MATA220(x, y)}, aDados, 3) "
+		cTabela	:= "SB9"
+		cCampoChv	:= ""
+		cFilialTab	:= FWxFilial(cTabela)
+		nModulo	:= 4
+		SetFunName("MATA220")
+
+
+	ElseIf cCmbTip == "10"
+		cRotina	:= "MSExecAuto({|x, y| MATA080(x, y)}, aDados, 3) "
+		cTabela	:= "SF4"
+		cCampoChv	:= "F4_CODIGO"
+		cFilialTab	:= FWxFilial(cTabela)
+		nModulo	:= 5
+		SetFunName("MATA080")
+
+
+	ElseIf cCmbTip == "11"
+		cRotina	:= "MSExecAuto({|x, y| MATA230(x, y)}, aDados, 3) "
+		cTabela	:= "SF5"
+		cCampoChv	:= "F5_CODIGO"
+		cFilialTab	:= FWxFilial(cTabela)
+		nModulo	:= 4
+		SetFunName("MATA230")
+
+
+	ElseIf cCmbTip == "12"
+		cRotina	:= "MSExecAuto({|x, y| MATA050(x, y)}, aDados, 3) "
+		cTabela	:= "SA4"
+		cCampoChv	:= "A4_COD"
+		cFilialTab	:= FWxFilial(cTabela)
+		nModulo	:= 5
+		SetFunName("MATA050")
+
+
+	ElseIf cCmbTip == "13"
+		cRotina	:= "MSExecAuto({|x, y| OMSA060(x, y)}, aDados, 3) "
+		cTabela	:= "DA3"
+		cCampoChv	:= "DA3_COD"
+		cFilialTab	:= FWxFilial(cTabela)
+		nModulo	:= 39
+		SetFunName("OMSA060")
+
+
+	ElseIf cCmbTip == "14"
+		cRotina	:= "MSExecAuto({|x, y| MATA040(x, y)}, aDados, 3) "
+		cTabela	:= "SA3"
+		cCampoChv	:= "A3_COD"
+		cFilialTab	:= FWxFilial(cTabela)
+		nModulo	:= 5
+		SetFunName("MATA040")
+
+
+	Else
+		nModulo	:= nModBkp
+		Iif(FindFunction("APMsgStop"), APMsgStop("Opção <b>Inválida</b>!", "Atenção"), MsgStop("Opção <b>Inválida</b>!", "Atenção"))
+		Return
+	EndIf
+
+
+	If nTipo == 1
+
+		If File(cGetArq)
+
+			Ft_FUse(cGetArq)
+			nTotalReg := Ft_FLastRec()
+
+
+			If nTotalReg < 2
+				Iif(FindFunction("APMsgAlert"), APMsgAlert("Arquivo inválido, possui menos que <b>2</b> linhas!", "Atenção"), MsgAlert("Arquivo inválido, possui menos que <b>2</b> linhas!", "Atenção"))
+
+
+			Else
+
+				fMontaTmp()
+
+
+				cLinhaCab := Ft_FReadLn()
+				cLinhaCab := Iif(SubStr(cLinhaCab, Len(cLinhaCab)-1, 1) == ";", SubStr(cLinhaCab, 1, Len(cLinhaCab)-1), cLinhaCab)
+				aAux := Separa(cLinhaCab, cGetCar)
+				Ft_FSkip()
+
+
+				For nAux := 1 To Len(aAux)
+					cAux := GetSX3Cache(aAux[nAux], "X3_TIPO")
+
+
+					If Empty(GetSX3Cache(aAux[nAux], "X3_TITULO"))
+						cCampTipo += aAux[nAux]+";"
+					EndIf
+
+
+
+
+					aAdd(aHeadImp, {	aAux[nAux],										Iif(Empty(cAux), " ", cAux), .F. })
+				Next
+
+
+				If fTelaObs(!Empty(cCampoChv))
+
+
+					fImport()
+
+
+					(cAliasTmp)->(DbGoTop())
+					If ! (cAliasTmp)->(EoF())
+						fTelaErro()
+
+
+					Else
+						Iif(FindFunction("APMsgInfo"), APMsgInfo("Importação finalizada com Sucesso!", "Atenção"), MsgInfo("Importação finalizada com Sucesso!", "Atenção"))
+					EndIf
+				EndIf
+
+
+				(cAliasTmp)->(DbCloseArea())
+				fErase(cAliasTmp + GetDBExtension())
+			EndIf
+			Ft_FUse()
+
+
+		Else
+			Iif(FindFunction("APMsgAlert"), APMsgAlert("Arquivo inválido / não encontrado!", "Atenção"), MsgAlert("Arquivo inválido / não encontrado!", "Atenção"))
+		EndIf
+
+
+	ElseIf nTipo == 2
+		fObrigat()
+	EndIf
+
+	nModulo := nModBkp
+	SetFunName(cFunBkp)
+Return
+
+
+
+
+
+
+Static Function fObrigat()
+	Local aAreaX3		:= SX3->(GetArea())
+	Local cConteud	:= ""
+	Local cCaminho	:= cDirTmp
+	Local cArquivo	:= "obrigatorio."
+	Local cExtensao	:= ""
+
+
+	DbSelectArea("SX3")
+	SX3->(DbSetOrder(1))
+	SX3->(DbGoTop())
+	SX3->(DbSeek(cTabela))
+
+
+	While !SX3->(Eof()) .And.  SX3->X3_ARQUIVO == cTabela
+
+		If X3Obrigat(SX3->X3_CAMPO) .Or.  SX3->X3_CAMPO $ "B1_PICM;B1_IPI;B1_CONTRAT;B1_LOCALIZ"
+			cConteud += Alltrim(SX3->X3_CAMPO)+cGetCar
+		EndIf
+
+		SX3->(DbSkip())
+	EndDo
+	cConteud := Iif(!Empty(cConteud), SubStr(cConteud, 1, Len(cConteud)-1), "")
+
+
+	If Iif(FindFunction("APMsgYesNo"), APMsgYesNo("Deseja gerar com a extensão <b>txt</b>?", "Atenção"), (cMsgYesNo:="MsgYesNo", &cMsgYesNo.("Deseja gerar com a extensão <b>txt</b>?", "Atenção")))
+		cExtensao := "txt"
+
+
+	Else
+		cExtensao := "csv"
+	EndIf
+
+
+	MemoWrite(cCaminho+cArquivo+cExtensao, cConteud)
+
+
+	nRet := ShellExecute("open", cArquivo+cExtensao, "", cCaminho, 1)
+
+
+	If nRet <= 32
+		Iif(FindFunction("APMsgStop"), APMsgStop("Não foi possível abrir o arquivo <b>"+cCaminho+cArquivo+cExtensao+"</b>!", "Atenção"), MsgStop("Não foi possível abrir o arquivo <b>"+cCaminho+cArquivo+cExtensao+"</b>!", "Atenção"))
+	EndIf
+
+	RestArea(aAreaX3)
+Return
+
+
+
+
+
+
+Static Function fMontaTmp()
+	Local aArea := GetArea()
+
+
+	If Select(cAliasTmp) > 0
+		(cAliasTmp)->(DbCloseArea())
+	EndIf
+	fErase(cAliasTmp + GetDBExtension())
+
+
+	aStruTmp:={}
+	aAdd(aStruTmp,{	"TMP_SEQ",		"C",	010,						0})
+	aAdd(aStruTmp,{	"TMP_LINHA",	"N",	018,						0})
+	aAdd(aStruTmp,{	"TMP_ARQ",		"C",	250,						0})
+
+
+	cFiles := CriaTrab( aStruTmp, .T.  )
+	dbUseArea( .T. , "DBFCDX", cFiles, cAliasTmp, .T. , .F.  )
+
+
+	aCampos := {}
+	aAdd(aCampos,{	"TMP_SEQ",		,	"Sequencia",		"@!"})
+	aAdd(aCampos,{	"TMP_LINHA",	,	"Linha Erro",		""})
+	aAdd(aCampos,{	"TMP_ARQ",		,	"Arquivo Log.",	""})
+
+	RestArea(aArea)
+Return
+
+
+
+
+
+
+Static Function fTelaObs(lAtivChav)
+	Local lRet := .F. 
+
+	Local nJanAltu := 500
+	Local nJanLarg := 700
+
+	Local oGrpDad
+	Local oGrpCam
+	Local oGrpOpc
+	Local oGrpAco
+	Local oBtnConf
+	Local oBtnCanc
+
+	Local oDlgObs
+
+	Local oSayChave, oRadChave, nRadChave := 1
+
+	Local oSayFilial, oRadFilial, nRadFilial := 1
+
+	Local oSayTab, oGetTab, cGetTab := cTabela
+	Local oSayCam, oGetCam, cGetCam := cCampoChv
+	Local oSayFil, oGetFil, cGetFil := cFilialTab
+	Local oSayRot, oGetRot, cGetRot := cRotina
+
+	Private oMsNew
+	Private aHeadNew := {}
+	Private aColsNew := aClone(aHeadImp)
+	lAtivChav := If( ValType(lAtivChav) == "U", .T. , lAtivChav ) ;
+
+
+
+	aAdd(aHeadNew,{	"Campo",			"XX_CAMP",		"@!",		10,			0,		".F.",				".F.",	"C",	"",	""})
+	aAdd(aHeadNew,{	"Tipo",			"XX_TIPO",		"@!",		1,			0,		"u_zCargaTp()",	".T.",	"C", 	"",	"C;N;L;D;M",	"C=Caracter;N=Numérico;L=Lógico;D=Data;M=Memo"})
+
+
+	oDlgObs = MsDialog():New( 000, 000, nJanAltu, nJanLarg, "Observações",,,.F., 128, 0, 16777215,,,.T.,, ,.F. )
+
+		 oGrpDad := TGroup():New( 003, 003, 055, (nJanLarg/2), "Dados: ", oDlgObs, 0, 16777215,.T., )
+
+			 oSayTab := TSay():New( 010, 005,{||  "Tabela:"},oDlgObs,,,.F.,.F.,.F.,.T., 0, 16777215, 040, 011,.F.,.F.,.F.,.F.,.F.,.F. )
+			oGetTab := TGet():New( 017, 005, { | u | If( PCount() == 0, cGetTab, cGetTab := u ) },oDlgObs, 040, 010,,,,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F. ,,"cGetTab",,,, )
+			oGetTab:lActive := .F. 
+
+
+			 oSayCam := TSay():New( 010, 121,{||  "Campo Chave:"},oDlgObs,,,.F.,.F.,.F.,.T., 0, 16777215, 040, 011,.F.,.F.,.F.,.F.,.F.,.F. )
+			oGetCam := TGet():New( 017, 121, { | u | If( PCount() == 0, cGetCam, cGetCam := u ) },oDlgObs, 040, 010,,,,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F. ,,"cGetCam",,,, )
+			oGetCam:lActive := .F. 
+
+
+			 oSayFil := TSay():New( 010, 237,{||  "Filial Atual:"},oDlgObs,,,.F.,.F.,.F.,.T., 0, 16777215, 040, 011,.F.,.F.,.F.,.F.,.F.,.F. )
+			oGetFil := TGet():New( 017, 237, { | u | If( PCount() == 0, cGetFil, cGetFil := u ) },oDlgObs, 040, 010,,,,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F. ,,"cGetFil",,,, )
+			oGetFil:lActive := .F. 
+
+
+			 oSayRot := TSay():New( 031, 005,{||  "Rotina:"},oDlgObs,,,.F.,.F.,.F.,.T., 0, 16777215, 040, 011,.F.,.F.,.F.,.F.,.F.,.F. )
+			oGetRot := TGet():New( 038, 005, { | u | If( PCount() == 0, cGetRot, cGetRot := u ) },oDlgObs, 272, 010,,,,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F. ,,"cGetRot",,,, )
+			oGetRot:lActive := .F. 
+
+
+		 oGrpCam := TGroup():New( 058, 003, 180, (nJanLarg/2), "Campos: ", oDlgObs, 0, 16777215,.T., )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			oMsNew := MsNewGetDados():New(	058+12,    											006,    											177,    											(nJanLarg/2)-6,    											1+4+2,    											"AllwaysTrue()",    											,    											"",    											{"XX_TIPO"},    											,    											999,    											,    											,    											,    											oDlgObs,    											aHeadNew,    											aColsNew)
+			oMsNew:lInsert := .F. 
+
+
+		 oGrpOpc := TGroup():New( 183, 003, 220, (nJanLarg/2), "Opções: ", oDlgObs, 0, 16777215,.T., )
+
+			 oSayChave := TSay():New( 190, 005,{||  "Campo Chave importado?"},oDlgObs,,,.F.,.F.,.F.,.T., 0, 16777215, 100, 011,.F.,.F.,.F.,.F.,.F.,.F. )
+			 oRadChave := TRadMenu():New( 200, 005, { "Conforme Arquivo","Conforme Sequencia do Protheus (SXE/SXF)"},{ | u | If( PCount() == 0, nRadChave, nRadChave := u ) }, oDlgObs,,, 0, 16777215,,.F.,, 120, 019,,.F.,.F.,.T. )
+			oRadChave:lActive := lAtivChav
+
+
+			 oSayFilial := TSay():New( 190, 180,{||  "Campo Filial importado?"},oDlgObs,,,.F.,.F.,.F.,.T., 0, 16777215, 100, 011,.F.,.F.,.F.,.F.,.F.,.F. )
+			 oRadFilial := TRadMenu():New( 200, 180, { "Conforme Arquivo","Conforme Filial do Protheus (xFilial)"},{ | u | If( PCount() == 0, nRadFilial, nRadFilial := u ) }, oDlgObs,,, 0, 16777215,,.F.,, 120, 019,,.F.,.F.,.T. )
+
+
+		 oGrpAco := TGroup():New( 223, 003, 247, (nJanLarg/2), "Ações: ", oDlgObs, 0, 16777215,.T., )
+			 oBtnCanc := TButton():New( 229, (nJanLarg/2)-(63*1), "Cancelar", oDlgObs,{||  (lRet:= .F. ,oDlgObs:End())}, 60, 014,,,.F.,.T.,.F.,,.F.,,,.F. )
+			 oBtnConf := TButton():New( 229, (nJanLarg/2)-(63*2), "Confirmar", oDlgObs,{||  (aHeadImp:=aClone(oMsNew:aCols),lRet:= .T. ,oDlgObs:End())}, 60, 014,,,.F.,.T.,.F.,,.F.,,,.F. )
+	oDlgObs:Activate( oDlgObs:bLClicked, oDlgObs:bMoved, oDlgObs:bPainted,.T.,,,, oDlgObs:bRClicked, )
+
+
+	If lRet
+		lChvProt := nRadChave  == 2
+		lFilProt := nRadFilial == 2
+	EndIf
+Return lRet
+
+
+
+
+
+
+
+
+
+
+Function U_zCargaTp()
+	Local lRetorn := .F. 
+	Local aColsAux := oMsNew:aCols
+	Local nLinAtu := oMsNew:nAt
+
+
+	If aColsAux[nLinAtu][01] $ cCampTipo
+		lRetorn := .T. 
+
+
+	Else
+		lRetorn := .F. 
+		Iif(FindFunction("APMsgAlert"), APMsgAlert("Campo não pode ser alterado!", "Atenção"), MsgAlert("Campo não pode ser alterado!", "Atenção"))
+	EndIf
+
+Return lRetorn
+
+
+
+
+
+
+Static Function fImport()
+	Local nLinAtu	:= 2
+	Local cLinAtu	:= ""
+	Local aAuxAtu	:= {}
+	Local cArqLog	:= ""
+	Local cConLog	:= ""
+	Local cSequen	:= StrZero(1, 10)
+	Local nPosAux	:= 1
+	Local lFalhou	:= .F. 
+	Local xConteud:= ""
+	Local nAuxLog	:= 0
+	Local aLogAuto:= {}
+	Private aDados	:= {}
+	ProcRegua(nTotalReg)
+
+
+	While !Ft_FEoF() .And.  nLinAtu <= FT_FLastRec()
+		IncProc("Analisando linha "+cValToChar(nLinAtu)+" de "+cValToChar(nTotalReg)+"...")
+		cArqLog := "log_"+cCmbTip+"_lin_"+cValToChar(nLinAtu)+"_"+dToS(dDataBase)+"_"+StrTran(Time(), ":", "-")+".txt"
+		cConLog := "Tipo:     "+cCmbTip+Chr(13)+Chr(10)
+		cConLog += "Usuário:  "+UsrRetName(RetCodUsr())+Chr(13)+Chr(10)
+		cConLog += "Ambiente: "+GetEnvServer()+Chr(13)+Chr(10)
+		cConLog += "Data:     "+dToC(dDataBase)+Chr(13)+Chr(10)
+		cConLog += "Hora:     "+Time()+Chr(13)+Chr(10)
+		cConLog += "----"+Chr(13)+Chr(10)+Chr(13)+Chr(10)
+
+
+		cLinAtu := Ft_FReadLn()
+		cLinAtu := Iif(SubStr(cLinAtu, Len(cLinAtu), 1) == ";", SubStr(cLinAtu, 1, Len(cLinAtu)-1), cLinAtu)
+		aAuxAtu := Separa(cLinAtu, cGetCar)
+
+
+		If !Empty(cLinAtu)
+
+			If Len(aAuxAtu) <> Len(aHeadImp)
+				cConLog += "O tamanho de campos da linha, difere do tamanho de campos do cabeçalho!"+Chr(13)+Chr(10)
+				cConLog += "Linha:     "+cValToChar(Len(aAuxAtu))+Chr(13)+Chr(10)
+				cConLog += "Cabeçalho: "+cValToChar(Len(aHeadImp))+Chr(13)+Chr(10)
+
+
+				MemoWrite(cDirTmp+cArqLog, cConLog)
+
+
+				RecLock(cAliasTmp, .T. )
+					TMP_SEQ	:= cSequen
+					TMP_LINHA	:= nLinAtu
+					TMP_ARQ	:= cArqLog
+				(cAliasTmp)->(MsUnlock())
+
+
+				cSequen := Soma1(cSequen)
+
+
+			Else
+				aDados	:= {}
+				lFalhou:= .F. 
+
+
+				Begin Sequence; BeginTran()
+
+					For nPosAux := 1 To Len(aHeadImp)
+						xConteud := aAuxAtu[nPosAux]
+
+
+						If aHeadImp[nPosAux][2] == "N"
+							xConteud := Val(aAuxAtu[nPosAux])
+
+
+						ElseIf aHeadImp[nPosAux][2] == "L"
+							xConteud := Iif(aAuxAtu[nPosAux] == ".T.", .T. , .F. )
+
+
+						ElseIf aHeadImp[nPosAux][2] == "D"
+
+							If "/" $ aAuxAtu[nPosAux]
+								xConteud := cToD(aAuxAtu[nPosAux])
+
+
+							Else
+								xConteud := sToD(aAuxAtu[nPosAux])
+							EndIf
+						EndIf
+
+
+						If "_FILIAL" $ aHeadImp[nPosAux][1]
+
+							If lFilProt
+								xConteud := FWxFilial(cTabela)
+							EndIf
+						EndIf
+
+
+						If Alltrim(cCampoChv) == Alltrim(aHeadImp[nPosAux][1])
+
+							If lChvProt
+								xConteud := GetSXENum(cTabela, cCampoChv)
+							EndIf
+						EndIf
+
+
+
+
+						aAdd(aDados,{	aHeadImp[nPosAux][1],										xConteud,										Nil})
+					Next
+
+
+					lAutoErrNoFile	:= .T. 
+					lMsErroAuto		:= .F. 
+
+
+					&(cRotina)
+
+
+					If lMsErroAuto
+						lFalhou := .T. 
+
+
+						aLogAuto := GetAutoGRLog()
+
+
+						For nAuxLog :=1 To Len(aLogAuto)
+							cConLog += aLogAuto[nAuxLog] + Chr(13)+Chr(10)
+						Next
+
+						DisarmTransaction()
+					EndIf
+				EndTran(); end
+
+
+				If lFalhou
+
+					MemoWrite(cDirTmp+cArqLog, cConLog)
+
+
+					RecLock(cAliasTmp, .T. )
+						TMP_SEQ	:= cSequen
+						TMP_LINHA	:= nLinAtu
+						TMP_ARQ	:= cArqLog
+					(cAliasTmp)->(MsUnlock())
+
+
+					cSequen := Soma1(cSequen)
+				EndIf
+			EndIf
+		EndIf
+
+		nLinAtu++
+		Ft_FSkip()
+	EndDo
+Return
+
+
+
+
+
+
+Static Function fTelaErro()
+	Local aArea		:= GetArea()
+	Local oDlgErro
+	Local oGrpErr
+	Local oGrpAco
+	Local oBtnFech
+	Local oBtnVisu
+	Local nJanLarErr	:= 600
+	Local nJanAltErr	:= 400
+
+	oDlgErro = MsDialog():New( 000, 000, nJanAltErr, nJanLarErr, "Erros na Importação",,,.F.,, 0, 16777215,,,.T.,, ,.F. )
+
+		 oGrpErr := TGroup():New( 003, 003, (nJanAltErr/2)-28, (nJanLarErr/2), "Erros: ", oDlgErro, 0, 16777215,.T., )
+
+
+
+
+
+
+
+
+
+
+
+
+			oBrowChk := MsSelect():New(	cAliasTmp,											"",											,											aCampos,											,											,											{010, 006, (nJanAltErr/2)-31, (nJanLarErr/2)-3},											,											,											oDlgErro,											,											)
+			oBrowChk:oBrowse:lHasMark    := .F. 
+			oBrowChk:oBrowse:lCanAllmark := .F. 
+
+
+		 oGrpAco := TGroup():New( (nJanAltErr/2)-25, 003, (nJanAltErr/2)-3, (nJanLarErr/2), "Ações: ", oDlgErro, 0, 16777215,.T., )
+
+
+			 oBtnFech := TButton():New( (nJanAltErr/2)-18, (nJanLarErr/2)-(63*1), "Fechar", oDlgErro,{||  (oDlgErro:End())}, 60, 014,,,.F.,.T.,.F.,,.F.,,,.F. )
+			 oBtnVisu := TButton():New( (nJanAltErr/2)-18, (nJanLarErr/2)-(63*2), "Vis.Erro", oDlgErro,{||  (fVisErro())}, 60, 014,,,.F.,.T.,.F.,,.F.,,,.F. )
+	oDlgErro:Activate( oDlgErro:bLClicked, oDlgErro:bMoved, oDlgErro:bPainted,.T.,,,, oDlgErro:bRClicked, )
+
+	RestArea(aArea)
+Return
+
+
+
+
+
+
+Static Function fVisErro()
+	Local nRet := 0
+	Local cNomeArq := Alltrim((cAliasTmp)->TMP_ARQ)
+
+	nRet := ShellExecute("open", cNomeArq, "", cDirTmp, 1)
+
+
+	If nRet <= 32
+		Iif(FindFunction("APMsgStop"), APMsgStop("Não foi possível abrir o arquivo "+cDirTmp+cNomeArq+"!", "Atenção"), MsgStop("Não foi possível abrir o arquivo "+cDirTmp+cNomeArq+"!", "Atenção"))
+	EndIf
+Return

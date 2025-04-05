@@ -1,0 +1,28 @@
+
+
+
+
+
+
+Function U_afterlogin()
+
+FatuAudit()
+
+Return
+
+
+Static Function FatuAudit()
+
+
+Reclock("ZZ9", .T. )
+
+ZZ9_FILIAL := cFilAnt
+ZZ9_USER   := cUserName
+ZZ9_COMP   := ComputerName()
+ZZ9_DACESS := Date()
+ZZ9_HACESS := TIME()
+ZZ9_ROTINA := omainwnd:ccaption
+ZZ9_IP     := GetClientiP( .T. )
+ZZ9->(MsUnlock())
+
+Return
