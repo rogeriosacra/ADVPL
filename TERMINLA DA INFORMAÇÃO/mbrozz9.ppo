@@ -1,0 +1,49 @@
+#line 1 "c:/totvs1212410/protheus/protheus/include\Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\dialog.ch"
+#line 29 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\font.ch"
+#line 30 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\ptmenu.ch"
+#line 32 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\print.ch"
+#line 34 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\colors.ch"
+#line 36 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\folder.ch"
+#line 38 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\msobject.ch"
+#line 39 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\vkey.ch"
+#line 43 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\winapi.ch"
+#line 45 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcommand.ch"
+#line 48 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcss.ch"
+#line 51 "Protheus.ch"
+#line 2 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.sufmjynevr\c:/users/rogério/documents/meusprojetosgithub/advpl/terminla da informaÇÃo/mbrozz9.prw"
+#line 1 "c:/totvs1212410/protheus/protheus/include\parmtype.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\parmtypech.ch"
+#line 3 "parmtype.ch"
+#line 4 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.sufmjynevr\c:/users/rogério/documents/meusprojetosgithub/advpl/terminla da informaÇÃo/mbrozz9.prw"
+Function U_MBROZZ9()
+
+	Local cAlias := "ZZ9"
+	Private cTitulo := "Acessos X Usuários X Rotina"
+	Private aRotina := {}
+
+	AADD(aRotina,{"Pesquisei",  "AxPesquisa", 0,1})
+	AADD(aRotina,{"Visualizar", "AxVisual"  , 0,2})
+	AADD(aRotina,{"Incluir",    "AxInclui"  , 0,3})
+	AADD(aRotina,{"Troquei",    "AxAltera"  , 0,4})
+	AADD(aRotina,{"Excluir",    "AxDeleta"  , 0,5})
+	AADD(aRotina,{"Auditoria",  "U_Modelo1" , 0,5})
+
+	DbSelectArea(cAlias)
+	DbSetOrder(1)
+	Mbrowse(,,,,cAlias)
+
+
+
+
+Return

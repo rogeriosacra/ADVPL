@@ -66,6 +66,9 @@
 		},
 		{
 			"label": "u_Enchoice"
+		},
+		{
+			"label": "SIGACOM"
 		}
 	],
 	"lastProgramExecuted": "SIGAATF",

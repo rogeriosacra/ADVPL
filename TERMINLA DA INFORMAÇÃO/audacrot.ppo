@@ -1,0 +1,53 @@
+#line 1 "c:/totvs1212410/protheus/protheus/include\Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\dialog.ch"
+#line 29 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\font.ch"
+#line 30 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\ptmenu.ch"
+#line 32 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\print.ch"
+#line 34 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\colors.ch"
+#line 36 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\folder.ch"
+#line 38 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\msobject.ch"
+#line 39 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\vkey.ch"
+#line 43 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\winapi.ch"
+#line 45 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcommand.ch"
+#line 48 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcss.ch"
+#line 51 "Protheus.ch"
+#line 2 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.kiyqlnfgvy\c:/users/rogério/documents/meusprojetosgithub/advpl/terminla da informaÇÃo/audacrot.prw"
+#line 1 "c:/totvs1212410/protheus/protheus/include\Parmtype.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\parmtypech.ch"
+#line 3 "Parmtype.ch"
+#line 3 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.kiyqlnfgvy\c:/users/rogério/documents/meusprojetosgithub/advpl/terminla da informaÇÃo/audacrot.prw"
+#line 1 "c:/totvs1212410/protheus/protheus/include\Totvs.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\protheus.ch"
+#line 11 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.kiyqlnfgvy\c:/users/rogério/documents/meusprojetosgithub/advpl/terminla da informaÇÃo/audacrot.prw"
+Function U_afterlogin()
+
+FatuAudit()
+
+Return
+
+
+Static Function FatuAudit()
+
+
+Reclock("ZZ9", .T. )
+
+ZZ9_FILIAL := cFilAnt
+ZZ9_USER   := cUserName
+ZZ9_COMP   := GetComputerName()
+ZZ9_DACESS := Date()
+ZZ9_HACESS := TIME()
+ZZ9_ROTINA := omainwnd:ccaption
+ZZ9_IP     := GetClientiP( .T. )
+ZZ9->(MsUnlock())
+
+Return

@@ -1,0 +1,39 @@
+#line 1 "c:/totvs1212410/protheus/protheus/include\Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\dialog.ch"
+#line 29 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\font.ch"
+#line 30 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\ptmenu.ch"
+#line 32 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\print.ch"
+#line 34 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\colors.ch"
+#line 36 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\folder.ch"
+#line 38 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\msobject.ch"
+#line 39 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\vkey.ch"
+#line 43 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\winapi.ch"
+#line 45 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcommand.ch"
+#line 48 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcss.ch"
+#line 51 "Protheus.ch"
+#line 2 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.gwalgjeelc\c:/users/rogério/documents/meusprojetosgithub/advpl/terminla da informaÇÃo/axcadzz9.prw"
+#line 1 "c:/totvs1212410/protheus/protheus/include\parmtype.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\parmtypech.ch"
+#line 3 "parmtype.ch"
+#line 4 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.gwalgjeelc\c:/users/rogério/documents/meusprojetosgithub/advpl/terminla da informaÇÃo/axcadzz9.prw"
+Function U_Modelo1()
+
+Local cAlias  := "ZZ9"
+Local cTitulo := "Acessos X Usuários X Rotina"
+Local cValExc := .T. 
+Local cValAlt := .T. 
+
+AxCadastro(cAlias,cTitulo,cValExc,cValAlt)
+
+
+Return Nil
