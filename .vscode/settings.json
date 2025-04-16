@@ -3,5 +3,5 @@
     "files.associations": {
         "paspar1": "c"
     },
-    "totvsLanguageServer.editor.linter.includes": "C:\\TOTVS122210\\Protheus\\Protheus\\include\\include;C:\\TOTVS122210\\Protheus\\protheus_data\\includes"
+    "totvsLanguageServer.editor.linter.includes": "C:\\TOTVS122210\\Protheus\\Protheus\\include\\include;C:\\TOTVS122210\\Protheus\\protheus_data\\includes;C:\\TOTVS1212410\\PROTHEUS\\Protheus\\include;C:\\TOTVS1212410\\PROTHEUS\\Protheus\\include"
 }

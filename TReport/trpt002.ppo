@@ -1,24 +1,35 @@
-#Include 'Protheus.ch'
-#include 'TopConn.CH'
-
-/*/{Protheus.doc} trpt002
-exemplo de relatorio em advpl
-@type function
-@author Curso Desenvolvendo relatórios com ADVPL - RCTI Treinamentos
-@since 2019
-@version 1.0
-@return ${return}, ${return_description}
-@example
-(examples)
-@see www.rctitreinamentos.com.br
-/*/
-
-User Function Trpt002()
+#line 1 "c:/totvs1212410/protheus/protheus/include\Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\dialog.ch"
+#line 29 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\font.ch"
+#line 30 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\ptmenu.ch"
+#line 32 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\print.ch"
+#line 34 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\colors.ch"
+#line 36 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\folder.ch"
+#line 38 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\msobject.ch"
+#line 39 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\vkey.ch"
+#line 43 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\winapi.ch"
+#line 45 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcommand.ch"
+#line 48 "Protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcss.ch"
+#line 51 "Protheus.ch"
+#line 2 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.pgubeqnolm\c:/users/rogério/documents/meusprojetosgithub/advpl/treport/trpt002.prw"
+#line 1 "c:/totvs1212410/protheus/protheus/include\TopConn.CH"
+#line 16 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.pgubeqnolm\c:/users/rogério/documents/meusprojetosgithub/advpl/treport/trpt002.prw"
+Function U_Trpt002()
 
 	Local oReport := Nil
 	Local cPerg := Padr("TRPT002",10)
 
-	Pergunte(cPerg,.T.) //SX1
+	Pergunte(cPerg, .T. )
 
 	oReport := RptStruc(cPerg)
 	oReport:PrintDialog()
@@ -35,18 +46,18 @@ Static Function RPTPrint(oReport)
 	cQuery += " WHERE SA1.D_E_L_E_T_ = '' AND "
 	cQuery += " C5_FILIAL = '"+MV_PAR01+"' AND SC5.D_E_L_E_T_ = '' AND C5_CLIENTE = A1_COD AND "
 	cQuery += " C6_FILIAL = '"+MV_PAR01+"' AND SC6.D_E_L_E_T_ = '' AND C6_NUM = C5_NUM AND "
-	//cQuery += " C5_CLIENTE = '"+MV_PAR02+"' AND SC5.D_E_L_E_T_ = '' AND C5_CLIENTE = A1_COD "
-	cQuery += " C5_EMISSAO = '"+DTOS(MV_PAR02)+"' AND SC5.D_E_L_E_T_ = '' AND C6_NUM = C5_NUM AND "	
+
+	cQuery += " C5_EMISSAO = '"+DTOS(MV_PAR02)+"' AND SC5.D_E_L_E_T_ = '' AND C6_NUM = C5_NUM AND "
 	cQuery += " B1_FILIAL = '' AND SB1.D_E_L_E_T_ = '' AND B1_COD = C6_PRODUTO "
 	cQuery += " ORDER BY A1_FILIAL,A1_COD,C5_FILIAL,C5_NUM,C6_FILIAL,C6_ITEM "
 
-	//Verifica se a tabela ja está aberta.
+
 	If Select("TEMP") <> 0
 		DbSelectArea("TEMP")
 		DbCloseArea()
 	EndIf
 
-	TCQUERY cQuery NEW ALIAS "TEMP"
+	dbUseArea(.T., "TOPCONN", TCGENQRY(,,cQuery), "TEMP" , .F. , .T. )
 
 	DbSelectArea("TEMP")
 	TEMP->(dbGoTop())
@@ -57,24 +68,24 @@ Static Function RPTPrint(oReport)
 		If oReport:Cancel()
 			Exit
 		EndIf
-		//Iniciando a primeira seção
+
 		oSection1:Init()
 		oReport:IncMeter()
 
 		cNumCod := TEMP->A1_COD
 		IncProc("Imprimindo Cliente "+ Alltrim(TEMP->A1_COD))
 
-		//Imprimindo primeira seção:
+
 		oSection1:Cell("A1_COD"):SetValue(TEMP->A1_COD)
 		oSection1:Cell("A1_NOME"):SetValue(TEMP->A1_NOME)
 		oSection1:Cell("C5_EMISSAO"):SetValue(STOD(TEMP->C5_EMISSAO))
 		oSection1:Printline()
 
 
-		//Iniciar a impressão da seção 2
+
 		oSection2:Init()
 
-		//verifica se o codigo do cliente é o mesmo, se sim, imprime os dados do pedido
+
 		While TEMP->A1_COD == cNumCod
 			oReport:IncMeter()
 
@@ -105,20 +116,20 @@ Static Function RPTStruc(cNome)
 
 	oReport := TReport():New(cNome,"Relatório de pedidos por clientes",cNome,{|oRperot| RPTPRINT(oReport)},"Descricao do Help")
 
-	oReport:SetPortrait() //Definindo a orientação como retrato
+	oReport:SetPortrait()
 
-	oSection1 := TRSection():New(oReport, "Clientes",{"SA1"}, NIL,.F.,.T.)
+	oSection1 := TRSection():New(oReport, "Clientes",{"SA1"}, NIL, .F. , .T. )
 	TRCell():New(oSection1,"A1_COD"		,"TEMP","CODIGO"  		,"@!",40)
 	TRCell():New(oSection1,"A1_NOME"  ,"TEMP","NOME"	,"@!",200)
 	Trcell():New(oSection1,"C5_EMISSAO"  ,"TEMP","EMISSAO"	,"@!",300)
 
-	oSection2 := TRSection():New(oReport, "Produtos",{"SB1"}, NIL,.F.,.T.)
+	oSection2 := TRSection():New(oReport, "Produtos",{"SB1"}, NIL, .F. , .T. )
 	TRCell():New(oSection2,"C5_NUM"   	,"TEMP","Pedido"	,"@!",30)
 	TRCell():New(oSection2,"B1_DESC"  	,"TEMP","Descrição"	,"@!",100)
 	TRCell():New(oSection2,"C6_PRCVEN"	,"TEMP","Prec. Vend"	,"@E 999999.99",20)
 	TRCell():New(oSection2,"C6_QTDVEN"	,"TEMP","Quantidade"	,"@E 999999.99",30)
 
-	oSection1:SetPageBreak(.F.) //Quebra de seção
+	oSection1:SetPageBreak( .F. )
 
 
 Return (oReport)
