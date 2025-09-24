@@ -1,0 +1,40 @@
+Sobre a fase 1
+==============
+
+A "Fase 1" consiste em demonstra as funcoes basicas do ADVPL.
+
+O treinamento é composto de 15 exercícios.
+
+Leia atentamente os comentarios no inicio dos fontes.
+
+O candidato deve ser capaz de:
+1. Ler o comentário do código fonte;
+2. Executar a função no "VS CODE";
+3. Entender e ser capaz de explicar o objetivo do código fonte;
+4. Fazer uma evidencia de teste em video (duracao de 1 minuto);
+5. Enviar por e-mail (ProgJR.Ethios@gmail.com) anexando a evidencia em video e o arquivo fonte. 
+
+São 16 Pastas, com 91 programas no total :
+
+ 9 Conceitos básicos
+10 Tipos de Alertas
+ 1 Interface de cadastro
+13 Componentes de Interface
+ 1 Execução automática
+ 4 Pontos de Entrada
+ 2 Tipos de Pergunta
+20 Tipos de navegadores
+ 5 Relatórios
+ 4 Tipos de Planilhas
+ 2 Formas de Enviar E-mail
+ 6 Formas de Acessar dados
+ 3 Formas de Acesso a pastas
+ 1 Forma de acessar FTP
+ 1 Forma de acessar WebService
+ 9 Formas de utilizar variáveis
+ 
+Apos a conclusao da "Fase 1", o canditado será avaliado com uma lista de perguntas sobre os programadas apresentandos.
+
+Caso responda corretamente, o candidato entrará o programa de estágio remunerado.
+
+.Fim
