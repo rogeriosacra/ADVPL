@@ -1,0 +1,12 @@
+ExecBlock - Execução do ponto de entrada
+========================================
+
+A função de usuário executada através da ExecBlock() não recebe parâmetros diretamente, sendo que estes estarão disponíveis em uma variável private denominada PARAMIXB.
+
+A variável PARAMIXB é o reflexo do parâmetro uParam, definido na execução da função ExecBlock(). Caso seja necessária a passagem de várias informações, as mesmas deverão ser definidas na forma de um array, tornando PARAMIXB um array também, a ser tratado na função de usuário que será executada
+
+
+Função: EXECBLOCK("TESTE21",.F.,.F.,aParam)
+Fonte.: https://tdn.totvs.com/pages/releaseview.action?pageId=6814883
+
+.Fim

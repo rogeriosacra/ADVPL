@@ -1,0 +1,31 @@
+COMPONENTES VISUAIS
+===================
+
+O principal componente visual que constroi uma Janela para todos os complentes é o MSDIALOG.
+
+Uma interface necessita do componentes visuais para interagir com o usuario.
+
+A respeito da programação, podem-se utilizar componentes visuais complexos ou simples. 
+Exemplo de componentes que tem seu equivalente de forma complexa ou simples:
+- TSAY (Complexo)    e SAY (Simples)
+- TGET (Complexo)    e MSGET (Simples)
+- TDIALOG (Complexo) e MSDIALOG (Simples)
+- TFOLDER (Complexo) e FOLDER (Simples)
+
+Ambos permitem as mesmas configurações, porém o componente simples se utiliza de 
+configurações básicas para funcionar, respeitando os padrões da interface já aberta. 
+Enquanto que o componente complexo pode ser totalmente remodelado.
+
+Componentes de Grid:
+====================
+
+Voce pode criar varias GRID com a funcionalidade de markbrowse com vários componentes 
+GetDados     - Acessa dicionario e TABELAS
+MsGetDados   - Acessa dicionario e TABELAS (Melhoria do GetDados)
+MsNewGetDados- Acessa dicionario e TABELAS (Melhoria do MsGetDados)
+FwMarkBrowse - Não permite ajustar janela (sempre maximizada no MsDialog)
+MarkBrow     - Não permite ajustar janela (sempre maximizada no MsDialog)
+MsSelect     - Permite ajustar janela no MsDialog e executar Mark e Legenda
+TWBrowse     - Permite ajustar janela no MsDialog e executar Mark ou Legenda
+
+.FIM

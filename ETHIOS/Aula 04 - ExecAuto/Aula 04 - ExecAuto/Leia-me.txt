@@ -1,0 +1,8 @@
+Exemplos de ExecAuto:
+=====================
+
+MATA030 - Modelo 1 - Cadastro de Clientes
+MATA120 - Modelo 2 - Pedido de Compra
+MATA410 - Modelo 3 - Pedido de Venda
+
+.Fim

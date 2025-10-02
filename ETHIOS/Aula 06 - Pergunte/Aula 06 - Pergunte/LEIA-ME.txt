@@ -1,0 +1,22 @@
+PERGUNTA:
+=========
+
+As funções de pergunta tem que ser executadas dentro do PROTHEUS porque necessitam das
+variaves PRIVADAS a seguir:
+
+MV_PAR01
+MV_PAR02
+MV_PAR03
+MV_PAR04
+MV_PAR05
+MV_PAR06
+MV_PAR07
+MV_PAR08
+MV_PAR09
+MV_PAR10
+MV_PAR11
+MV_PAR12
+MV_PAR13
+MV_PAR15
+
+.Fim
