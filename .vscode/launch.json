@@ -8,6 +8,15 @@
 			"program": "${command:AskForProgramName}",
 			"isMultiSession": true,
 			"enableTableSync": true,
+			"smartclientUrl": "http://localhost:4321"
+		},
+		{
+			"type": "totvs_language_web_debug",
+			"request": "launch",
+			"name": "Smart Client Web Debug",
+			"program": "${command:AskForProgramName}",
+			"isMultiSession": true,
+			"enableTableSync": true,
 			"enableMultiThread": true
 		}
 	],
@@ -69,8 +78,65 @@
 		},
 		{
 			"label": "SIGACOM"
+		},
+		{
+			"label": "u_biblioteca"
+		},
+		{
+			"label": "u_funcao"
+		},
+		{
+			"label": "u_Variavel"
+		},
+		{
+			"label": "u_Parametros"
+		},
+		{
+			"label": "u_REPETICAO"
+		},
+		{
+			"label": "u_For1"
+		},
+		{
+			"label": "u_Matriz"
+		},
+		{
+			"label": "u_UDC"
+		},
+		{
+			"label": "u_alertas"
+		},
+		{
+			"label": "u_AVISO"
+		},
+		{
+			"label": "u_MSGALERT"
+		},
+		{
+			"label": "u_MSGBOX"
+		},
+		{
+			"label": "u_MessageBox"
+		},
+		{
+			"label": "u_MsgInfo"
+		},
+		{
+			"label": "u_MsgRun"
+		},
+		{
+			"label": "u_MsgStop"
+		},
+		{
+			"label": "u_MsgYesNo"
+		},
+		{
+			"label": "u_SHC"
+		},
+		{
+			"label": "u_SHD"
 		}
 	],
-	"lastProgramExecuted": "SIGAATF",
+	"lastProgramExecuted": "u_SHD",
 	"lastProgramArguments": []
 }

@@ -1,0 +1,67 @@
+#line 1 "c:/totvs1212410/protheus/protheus/include\TOTVS.CH"
+#line 1 "c:/totvs1212410/protheus/protheus/include\protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\dialog.ch"
+#line 29 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\font.ch"
+#line 30 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\ptmenu.ch"
+#line 32 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\print.ch"
+#line 34 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\colors.ch"
+#line 36 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\folder.ch"
+#line 38 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\msobject.ch"
+#line 39 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\vkey.ch"
+#line 43 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\winapi.ch"
+#line 45 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcommand.ch"
+#line 48 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcss.ch"
+#line 51 "protheus.ch"
+#line 15 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.vsmqshkmyy\c:/users/rogério/documents/meusprojetosgithub/advpl/ethios/aula 01 - alertas001/aula 01 - alertas/showhelpdlg.prw"
+Function U_SHD
+Local aProblema	:= {}
+Local aSolucao	:= {}
+
+aAdd( aProblema, "Problema 01" )
+aAdd( aProblema, "Problema 02" )
+aAdd( aProblema, "Problema 03" )
+aAdd( aProblema, "Problema 04" )
+aAdd( aProblema, "Problema 05" )
+
+aAdd( aSolucao, "Solução 01" )
+aAdd( aSolucao, "Solução 02" )
+aAdd( aSolucao, "Solução 03" )
+aAdd( aSolucao, "Solução 04" )
+aAdd( aSolucao, "Solução 05" )
+
+ShowHelpDlg( "Exemplo", aProblema, , aSolucao, )
+
+
+
+ShowHelpDlg( "Exemplo", { "Problema 01", "Problema 02", "Problema 03" }, , {"Solução 01"}, )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Return( Nil )

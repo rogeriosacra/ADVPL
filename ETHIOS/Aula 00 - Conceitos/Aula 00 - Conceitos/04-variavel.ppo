@@ -1,0 +1,51 @@
+#line 1 "c:/totvs1212410/protheus/protheus/include\TOTVS.CH"
+#line 1 "c:/totvs1212410/protheus/protheus/include\protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\dialog.ch"
+#line 29 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\font.ch"
+#line 30 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\ptmenu.ch"
+#line 32 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\print.ch"
+#line 34 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\colors.ch"
+#line 36 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\folder.ch"
+#line 38 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\msobject.ch"
+#line 39 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\vkey.ch"
+#line 43 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\winapi.ch"
+#line 45 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcommand.ch"
+#line 48 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcss.ch"
+#line 51 "protheus.ch"
+#line 34 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.jqnxtdudsd\c:/users/rogério/documents/meusprojetosgithub/advpl/ethios/aula 00 - conceitos/aula 00 - conceitos/04-variavel.prw"
+Function U_Variavel
+Local    cVar1
+Static   cVar2
+Private  cVar3
+Public   cVar4
+
+cVar1 := "Variavel 1"
+cVar2 := "Variavel 2"
+cVar3 := "Variavel 3"
+cVar4 := "Variavel 4"
+
+
+Alert( cVar1 )
+
+Variavel()
+
+RETURN
+
+
+Static Function Variavel
+
+Alert( cVar2 )
+Alert( cVar3 )
+Alert( cVar4 )
+
+RETURN

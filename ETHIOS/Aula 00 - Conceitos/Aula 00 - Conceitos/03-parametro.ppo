@@ -1,0 +1,54 @@
+#line 1 "c:/totvs1212410/protheus/protheus/include\TOTVS.CH"
+#line 1 "c:/totvs1212410/protheus/protheus/include\protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\dialog.ch"
+#line 29 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\font.ch"
+#line 30 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\ptmenu.ch"
+#line 32 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\print.ch"
+#line 34 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\colors.ch"
+#line 36 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\folder.ch"
+#line 38 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\msobject.ch"
+#line 39 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\vkey.ch"
+#line 43 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\winapi.ch"
+#line 45 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcommand.ch"
+#line 48 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcss.ch"
+#line 51 "protheus.ch"
+#line 18 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.cpyvhesabs\c:/users/rogério/documents/meusprojetosgithub/advpl/ethios/aula 00 - conceitos/aula 00 - conceitos/03-parametro.prw"
+Function U_Parametros
+
+
+DefaultExample()
+
+RETURN
+
+
+Static Function DefaultExample()
+
+
+    Alert( OldFunction() )
+
+    Alert( OldFunction(33) )
+
+Return
+
+
+Static Function OldFunction( nNewPar )
+Local nRet      := 0
+
+
+nNewPar := If( ValType(nNewPar) == "U", 10, nNewPar ) ;
+
+
+       nRet := 10 * nNewPar
+
+
+Return nRet

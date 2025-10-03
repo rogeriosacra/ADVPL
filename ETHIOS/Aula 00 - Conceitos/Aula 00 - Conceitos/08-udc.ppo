@@ -1,0 +1,88 @@
+#line 1 "c:/totvs1212410/protheus/protheus/include\TOTVS.CH"
+#line 1 "c:/totvs1212410/protheus/protheus/include\protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\dialog.ch"
+#line 29 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\font.ch"
+#line 30 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\ptmenu.ch"
+#line 32 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\print.ch"
+#line 34 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\colors.ch"
+#line 36 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\folder.ch"
+#line 38 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\msobject.ch"
+#line 39 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\vkey.ch"
+#line 43 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\winapi.ch"
+#line 45 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcommand.ch"
+#line 48 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcss.ch"
+#line 51 "protheus.ch"
+#line 18 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.iaiiyequqb\c:/users/rogério/documents/meusprojetosgithub/advpl/ethios/aula 00 - conceitos/aula 00 - conceitos/08-udc.prw"
+
+
+Function U_UDC()
+
+Local i
+Local aArray := {{"Joao",25, .T. ,"4567-9876",2}, {"Maria",30, .F. ,"9517-6541",0}, {"Jose",18, .T. ,"6348-7537",3}}
+
+For i := 1 To Len(aArray)
+
+    Iif(FindFunction("APMsgAlert"), APMsgAlert(aArray[i,1],), MsgAlert(aArray[i,1],))
+    Iif(FindFunction("APMsgAlert"), APMsgAlert(aArray[i,4],), MsgAlert(aArray[i,4],))
+    Iif(FindFunction("APMsgAlert"), APMsgAlert(aArray[i,2],), MsgAlert(aArray[i,2],))
+    Iif(FindFunction("APMsgAlert"), APMsgAlert(aArray[i,3],), MsgAlert(aArray[i,3],))
+    Iif(FindFunction("APMsgAlert"), APMsgAlert(aArray[i,5],), MsgAlert(aArray[i,5],))
+
+Next
+
+Return
+
+
+
+
+
+
+
+
+
+Function U_TstUDC2()
+
+Local i
+Local aArray := {{"Joao",25, .T. ,"4567-9876",2}, {"Maria",30, .F. ,"9517-6541",0}, {"Jose",18, .T. ,"6348-7537",3}}
+
+For i := 1 To Len(aArray)
+
+    Iif(FindFunction("APMsgAlert"), APMsgAlert(aArray[i,1],), MsgAlert(aArray[i,1],))
+    Iif(FindFunction("APMsgAlert"), APMsgAlert(aArray[i,4],), MsgAlert(aArray[i,4],))
+    Iif(FindFunction("APMsgAlert"), APMsgAlert(aArray[i,2],), MsgAlert(aArray[i,2],))
+    Iif(FindFunction("APMsgAlert"), APMsgAlert(aArray[i,3],), MsgAlert(aArray[i,3],))
+    Iif(FindFunction("APMsgAlert"), APMsgAlert(aArray[i,5],), MsgAlert(aArray[i,5],))
+
+Next
+
+Return
+
+
+
+
+
+Function U_TstUDC3()
+
+
+   Local cPais
+   Local cLingua
+   cPais   := "Brasil"
+   cLingua := "Portugues"
+
+
+
+
+
+Iif(FindFunction("APMsgAlert"), APMsgAlert(cPais+"/"+cLingua,), MsgAlert(cPais+"/"+cLingua,))
+
+Return Nil
