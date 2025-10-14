@@ -1,0 +1,41 @@
+#line 1 "c:/totvs1212410/protheus/protheus/include\TOTVS.CH"
+#line 1 "c:/totvs1212410/protheus/protheus/include\protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\dialog.ch"
+#line 29 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\font.ch"
+#line 30 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\ptmenu.ch"
+#line 32 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\print.ch"
+#line 34 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\colors.ch"
+#line 36 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\folder.ch"
+#line 38 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\msobject.ch"
+#line 39 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\vkey.ch"
+#line 43 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\winapi.ch"
+#line 45 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcommand.ch"
+#line 48 "protheus.ch"
+#line 1 "c:/totvs1212410/protheus/protheus/include\fwcss.ch"
+#line 51 "protheus.ch"
+#line 14 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.piixpfrvto\c:/users/rogério/documents/meusprojetosgithub/advpl/ethios/aula 03 - telas/aula 03 - telas/03-get.prw"
+Function U_Get()
+Local oDlg, oGet1, oGet2
+Local cGet1 := Space(20)
+Local cGet2 := Space(20)
+
+oDlg = MsDialog():New( 180, 180, 550, 700, "Exemplo de Get",,,.F.,,,,,,.T.,, ,.F. )
+
+
+ oGet1 := TGet():New( 10, 10, { | u | If( PCount() == 0, cGet1, cGet1 := u ) },oDlg, 200, 20,,,,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F. ,,"cGet1",,, )
+
+
+ oGet2 := TGet():New( 50, 10, { | u | If( PCount() == 0, cGet2, cGet2 := u ) },oDlg, 200, 20,,{||  !empty(cGet2)},,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.T. ,,"cGet2",,, )
+
+oDlg:Activate( oDlg:bLClicked, oDlg:bMoved, oDlg:bPainted,.T.,,,, oDlg:bRClicked, )
+
+Return

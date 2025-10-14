@@ -1,7 +1,7 @@
 #Include 'TOTVS.CH'
 
 /*/{Protheus.doc} U_BUTTON
-    @type		Function
+    @type		User Function
     @author		Milton J.dos Santos
     @since		01/03/2020
     @version	1.0.0

@@ -135,8 +135,11 @@
 		},
 		{
 			"label": "u_SHD"
+		},
+		{
+			"label": "U_SAY"
 		}
 	],
-	"lastProgramExecuted": "u_SHD",
+	"lastProgramExecuted": "U_SAY",
 	"lastProgramArguments": []
 }

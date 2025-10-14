@@ -22,42 +22,9 @@
 #line 48 "protheus.ch"
 #line 1 "c:/totvs1212410/protheus/protheus/include\fwcss.ch"
 #line 51 "protheus.ch"
-#line 15 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.lmxiptjluw\c:/users/rogério/documents/meusprojetosgithub/advpl/ethios/aula 01 - alertas001/aula 01 - alertas/showhelpcpo.prw"
-Function U_SHC()
-Local aAjuda := {}
-Local aValid := {}
+#line 15 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.vcttfpdnxt\c:/users/rogério/documents/meusprojetosgithub/advpl/ethios/aula 02 - axcadastro/aula 02 - axcadastro/axcadsa1.prw"
+Function U_AxCadSA1()
 
-aAdd( aAjuda, "Ajuda 01" )
-aAdd( aAjuda, "Ajuda 02" )
-aAdd( aAjuda, "Ajuda 03" )
-aAdd( aAjuda, "Ajuda 04" )
-aAdd( aAjuda, "Ajuda 05" )
+AxCadastro("SA1", "Cadastro de Clientes")
 
-aAdd( aValid, "Validação 01" )
-aAdd( aValid, "Validação 02" )
-aAdd( aValid, "Validação 03" )
-aAdd( aValid, "Validação 04" )
-aAdd( aValid, "Validação 05" )
-
-ShowHelpCpo( "Exemplo", aAjuda, , aValid, )
-
-
-
-ShowHelpCpo( "Exemplo", { "Ajuda 01", "Ajuda 02", "Ajuda 03" }, , {"Validação 01"}, )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Return( Nil )
+Return

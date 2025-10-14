@@ -11,8 +11,8 @@
     @see		(https://tdn.totvs.com/pages/)
 /*/
 
-User Function MsGet
-Local oDlg,oValTot
+User Function MsGet()
+Local oDlg,oValTot,oFont
 Local nTGerBco :=0
 
 DEFINE MsDialog oDlg TITLE "Exemplo de MsGet" FROM 0,0 TO 400,600 PIXEL 

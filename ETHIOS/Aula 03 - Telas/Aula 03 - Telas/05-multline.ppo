@@ -22,46 +22,15 @@
 #line 48 "protheus.ch"
 #line 1 "c:/totvs1212410/protheus/protheus/include\fwcss.ch"
 #line 51 "protheus.ch"
-#line 15 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.vsmqshkmyy\c:/users/rogério/documents/meusprojetosgithub/advpl/ethios/aula 01 - alertas001/aula 01 - alertas/showhelpdlg.prw"
-Function U_SHD
-Local aProblema	:= {}
-Local aSolucao	:= {}
+#line 14 "C:\Users\Rogério\AppData\Local\Temp\tds-ls.qdrunjicyq\c:/users/rogério/documents/meusprojetosgithub/advpl/ethios/aula 03 - telas/aula 03 - telas/05-multline.prw"
+Function U_MultLine()
+Local oDlg, oGet, cText := ""
 
-aAdd( aProblema, "Problema 01" )
-aAdd( aProblema, "Problema 02" )
-aAdd( aProblema, "Problema 03" )
-aAdd( aProblema, "Problema 04" )
-aAdd( aProblema, "Problema 05" )
-
-aAdd( aSolucao, "Solução 01" )
-aAdd( aSolucao, "Solução 02" )
-aAdd( aSolucao, "Solução 03" )
-aAdd( aSolucao, "Solução 04" )
-aAdd( aSolucao, "Solução 05" )
-
-ShowHelpDlg( "Exemplo", aProblema, , aSolucao, )
+oDlg = MsDialog():New( 180, 180, 550, 700, "Exemplo TMultiGet",,,.F.,,,,,,.T.,, ,.F. )
 
 
+ oGet := TMultiGet():New( 10, 10, { | u | If( PCount() == 0, cText, cText := u ) },oDlg, 200, 60,,.F.,,,,.T.,,.F.,,.F.,.F.,.F.,,,.F.,, )
 
-ShowHelpDlg( "Exemplo", { "Problema 01", "Problema 02", "Problema 03" }, , {"Solução 01"}, )
+oDlg:Activate( oDlg:bLClicked, oDlg:bMoved, oDlg:bPainted,.T.,,,, oDlg:bRClicked, )
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Return( Nil )
+Return
